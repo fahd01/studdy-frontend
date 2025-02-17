@@ -4,6 +4,7 @@ import { LandingLayoutComponent } from './layouts/landing-layout/landing-layout/
 import { HomeComponent } from './features/public/home/home.component';
 import { BlogComponent } from './features/public/blog/blog.component';
 import { DashboardComponent } from './features/admin/dashboard/dashboard.component';
+import {ListComponent} from "./features/public/course/list/list.component";
 
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'home', component: HomeComponent },
+      { path: 'course/list', component: ListComponent },
       { path: 'blog/:id', component: BlogComponent },
       { path: '', redirectTo: '/home', pathMatch: 'full' }
     
