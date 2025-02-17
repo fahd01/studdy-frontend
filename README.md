@@ -31,13 +31,17 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Templates
 ### front template:
-- https://themewagon.github.io/elearning/index.html
+- https://themewagon.com/themes/free-responsive-bootstrap-4-html5-education-website-template-studylab/
 ### back template:
-### original chices
-- https://themewagon.com/theme-tag/education-template/
+### original choices
 - https://themewagon.com/themes/mentor/
+- https://themewagon.github.io/elearning/index.html
+- https://themewagon.com/theme-tag/education-template/
 - https://www.template.net/
 - https://www.creative-tim.com/templates/angular?filter=true&page=2
 - https://adminmart.com/templates/angular-dashboard/
-- 
 - https://angulartemplates.com/product/samples-dashboardsjs-for-angular
+
+- Inspire from:
+  - https://colorlib.com/wp/cat/education/
+  - 
