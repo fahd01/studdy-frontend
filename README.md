@@ -30,6 +30,10 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 
 ## Templates
+### front template:
+- https://themewagon.github.io/elearning/index.html
+### back template:
+### original chices
 - https://themewagon.com/theme-tag/education-template/
 - https://themewagon.com/themes/mentor/
 - https://www.template.net/
