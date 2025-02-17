@@ -1,0 +1,71 @@
+<!-- landing-footer.component.html -->
+<footer class="ftco-footer ftco-no-pt">
+    <div class="container">
+      <div class="row mb-5">
+        <!-- About Section -->
+        <div class="col-md pt-5">
+          <div class="ftco-footer-widget pt-md-5 mb-4">
+            <h2 class="ftco-heading-2">About</h2>
+            <p>{{ aboutText }}</p>
+            <ul class="ftco-footer-social list-unstyled float-md-left float-lft">
+              <li *ngFor="let social of socialLinks" class="ftco-animate">
+                <a [href]="social.url" target="_blank" rel="noopener noreferrer">
+                  <span [class]="social.icon"></span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+  
+        <!-- Help Desk Section -->
+        <div class="col-md pt-5">
+          <div class="ftco-footer-widget pt-md-5 mb-4 ml-md-5">
+            <h2 class="ftco-heading-2">Help Desk</h2>
+            <ul class="list-unstyled">
+              <li *ngFor="let item of helpDeskLinks">
+                <a [href]="item.link" class="py-2 d-block">{{ item.text }}</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+  
+        <!-- Courses Section -->
+        <div class="col-md pt-5">
+          <div class="ftco-footer-widget pt-md-5 mb-4">
+            <h2 class="ftco-heading-2">Recent Courses</h2>
+            <ul class="list-unstyled">
+              <li *ngFor="let course of recentCourses">
+                <a [href]="course.link" class="py-2 d-block">{{ course.name }}</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+  
+        <!-- Contact Section -->
+        <div class="col-md pt-5">
+          <div class="ftco-footer-widget pt-md-5 mb-4">
+            <h2 class="ftco-heading-2">Have a Questions?</h2>
+            <div class="block-23 mb-3">
+              <ul>
+                <li *ngFor="let contact of contactInfo">
+                  <span [class]="contact.icon"></span>
+                  <span class="text" [innerHTML]="contact.text"></span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Copyright Section -->
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <p>
+            Copyright &copy; {{ currentYear }} All rights reserved | 
+            This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by 
+            <a href="https://colorlib.com" target="_blank" rel="noopener noreferrer">Colorlib</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
