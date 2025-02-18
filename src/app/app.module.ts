@@ -5,7 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-
+import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { LandingLayoutComponent } from './layouts/landing-layout/landing-layout/landing-layout.component';
 import { LandingNavbarComponent } from './layouts/landing-layout/landing-navbar/landing-navbar.component';
 import { LandingFooterComponent } from './layouts/landing-layout/landing-footer/landing-footer.component';
@@ -39,12 +39,12 @@ import { BlogComponent } from './features/public/blog/blog.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
-   
+    ReactiveFormsModule,
+    HttpClientModule
     
   
   ],
-  providers: [],
+  providers: [provideHttpClient()],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
