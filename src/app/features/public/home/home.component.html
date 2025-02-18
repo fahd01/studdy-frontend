@@ -1,0 +1,263 @@
+<!-- home.component.html or app.component.html -->
+<div class="hero-wrap js-fullheight" [ngStyle]="{'background-image': 'url(' + bgImage + ')', 'background-size': 'cover', 'background-position': 'center'}">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row no-gutters slider-text js-fullheight align-items-center" data-scrollax-parent="true">
+        <div class="col-md-7 ftco-animate">
+          <span class="subheading">Welcome to StudyLab</span>
+          <h1 class="mb-4">We Are Online Platform For Make Learn</h1>
+          <p class="caps">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
+          <p class="mb-0">
+            <a href="#" class="btn btn-primary">Our Course</a>
+            <a href="#" class="btn btn-white">Learn More</a>
+          </p>
+        </div>
+      </div>
+    </div>
+</div>
+  <app-register></app-register>
+  <!-- home.component.html or app.component.html -->
+<section class="ftco-section">
+    <div class="container">
+      <div class="row justify-content-center pb-4">
+        <div class="col-md-12 heading-section text-center ftco-animate">
+          <span class="subheading">Start Learning Today</span>
+          <h2 class="mb-4">Browse Online Course Category</h2>
+        </div>
+      </div>
+  
+      <!-- Loop over categories -->
+      <div class="row justify-content-center">
+        <div *ngFor="let category of categories" class="col-md-3 col-lg-2">
+          <a href="#" class="course-category img d-flex align-items-center justify-content-center"
+             [ngStyle]="{'background-image': 'url(' + category.image + ')'}">
+            <div class="text w-100 text-center">
+              <h3>{{ category.name }}</h3>
+              <span>{{ category.courseCount }} course</span>
+            </div>
+          </a>
+        </div>
+      </div>
+  
+      <!-- Button for all courses -->
+      <div class="col-md-12 text-center mt-5">
+        <a href="#" class="btn btn-secondary">See All Courses</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- home.component.html or app.component.html -->
+<section class="ftco-section bg-light">
+    <div class="container">
+      <div class="row justify-content-center pb-4">
+        <div class="col-md-12 heading-section text-center ftco-animate">
+          <span class="subheading">Start Learning Today</span>
+          <h2 class="mb-4">Pick Your Course</h2>
+        </div>
+      </div>
+      <div class="row">
+        <!-- Loop through courses -->
+        <div *ngFor="let course of courses" class="col-md-4 ftco-animate">
+          <div class="project-wrap">
+            <a href="#" class="img" [ngStyle]="{'background-image': 'url(' + course.image + ')'}">
+              <span class="price">{{ course.category }}</span>
+            </a>
+            <div class="text p-4">
+              <h3><a href="#">{{ course.title }}</a></h3>
+              <p class="advisor">Advisor <span>{{ course.advisor }}</span></p>
+              <ul class="d-flex justify-content-between">
+                <li><span class="flaticon-shower"></span>{{ course.enrollments }}</li>
+                <li class="price">{{ course.price | currency }}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- home.component.html or app.component.html -->
+<a href="#" class="img" [ngStyle]="{'background-image': 'url(' + bgImage1 + ')'}">
+    <section class="ftco-section ftco-counter img" id="section-counter" [ngStyle]="{'background-image': 'url(' + sectionBgImage + ')'}">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row">
+          <!-- Loop through counters -->
+          <div *ngFor="let counter of counters" class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
+            <div class="block-18 d-flex align-items-center">
+              <div class="icon"><span [class]="counter.icon"></span></div>
+              <div class="text">
+                <strong class="number" [attr.data-number]="counter.number">{{ counter.start }}</strong>
+                <span>{{ counter.label }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </a>
+
+  <!-- home.component.html or app.component.html -->
+<section class="ftco-section ftco-about img">
+    <div class="container">
+      <div class="row d-flex">
+        <div class="col-md-12 about-intro">
+          <div class="row">
+            <div class="col-md-6 d-flex">
+              <div class="d-flex about-wrap">
+                <!-- First image (background-image binding) -->
+                <div class="img d-flex align-items-center justify-content-center" 
+                     [ngStyle]="{'background-image': 'url(' + aboutImage1 + ')'}">
+                </div>
+                <!-- Second image (background-image binding) -->
+                <div class="img-2 d-flex align-items-center justify-content-center" 
+                     [ngStyle]="{'background-image': 'url(' + aboutImage2 + ')'}">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 pl-md-5 py-5">
+              <div class="row justify-content-start pb-3">
+                <div class="col-md-12 heading-section ftco-animate">
+                  <span class="subheading">{{ subtitle }}</span>
+                  <h2 class="mb-4">{{ title }}</h2>
+                  <p>{{ description }}</p>
+                  <p><a href="#" class="btn btn-primary">{{ buttonText }}</a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- home.component.html -->
+<section class="ftco-section testimony-section bg-light">
+    <div class="overlay" [ngStyle]="{'background-image': 'url(' + bgImage2 + ')'}"></div>
+    <div class="container">
+      <div class="row pb-4">
+        <div class="col-md-7 heading-section ftco-animate">
+          <span class="subheading">{{ subtitle1 }}</span>
+          <h2 class="mb-4">{{ title1 }}</h2>
+        </div>
+      </div>
+    </div>
+  
+    <div class="container container-2">
+      <div class="row ftco-animate">
+        <div class="col-md-12">
+          <div class="carousel-testimony owl-carousel">
+            <div *ngFor="let testimony of testimonials" class="item">
+              <div class="testimony-wrap py-4">
+                <div class="text">
+                  <p class="star">
+                    <span *ngFor="let star of generateStars(testimony.rating)" class="fa fa-star"></span>
+                  </p>
+                  <p class="mb-4">{{ testimony.text }}</p>
+                  <div class="d-flex align-items-center">
+                    <div class="user-img" [ngStyle]="{'background-image': 'url(' + testimony.image + ')'}"></div>
+                    <div class="pl-3">
+                      <p class="name">{{ testimony.name }}</p>
+                      <span class="position">{{ testimony.position }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ftco-intro ftco-section ftco-no-pb">
+    <div class="container">
+       <div class="row justify-content-center">
+          <div class="col-md-12 text-center">
+             <div class="img"  style="background-image: url(assets/landing/images/bg_4.jpg);">
+                <div class="overlay"></div>
+                <h2>We Are StudyLab An Online Learning Center</h2>
+                <p>We can manage your dream building A small river named Duden flows by their place</p>
+                <p class="mb-0"><a href="#" class="btn btn-primary px-4 py-3">Enroll Now</a></p>
+            </div>
+        </div>
+    </div>
+   </div>
+   </section>
+
+   <!-- home.component.html -->
+<section class="ftco-section services-section">
+    <div class="container">
+      <div class="row d-flex">
+        <!-- Left Content -->
+        <div class="col-md-6 heading-section pr-md-5 ftco-animate d-flex align-items-center">
+          <div class="w-100 mb-4 mb-md-0">
+            <span class="subheading">{{ subtitle2 }}</span>
+            <h2 class="mb-4">{{ title2 }}</h2>
+            <p>{{ description1 }}</p>
+            <p>{{ description2 }}</p>
+            <div class="d-flex video-image align-items-center mt-md-4">
+              <a href="#" class="video img d-flex align-items-center justify-content-center" [ngStyle]="{'background-image': 'url(' + videoImageUrl + ')'}">
+                <span class="fa fa-play-circle"></span>
+              </a>
+              <h4 class="ml-4">{{ videoDescription }}</h4>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Right Content: Services -->
+        <div class="col-md-6">
+          <div class="row">
+            <div *ngFor="let service of services" class="col-md-12 col-lg-6 d-flex align-self-stretch ftco-animate">
+              <div class="services">
+                <div class="icon d-flex align-items-center justify-content-center">
+                  <span [ngClass]="service.icon"></span>
+                </div>
+                <div class="media-body">
+                  <h3 class="heading mb-3">{{ service.title }}</h3>
+                  <p>{{ service.description }}</p>
+                </div>
+              </div>      
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- home.component.html -->
+<section class="ftco-section bg-light">
+    <div class="container">
+      <div class="row justify-content-center pb-4">
+        <div class="col-md-12 heading-section text-center ftco-animate">
+          <span class="subheading">Our Blog</span>
+          <h2 class="mb-4">Recent Post</h2>
+        </div>
+      </div>
+      <div class="row d-flex">
+        <div *ngFor="let post of blogPosts" class="col-lg-4 ftco-animate">
+          <div class="blog-entry">
+            <a [routerLink]="['/blog-single', post.id]" class="block-20" [ngStyle]="{'background-image': 'url(' + post.imageUrl + ')'}"></a>
+            <div class="text d-block">
+              <div class="meta">
+                <p>
+                  <a href="#"><span class="fa fa-calendar mr-2"></span>{{ post.date }}</a>
+                  <a href="#"><span class="fa fa-user mr-2"></span>{{ post.author }}</a>
+                  <a href="#" class="meta-chat"><span class="fa fa-comment mr-2"></span>{{ post.comments }} Comments</a>
+                </p>
+              </div>
+              <h3 class="heading"><a [routerLink]="['/blog-single', post.id]">{{ post.title }}</a></h3>
+              <p>{{ post.excerpt }}</p>
+              <p><a [routerLink]="['/blog', post.id]" class="btn btn-secondary py-2 px-3">Read more</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  
+  
+  
+  
+  
