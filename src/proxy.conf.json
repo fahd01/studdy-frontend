@@ -1,0 +1,9 @@
+{
+  "/course-management": {
+    "target": "http://host.docker.internal:8080",
+    "secure": false,
+    "pathRewrite": {
+      "^/course-management": ""
+    }
+  }
+}

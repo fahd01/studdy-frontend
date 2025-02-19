@@ -17,6 +17,7 @@ import { DashboardComponent } from './features/admin/dashboard/dashboard.compone
 import { RegisterComponent } from './features/public/register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BlogComponent } from './features/public/blog/blog.component';
+import {CourseService} from "./services/course-managment/course.service";
 
 @NgModule({
   declarations: [
@@ -44,7 +45,10 @@ import { BlogComponent } from './features/public/blog/blog.component';
     
   
   ],
-  providers: [provideHttpClient()],
+  providers: [
+      provideHttpClient(),
+      CourseService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
