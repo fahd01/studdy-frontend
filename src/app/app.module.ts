@@ -17,6 +17,8 @@ import { DashboardComponent } from './features/admin/dashboard/dashboard.compone
 import { RegisterComponent } from './features/public/register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BlogComponent } from './features/public/blog/blog.component';
+import { ContactComponent } from './features/public/contact/contact.component';
+import { AdminSidebarComponent } from './layouts/admin-layout/admin-sidebar/admin-sidebar.component';
 import {CourseService} from "./services/course-managment/course.service";
 
 @NgModule({
@@ -32,10 +34,10 @@ import {CourseService} from "./services/course-managment/course.service";
     HomeComponent,
     DashboardComponent,
     RegisterComponent,
+    BlogComponent,
+    ContactComponent,
+    AdminSidebarComponent,
     BlogComponent
-    
-
-  
   ],
   imports: [
     BrowserModule,

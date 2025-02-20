@@ -1,0 +1,43 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.content-wrapper {
+  padding: 1.5rem;
+  min-height: calc(100vh - 70px);
+  width: 100%;
+
+  .page-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .card {
+    margin-bottom: 1.5rem;
+    border-radius: 0.25rem;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+}
+
+
+.table-responsive {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+
+.grid-margin {
+  margin-bottom: 1.5rem;
+}
+
+.stretch-card {
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+
+  .card {
+    width: 100%;
+  }
+}
