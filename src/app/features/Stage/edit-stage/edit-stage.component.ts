@@ -15,7 +15,9 @@ import { StageService } from 'src/app/services/stage.service';
 export class EditStageComponent {
 
   stageForm: FormGroup;
+  
   stageId!: number;
+  
   stage: Stage;
 
   constructor(private fb: FormBuilder,private serv: StageService,private router: Router,private route: ActivatedRoute) { 

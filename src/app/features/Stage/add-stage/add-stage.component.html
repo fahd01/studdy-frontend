@@ -1,57 +1,83 @@
 <section class="ftco-section">
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-                <div class="wrapper">
-                    <div class="row no-gutters">
-                        <div class="col-lg-8 col-md-7 order-md-last d-flex align-items-stretch">
-                            <div class="contact-wrap w-100 p-md-5 p-4">
-                                <h3 class="mb-4">Get in touch</h3>
-
-
-                                <form [formGroup]="stageForm" (ngSubmit)="onSubmit()" method="POST" id="contactForm" name="contactForm" class="contactForm">
-                                    <div class="row">
-                                      
-                                      <div class="col-md-12">
-                                        <div class="form-group">
-                                          <label class="label" for="title">Stage Title</label>
-                                          <input type="text" class="form-control" id="title" formControlName="title" placeholder="Title">
-                                        </div>
-                                      </div>
-                                      <div class="col-md-12">
-                                        <div class="form-group">
-                                          <label class="label" for="description">Description</label>
-                                          <textarea class="form-control" id="description" formControlName="description" cols="30" rows="4" placeholder="Description"></textarea>
-                                        </div>
-                                      </div>
-                                      <div class="col-md-6">
-                                        <div class="form-group">
-                                          <label class="label" for="startDate">Start Date</label>
-                                          <input type="date" class="form-control" id="startDate" formControlName="startDate">
-                                        </div>
-                                      </div>
-                                      <div class="col-md-6">
-                                        <div class="form-group">
-                                          <label class="label" for="endDate">End Date</label>
-                                          <input type="date" class="form-control" id="endDate" formControlName="endDate">
-                                        </div>
-                                      </div>
-                                      <div class="col-md-12">
-                                        <div class="form-group">
-                                          <input type="submit" value="Submit" class="btn btn-primary" [disabled]="stageForm.invalid">
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </form>
-                                  
-                            </div>
+      <div class="row justify-content-center">
+        <div class="col-md-12">
+          <div class="wrapper">
+            <div class="row no-gutters justify-content-center">
+              <div class="col-lg-8 col-md-7 order-md-last d-flex align-items-stretch">
+                <div class="contact-wrap w-100 p-md-5 p-4 form-container">
+                  <h3 class="mb-4">Get in Touch</h3>
+  
+                  <form [formGroup]="stageForm" (ngSubmit)="onSubmit($event)" method="POST" id="contactForm" name="contactForm" class="contactForm">
+                    <div class="row">
+                      <!-- Stage Title -->
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="label" for="title">Stage Title</label>
+                          <input type="text" class="form-control" id="title" formControlName="title" placeholder="Enter title">
+                          <div *ngIf="stageForm.controls['title'].invalid && stageForm.controls['title'].touched" class="text-danger">
+                            <small *ngIf="stageForm.controls['title'].errors?.['required']">Title is required.</small>
+                            <small *ngIf="stageForm.controls['title'].errors?.['minlength']">Title must be at least 3 characters.</small>
+                            <small *ngIf="stageForm.controls['title'].errors?.['maxlength']">Title must be less than 100 characters.</small>
+                          </div>
                         </div>
-                        
+                      </div>
+  
+                      <!-- Description -->
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="label" for="description">Description</label>
+                          <textarea class="form-control" id="description" formControlName="description" cols="30" rows="4" placeholder="Enter description"></textarea>
+                          <div *ngIf="stageForm.controls['description'].invalid && stageForm.controls['description'].touched" class="text-danger">
+                            <small *ngIf="stageForm.controls['description'].errors?.['required']">Description is required.</small>
+                            <small *ngIf="stageForm.controls['description'].errors?.['minlength']">Description must be at least 10 characters.</small>
+                          </div>
+                        </div>
+                      </div>
+  
+                      <!-- Start Date -->
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="label" for="startDate">Start Date</label>
+                          <input type="date" class="form-control" id="startDate" formControlName="startDate">
+                          <div *ngIf="stageForm.controls['startDate'].invalid && stageForm.controls['startDate'].touched" class="text-danger">
+                            <small *ngIf="stageForm.controls['startDate'].errors?.['required']">Start date is required.</small>
+                          </div>
+                        </div>
+                      </div>
+  
+                      <!-- End Date -->
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="label" for="endDate">End Date</label>
+                          <input type="date" class="form-control" id="endDate" formControlName="endDate">
+                          <div *ngIf="stageForm.controls['endDate'].invalid && stageForm.controls['endDate'].touched" class="text-danger">
+                            <small *ngIf="stageForm.controls['endDate'].errors?.['required']">End date is required.</small>
+                          </div>
+                        </div>
+                      </div>
+  
+                      <!-- Date Validation Error -->
+                      <div class="col-md-12" *ngIf="stageForm.errors?.['dateInvalid']">
+                        <div class="text-danger">
+                          <small>End date must be after start date.</small>
+                        </div>
+                      </div>
+  
+                      <!-- Submit Button -->
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <input type="submit" value="Submit" class="btn btn-primary" [disabled]="stageForm.invalid">
+                        </div>
+                      </div>
                     </div>
+                  </form>
+  
                 </div>
+              </div>    
             </div>
-
-           
+          </div>
         </div>
+      </div>
     </div>
-</section>
+  </section>

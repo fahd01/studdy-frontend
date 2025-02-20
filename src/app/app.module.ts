@@ -18,6 +18,7 @@ import { RegisterComponent } from './features/public/register/register.component
 import { ReactiveFormsModule } from '@angular/forms';
 import { BlogComponent } from './features/public/blog/blog.component';
 import { CommonModule } from '@angular/common';
+import { Stage } from './models/Stage';
 
 @NgModule({
   declarations: [
@@ -32,8 +33,9 @@ import { CommonModule } from '@angular/common';
     HomeComponent,
     DashboardComponent,
     RegisterComponent,
-    BlogComponent
-    
+    BlogComponent,
+  
+   
 
   
   ],

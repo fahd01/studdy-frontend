@@ -1,0 +1,50 @@
+.contact-wrap {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    max-width: 600px;
+    margin: auto;
+}
+
+h3 {
+    text-align: center;
+    color: #333;
+    font-weight: bold;
+}
+
+.label {
+    font-weight: 600;
+    color: #555;
+}
+
+.form-control {
+    border-radius: 8px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    transition: 0.3s ease-in-out;
+}
+
+.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+}
+
+textarea.form-control {
+    resize: none;
+}
+
+.btn-primary {
+    background: #007bff;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: 0.3s ease-in-out;
+    width: 100%;
+}
+
+.btn-primary:hover {
+    background: #0056b3;
+}
