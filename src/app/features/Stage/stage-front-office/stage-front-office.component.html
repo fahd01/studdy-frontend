@@ -2,11 +2,17 @@
     <div class="container">
       <div class="row justify-content-center pb-4">
         <div class="col-md-12 heading-section text-center ftco-animate">
-          <span class="subheading">Our Stages</span>
-          <h2 class="mb-4">Recent Stage Posts</h2>
+          <span class="subheading">Nos Stages</span>
+          <h2 class="mb-4">Derniers Stages</h2>
           <p><a class="btn btn-primary py-2 px-3" [routerLink]="['/addstage']">Add Stage</a></p>
 
         </div>
+      </div>
+        <!-- Barre de recherche -->
+        <div class="row justify-content-center mb-4">
+          <div class="col-md-6">
+              <input type="text" class="form-control" placeholder="Rechercher un stage..." [(ngModel)]="searchTerm">
+          </div>
       </div>
       <div class="row d-flex">
 
