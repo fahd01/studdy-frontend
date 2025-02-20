@@ -17,6 +17,7 @@ import { DashboardComponent } from './features/admin/dashboard/dashboard.compone
 import { RegisterComponent } from './features/public/register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BlogComponent } from './features/public/blog/blog.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { BlogComponent } from './features/public/blog/blog.component';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    CommonModule
     
   
   ],
