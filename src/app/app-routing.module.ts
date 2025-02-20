@@ -15,7 +15,6 @@ const routes: Routes = [
     path: '',
     component: LandingLayoutComponent,
     children: [
-      { path: 'dashboard', component: DashboardComponent },
       { path: 'home', component: HomeComponent },
       { path: 'blog', component: BlogComponent },
       { path: 'contact', component: ContactComponent },
