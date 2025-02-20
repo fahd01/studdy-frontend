@@ -1,0 +1,41 @@
+.container-scroller {
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    min-height: 100vh;
+  }
+  
+  .page-body-wrapper {
+    min-height: 100vh;
+    width: calc(100% - 260px);
+    margin-left: 260px;
+    padding-left: 0;
+    padding-right: 0;
+    transition: all 0.3s ease;
+    
+    &.sidebar-collapsed {
+      margin-left: 70px;
+      width: calc(100% - 70px);
+    }
+  }
+  
+  .main-panel {
+    min-height: 100vh;
+    padding-top: 70px; 
+    width: 100%;
+    position: relative;
+    overflow-y: auto;
+  }
+  
+  @media (max-width: 991px) {
+    .page-body-wrapper {
+      margin-left: 0;
+      width: 100%;
+      
+      &.sidebar-collapsed {
+        margin-left: 0;
+        width: 100%;
+      }
+    }
+  }
