@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 import { LandingLayoutComponent } from './layouts/landing-layout/landing-layout/landing-layout.component';
@@ -19,6 +20,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BlogComponent } from './features/public/blog/blog.component';
 import { ContactComponent } from './features/public/contact/contact.component';
 import { AdminSidebarComponent } from './layouts/admin-layout/admin-sidebar/admin-sidebar.component';
+import { UserComponent } from './features/public/user/user.component';
+
+import { HttpClientModule } from '@angular/common/http';
+import { CommentComponent } from './features/public/comments/comments.component';
+import { BlogDetailsComponent } from './features/public/blog-details/blog-details.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [
@@ -35,7 +43,11 @@ import { AdminSidebarComponent } from './layouts/admin-layout/admin-sidebar/admi
     RegisterComponent,
     BlogComponent,
     ContactComponent,
-    AdminSidebarComponent
+    AdminSidebarComponent,
+    UserComponent,
+    CommentComponent,
+    BlogDetailsComponent
+   
     
 
   
@@ -44,6 +56,9 @@ import { AdminSidebarComponent } from './layouts/admin-layout/admin-sidebar/admi
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatSnackBarModule
     
    
     

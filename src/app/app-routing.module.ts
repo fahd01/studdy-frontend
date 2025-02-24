@@ -7,6 +7,9 @@ import { DashboardComponent } from './features/admin/dashboard/dashboard.compone
 import { ContactComponent } from './features/public/contact/contact.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout/admin-layout.component';
 
+import { CommentComponent } from './features/public/comments/comments.component';
+import { BlogDetailsComponent } from './features/public/blog-details/blog-details.component';
+
 
 const routes: Routes = [
   {
@@ -14,8 +17,10 @@ const routes: Routes = [
     component: LandingLayoutComponent,
     children: [
 
+      { path: 'comment', component: CommentComponent },
       { path: 'home', component: HomeComponent },
       { path: 'blog', component: BlogComponent },
+      { path: 'blogs/:id', component: BlogDetailsComponent },
       { path: 'contact', component: ContactComponent },
       { path: '', redirectTo: '/home', pathMatch: 'full' }
     
