@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {Course, CourseService} from "../../../../services/course-managment/course.service";
 import {NgForOf} from "@angular/common";
+import {Course} from "../../../../models/Course.model";
+import {CourseService} from "../../../../services/course-managment/course.service";
 
 @Component({
   selector: 'course-list',
@@ -16,6 +17,10 @@ export class ListComponent implements OnInit {
   constructor(private courseService: CourseService) {}
 
   ngOnInit(): void {
+    this.courseService.fetchAllCoursesPaged().subscribe({
+      next: data => console.log(data),
+      error: error => console.error('Error fetching courses list:', error)
+    })
     this.courseService.fetchAllCourses().subscribe({// TODO subscribe is deprecated
         next: data => this.courses = data,
         error: error => console.error('Error fetching courses list:', error)
