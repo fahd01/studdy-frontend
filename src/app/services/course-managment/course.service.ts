@@ -14,6 +14,10 @@ export class CourseService {
 
   constructor(private http: HttpClient) {}
 
+  public fetchCourseDetails(id: number): Observable<Course> {
+    return this.http.get<Course>(`${courseManagementApiProxyTarget}/courses/${id}`);
+  }
+
   public fetchAllCourses(): Observable<Course[]> {
     return this.http.get<Course[]>(`${courseManagementApiProxyTarget}/courses`);
   }

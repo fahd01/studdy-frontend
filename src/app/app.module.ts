@@ -20,6 +20,7 @@ import { BlogComponent } from './features/public/blog/blog.component';
 import { ContactComponent } from './features/public/contact/contact.component';
 import { AdminSidebarComponent } from './layouts/admin-layout/admin-sidebar/admin-sidebar.component';
 import {CourseService} from "./services/course-managment/course.service";
+import { CourseDetailComponent } from './features/public/course/course-detail/course-detail.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import {CourseService} from "./services/course-managment/course.service";
     BlogComponent,
     ContactComponent,
     AdminSidebarComponent,
-    BlogComponent
+    BlogComponent,
+    CourseDetailComponent
   ],
   imports: [
     BrowserModule,

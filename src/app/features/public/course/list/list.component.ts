@@ -2,13 +2,15 @@ import {Component, OnInit} from '@angular/core';
 import {NgForOf} from "@angular/common";
 import {Course} from "../../../../models/Course.model";
 import {CourseService} from "../../../../services/course-managment/course.service";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'course-list',
   standalone: true,
-  imports: [
-    NgForOf
-  ],
+    imports: [
+        NgForOf,
+        RouterLink
+    ],
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css']
 })

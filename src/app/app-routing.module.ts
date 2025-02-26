@@ -8,6 +8,7 @@ import { ContactComponent } from './features/public/contact/contact.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout/admin-layout.component';
 import {ListComponent} from "./features/public/course/list/list.component";
 import {AboutComponent} from "./features/public/about/about.component";
+import {CourseDetailComponent} from "./features/public/course/course-detail/course-detail.component";
 
 
 const routes: Routes = [
@@ -19,6 +20,7 @@ const routes: Routes = [
       { path: 'blog', component: BlogComponent },
       { path: 'contact', component: ContactComponent },
       { path: 'course/list', component: ListComponent },
+      { path: 'course/:id', component: CourseDetailComponent },
       { path: 'about', component: AboutComponent },
       // TODO remove { path: 'blog/:id', component: BlogComponent },
       { path: '', redirectTo: '/home', pathMatch: 'full' }
@@ -37,7 +39,7 @@ const routes: Routes = [
 
 @NgModule({
   
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'top' } ) ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
