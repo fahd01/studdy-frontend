@@ -9,6 +9,8 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout/admin-
 import {ListComponent} from "./features/public/course/list/list.component";
 import {AboutComponent} from "./features/public/about/about.component";
 import {CourseDetailComponent} from "./features/public/course/course-detail/course-detail.component";
+import {CreateCourseComponent} from "./features/admin/course/create-course/create-course.component";
+import {CourseTableViewComponent} from "./features/admin/course/table-view/course-table-view.component";
 
 
 const routes: Routes = [
@@ -31,7 +33,10 @@ const routes: Routes = [
     path: 'admin',
     component: AdminLayoutComponent,
     children: [
-      { path: 'dashboard', component: DashboardComponent }
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'course/create', component: CreateCourseComponent },
+      { path: 'course/edit/:id', component: CreateCourseComponent },
+      { path: 'course/table-view', component: CourseTableViewComponent }
     ]
   }
 

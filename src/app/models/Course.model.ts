@@ -1,15 +1,15 @@
 import {Category} from "./Category.model";
 
 export class Course {
-    id: number;
+    id: number | null;
     title: string;
     description: string;
-    thumbnailUrl: string;
+    thumbnailUrl: string | null;
     status: string;
     price: number;
     duration: number;
     level: string;
-    category: Category;
+    category: Category | null;
 
 
     constructor(id: number, title: string, description: string, thumbnailUrl: string, status: string, price: number, duration: number, level: string, category: Category) {

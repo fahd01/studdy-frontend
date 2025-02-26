@@ -275,9 +275,9 @@ const executeAfterTransition = (callback, transitionElement, waitForTransition =
 };
 
 /**
- * Return the previous/next element of a list.
+ * Return the previous/next element of a table-view.
  *
- * @param {array} list    The list of elements
+ * @param {array} list    The table-view of elements
  * @param activeElement   The active element
  * @param shouldGetNext   Choose to get next or previous element
  * @param isCycleAllowed
@@ -287,7 +287,7 @@ const getNextActiveElement = (list, activeElement, shouldGetNext, isCycleAllowed
   const listLength = list.length;
   let index = list.indexOf(activeElement);
 
-  // if the element does not exist in the list return an element
+  // if the element does not exist in the table-view return an element
   // depending on the direction and if cycle is allowed
   if (index === -1) {
     return !shouldGetNext && isCycleAllowed ? list[listLength - 1] : list[0];
@@ -2911,7 +2911,7 @@ defineJQueryPlugin(Offcanvas);
  * --------------------------------------------------------------------------
  */
 
-// js-docs-start allow-list
+// js-docs-start allow-table-view
 const ARIA_ATTRIBUTE_PATTERN = /^aria-[\w-]*$/i;
 const DefaultAllowlist = {
   // Global attributes allowed on any supplied element below.
@@ -2949,7 +2949,7 @@ const DefaultAllowlist = {
   u: [],
   ul: []
 };
-// js-docs-end allow-list
+// js-docs-end allow-table-view
 
 const uriAttributes = new Set(['background', 'cite', 'href', 'itemtype', 'longdesc', 'poster', 'src', 'xlink:href']);
 
@@ -3752,10 +3752,10 @@ const CLASS_NAME_DROPDOWN_ITEM = 'dropdown-item';
 const CLASS_NAME_ACTIVE$1 = 'active';
 const SELECTOR_DATA_SPY = '[data-bs-spy="scroll"]';
 const SELECTOR_TARGET_LINKS = '[href]';
-const SELECTOR_NAV_LIST_GROUP = '.nav, .list-group';
+const SELECTOR_NAV_LIST_GROUP = '.nav, .table-view-group';
 const SELECTOR_NAV_LINKS = '.nav-link';
 const SELECTOR_NAV_ITEMS = '.nav-item';
-const SELECTOR_LIST_ITEMS = '.list-group-item';
+const SELECTOR_LIST_ITEMS = '.table-view-group-item';
 const SELECTOR_LINK_ITEMS = `${SELECTOR_NAV_LINKS}, ${SELECTOR_NAV_ITEMS} > ${SELECTOR_NAV_LINKS}, ${SELECTOR_LIST_ITEMS}`;
 const SELECTOR_DROPDOWN = '.dropdown';
 const SELECTOR_DROPDOWN_TOGGLE$1 = '.dropdown-toggle';
@@ -4024,10 +4024,10 @@ const CLASS_DROPDOWN = 'dropdown';
 const SELECTOR_DROPDOWN_TOGGLE = '.dropdown-toggle';
 const SELECTOR_DROPDOWN_MENU = '.dropdown-menu';
 const NOT_SELECTOR_DROPDOWN_TOGGLE = `:not(${SELECTOR_DROPDOWN_TOGGLE})`;
-const SELECTOR_TAB_PANEL = '.list-group, .nav, [role="tablist"]';
-const SELECTOR_OUTER = '.nav-item, .list-group-item';
+const SELECTOR_TAB_PANEL = '.table-view-group, .nav, [role="tablist"]';
+const SELECTOR_OUTER = '.nav-item, .table-view-group-item';
 const SELECTOR_INNER = `.nav-link${NOT_SELECTOR_DROPDOWN_TOGGLE}, .list-group-item${NOT_SELECTOR_DROPDOWN_TOGGLE}, [role="tab"]${NOT_SELECTOR_DROPDOWN_TOGGLE}`;
-const SELECTOR_DATA_TOGGLE = '[data-bs-toggle="tab"], [data-bs-toggle="pill"], [data-bs-toggle="list"]'; // TODO: could only be `tab` in v6
+const SELECTOR_DATA_TOGGLE = '[data-bs-toggle="tab"], [data-bs-toggle="pill"], [data-bs-toggle="table-view"]'; // TODO: could only be `tab` in v6
 const SELECTOR_INNER_ELEM = `${SELECTOR_INNER}, ${SELECTOR_DATA_TOGGLE}`;
 const SELECTOR_DATA_TOGGLE_ACTIVE = `.${CLASS_NAME_ACTIVE}[data-bs-toggle="tab"], .${CLASS_NAME_ACTIVE}[data-bs-toggle="pill"], .${CLASS_NAME_ACTIVE}[data-bs-toggle="list"]`;
 

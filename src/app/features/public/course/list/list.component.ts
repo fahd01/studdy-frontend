@@ -5,7 +5,7 @@ import {CourseService} from "../../../../services/course-managment/course.servic
 import {RouterLink} from "@angular/router";
 
 @Component({
-  selector: 'course-list',
+  selector: 'course-table-view',
   standalone: true,
     imports: [
         NgForOf,
@@ -21,11 +21,11 @@ export class ListComponent implements OnInit {
   ngOnInit(): void {
     this.courseService.fetchAllCoursesPaged().subscribe({
       next: data => console.log(data),
-      error: error => console.error('Error fetching courses list:', error)
+      error: error => console.error('Error fetching courses table-view:', error)
     })
     this.courseService.fetchAllCourses().subscribe({// TODO subscribe is deprecated
         next: data => this.courses = data,
-        error: error => console.error('Error fetching courses list:', error)
+        error: error => console.error('Error fetching courses table-view:', error)
     });
   }
 

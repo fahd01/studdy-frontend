@@ -14,6 +14,22 @@ export class CourseService {
 
   constructor(private http: HttpClient) {}
 
+  public get(id: number): Observable<Course> {
+    return this.http.get<Course>(`${courseManagementApiProxyTarget}/courses/${id}`);
+  }
+
+  public create(course: Course): Observable<any> {
+    return this.http.post(`${courseManagementApiProxyTarget}/courses`, course)
+  }
+
+  public update(course: Course): Observable<any> {
+    return this.http.put(`${courseManagementApiProxyTarget}/courses`, course)
+  }
+
+  public delete(id: number): Observable<any> {
+    return this.http.delete(`${courseManagementApiProxyTarget}/courses/${id}`);
+  }
+
   public fetchCourseDetails(id: number): Observable<Course> {
     return this.http.get<Course>(`${courseManagementApiProxyTarget}/courses/${id}`);
   }

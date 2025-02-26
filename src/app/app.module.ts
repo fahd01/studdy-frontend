@@ -21,6 +21,9 @@ import { ContactComponent } from './features/public/contact/contact.component';
 import { AdminSidebarComponent } from './layouts/admin-layout/admin-sidebar/admin-sidebar.component';
 import {CourseService} from "./services/course-managment/course.service";
 import { CourseDetailComponent } from './features/public/course/course-detail/course-detail.component';
+import { CreateCourseComponent } from './features/admin/course/create-course/create-course.component';
+import { CourseTableViewComponent } from './features/admin/course/table-view/course-table-view.component';
+import {ListComponent} from "./features/public/course/list/list.component";
 
 @NgModule({
   declarations: [
@@ -39,15 +42,18 @@ import { CourseDetailComponent } from './features/public/course/course-detail/co
     ContactComponent,
     AdminSidebarComponent,
     BlogComponent,
-    CourseDetailComponent
+    CourseDetailComponent,
+    CreateCourseComponent,
+    CourseTableViewComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
-    
-  
+    HttpClientModule,
+    ListComponent
+
+
   ],
   providers: [
       provideHttpClient(),
