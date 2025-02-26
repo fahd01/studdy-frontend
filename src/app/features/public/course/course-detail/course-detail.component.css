@@ -73,20 +73,21 @@
 # Global Page Titles & Breadcrumbs
 --------------------------------------------------------------*/
 .page-title {
-    /* original
+    /* original */
     --default-color: var(--contrast-color);
     --background-color: var(--accent-color);
     --heading-color: var(--contrast-color);
     color: var(--default-color);
     background-color: var(--background-color);
-     */
+    /**/
     /* white
     --default-color: var(--contrast-color);
     --background-color: white;
     --heading-color: var(--contrast-color);
     color: var(--default-color);
     background-color: white;
-     */
+     /**/
+    /*
     background: linear-gradient(135deg, #ce4be8 0%, #207ce5 100%);
     /**/
     position: relative;
