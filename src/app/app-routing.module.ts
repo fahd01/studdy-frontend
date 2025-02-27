@@ -11,6 +11,7 @@ import {AboutComponent} from "./features/public/about/about.component";
 import {CourseDetailComponent} from "./features/public/course/course-detail/course-detail.component";
 import {CreateCourseComponent} from "./features/admin/course/create-course/create-course.component";
 import {CourseTableViewComponent} from "./features/admin/course/table-view/course-table-view.component";
+import {CategoryManagementComponent} from "./features/admin/course/category-management/category-management.component";
 
 
 const routes: Routes = [
@@ -36,7 +37,9 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'course/create', component: CreateCourseComponent },
       { path: 'course/edit/:id', component: CreateCourseComponent },
-      { path: 'course/table-view', component: CourseTableViewComponent }
+      { path: 'course/table-view', component: CourseTableViewComponent },
+      { path: 'course/category', component: CategoryManagementComponent },
+      { path: 'course/category/edit/:id', component: CategoryManagementComponent }
     ]
   }
 

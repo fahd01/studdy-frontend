@@ -24,6 +24,7 @@ import { CourseDetailComponent } from './features/public/course/course-detail/co
 import { CreateCourseComponent } from './features/admin/course/create-course/create-course.component';
 import { CourseTableViewComponent } from './features/admin/course/table-view/course-table-view.component';
 import {ListComponent} from "./features/public/course/list/list.component";
+import {CategoryManagementComponent} from "./features/admin/course/category-management/category-management.component";
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import {ListComponent} from "./features/public/course/list/list.component";
     BlogComponent,
     CourseDetailComponent,
     CreateCourseComponent,
-    CourseTableViewComponent
+    CourseTableViewComponent,
+    CategoryManagementComponent
   ],
   imports: [
     BrowserModule,

@@ -61,6 +61,16 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Category</label>
+                                <div class="col-sm-9">
+                                    <select formControlName="level" class="form-control">
+                                        <option *ngFor="let category of categories" value="{{category.id}}">{{ category.name }}</option>
+                                    </select>
+                                </div>
+                            </div>
+
                             <button [disabled]="!courseForm.valid" type="submit" class="btn btn-primary mr-2"> Submit </button>
                             <button class="btn btn-light">Cancel</button>
                         </form>

@@ -1,0 +1,145 @@
+.container {
+    display: block;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    overflow-y: auto;
+    margin: 0;
+    padding-top: 50px;
+    max-width: unset;
+}
+
+.container .spinner {
+    text-align: center;
+    justify-content: center;
+    justify-items: center;
+    height: 100%;
+    align-items: center;
+}
+
+.container .spinner mat-spinner {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.container form button {
+    width: auto;
+}
+
+.container mat-card {
+    margin-block: 50px;
+    margin-inline: 20px;
+    text-align: center;
+}
+
+.container mat-card mat-card-title {
+    font-size: 30px;
+    font-weight: 500;
+}
+
+.container mat-card mat-card-content {
+    text-align: left;
+}
+
+.app-quiz-creator {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.app-quiz-creator label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.app-quiz-creator label input, .app-quiz-creator label select {
+    margin-top: 0.5rem;
+}
+
+.app-quiz-creator button {
+    margin-top: 1rem;
+}
+
+.quiz-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.quiz-form__field {
+    width: 100%;
+}
+
+.questions {
+    padding: 25px;
+}
+
+.questions .question-container {
+    border: 1px solid grey;
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 25px;
+    gap: 0;
+}
+
+.questions .question-container .question-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.questions .question-container .question-nav h6 {
+    margin-block: auto;
+}
+
+.questions .question-container .question-nav button {
+    width: 45px;
+    height: 45px;
+    padding: 0;
+    padding-inline: 0;
+    aspect-ratio: 1;
+    border-radius: 15px;
+    box-shadow: none;
+}
+
+.options {
+    text-align: center;
+}
+
+.options .option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.options .option mat-radio-button {
+    margin-left: 8px;
+    margin-right: 14px;
+}
+
+.options .option .quiz-form__field {
+    flex: 1;
+    margin-bottom: -1.25em;
+}
+
+.options .option button {
+    flex-shrink: 0;
+}
+
+.submit-wrapper {
+    width: 100%;
+    text-align: center;
+}
+
+.submit-wrapper button {
+    font-size: 20px;
+    padding-block: 20px;
+}

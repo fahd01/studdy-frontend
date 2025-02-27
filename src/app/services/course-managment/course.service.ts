@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
 import {PaginatedResponse} from "../../models/paginated-response.model";
 import {Course} from "../../models/Course.model";
+import {Category} from "../../models/Category.model";
 
 // TODO use .env for configuring API urls
 const courseManagementApiProxyTarget = '/course-management'
@@ -40,6 +41,23 @@ export class CourseService {
 
   public fetchAllCoursesPaged(): Observable<PaginatedResponse<Course>> {
     return this.http.get<PaginatedResponse<Course>>(`${courseManagementApiProxyTarget}/courses/paged`);
+  }
+
+  /***** Categories *******/
+  public fetchAllCategories(): Observable<Category[]> {
+    return this.http.get<Category[]>(`${courseManagementApiProxyTarget}/categories`);
+  }
+
+  public createCategory(category: Category): Observable<any> {
+    return this.http.post(`${courseManagementApiProxyTarget}/categories`, category)
+  }
+
+  public deleteCategory(id: number): Observable<any> {
+    return this.http.delete(`${courseManagementApiProxyTarget}/categories/${id}`);
+  }
+
+  public getCategory(id: number): Observable<Category> {
+    return this.http.get<Category>(`${courseManagementApiProxyTarget}/categories/${id}`);
   }
 }
 

@@ -46,8 +46,10 @@
                                         <td>{{ course.status }}</td>
                                         <td><a routerLink="TODO">{{ course.category?.name }}</a></td>
                                         <td>
-                                            <a routerLink="../edit/{{course.id}}" type="button" class="btn btn-inverse-success btn-icon" title="Edit this course">
+                                            <a routerLink="../edit/{{course.id}}">
+                                                <button type="button" class="btn btn-inverse-success btn-icon" title="Edit this course">
                                                 <i class="mdi mdi-pencil"></i>
+                                                </button>
                                             </a>
                                             <button (click)="deleteCourse(course)" type="button" class="btn btn-inverse-danger btn-icon" title="Delete this course">
                                                 <i class="mdi mdi-trash-can-outline"></i>

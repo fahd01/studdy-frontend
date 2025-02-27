@@ -3,6 +3,8 @@ import {FormGroup, FormControl, Validators} from '@angular/forms';
 import {Course} from "../../../../models/Course.model";
 import {CourseService} from "../../../../services/course-managment/course.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {Category} from "../../../../models/Category.model";
+import {dateComparator} from "@ng-bootstrap/ng-bootstrap/datepicker/datepicker-tools";
 
 
 @Component({
@@ -15,6 +17,7 @@ export class CreateCourseComponent implements OnInit{
   id?: number;
   courseForm!: FormGroup
   courseToEdit!: Course
+  categories!: Category[]
   page = {
     title: "Create Course",
     breadcrumb: "Create",
@@ -30,6 +33,10 @@ export class CreateCourseComponent implements OnInit{
 
   ngOnInit(){
     this.id = this.activatedRoute.snapshot.params['id'];
+    this.courseService.fetchAllCategories().subscribe({
+      next: data => this.categories = data,
+      error: error => console.log("error fetching categories")
+    })
     this.courseForm = new FormGroup({
       title: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
