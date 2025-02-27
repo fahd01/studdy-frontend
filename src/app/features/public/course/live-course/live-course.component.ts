@@ -1,0 +1,96 @@
+import {AfterViewInit, Component} from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
+
+// Jitsi server
+const JITSI_SERVER_DOMAIN: string = 'meet.jit.si';
+
+@Component({
+  selector: 'app-live-course',
+  templateUrl: './live-course.component.html',
+  styleUrls: ['./live-course.component.css']
+})
+export class LiveCourseComponent  implements AfterViewInit {
+
+  roomName: string = ''; // Room name
+  api: any;
+
+  constructor(private route: ActivatedRoute) {}
+
+  ngAfterViewInit() {
+    this.loadJitsiScript();
+    this.route.queryParams.subscribe(params => {
+      // Get room name from URL or default
+      this.roomName = params['room'] || 'CourseRoom-123';
+    });
+  }
+
+  loadJitsiScript() {
+    if (!(window as any).JitsiMeetExternalAPI) {
+      const script = document.createElement('script');
+      script.src = 'https://meet.jit.si/external_api.js';
+      script.async = true;
+      script.onload = () => console.log('Jitsi API loaded');
+      document.body.appendChild(script);
+    }
+  }
+
+  startConference() {
+    // Prevent multiple instances
+    if (this.api) {
+      console.log("Conference already running");
+      return;
+    }
+
+    // Generate unique room
+    this.roomName = 'CourseRoom-' + Math.random().toString(36).substring(2, 9);
+
+    const options = {
+      roomName: this.roomName,
+      width: '100%',
+      height: 500,
+      parentNode: document.querySelector('#jitsi-container'),
+      userInfo: { displayName: 'Instructor' }
+    };
+
+    this.api = new (window as any).JitsiMeetExternalAPI(JITSI_SERVER_DOMAIN, options);
+
+    // Listen for when the meeting ends
+    this.api.addEventListener('readyToClose', () => {
+      this.api.dispose(); // Destroy the instance
+      this.api = null;
+    });
+  }
+
+  joinConference() {
+    // Prevent multiple instances
+    if (this.api) {
+      console.log("Already in a conference");
+      return;
+    }
+
+    const options = {
+      roomName: this.roomName,
+      width: '100%',
+      height: 500,
+      parentNode: document.querySelector('#jitsi-container'),
+      // TODO Use user full name as default attendee name
+      userInfo: { displayName: 'Student' }
+    };
+
+    this.api = new (window as any).JitsiMeetExternalAPI(JITSI_SERVER_DOMAIN, options);
+
+    // Listen for when the meeting ends
+    this.api.addEventListener('readyToClose', () => {
+      this.api.dispose();
+      this.api = null;
+    });
+  }
+
+  endConference() {
+    if (this.api) {
+      this.api.dispose();
+      this.api = null;
+      console.log("Conference ended");
+    }
+  }
+}

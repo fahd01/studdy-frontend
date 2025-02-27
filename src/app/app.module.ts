@@ -25,6 +25,7 @@ import { CreateCourseComponent } from './features/admin/course/create-course/cre
 import { CourseTableViewComponent } from './features/admin/course/table-view/course-table-view.component';
 import {ListComponent} from "./features/public/course/list/list.component";
 import {CategoryManagementComponent} from "./features/admin/course/category-management/category-management.component";
+import { LiveCourseComponent } from './features/public/course/live-course/live-course.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import {CategoryManagementComponent} from "./features/admin/course/category-mana
     CourseDetailComponent,
     CreateCourseComponent,
     CourseTableViewComponent,
-    CategoryManagementComponent
+    CategoryManagementComponent,
+    LiveCourseComponent
   ],
   imports: [
     BrowserModule,

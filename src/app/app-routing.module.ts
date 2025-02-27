@@ -12,6 +12,7 @@ import {CourseDetailComponent} from "./features/public/course/course-detail/cour
 import {CreateCourseComponent} from "./features/admin/course/create-course/create-course.component";
 import {CourseTableViewComponent} from "./features/admin/course/table-view/course-table-view.component";
 import {CategoryManagementComponent} from "./features/admin/course/category-management/category-management.component";
+import {LiveCourseComponent} from "./features/public/course/live-course/live-course.component";
 
 
 const routes: Routes = [
@@ -23,6 +24,7 @@ const routes: Routes = [
       { path: 'blog', component: BlogComponent },
       { path: 'contact', component: ContactComponent },
       { path: 'course/list', component: ListComponent },
+      { path: 'course/live', component: LiveCourseComponent },
       { path: 'course/:id', component: CourseDetailComponent },
       { path: 'about', component: AboutComponent },
       // TODO remove { path: 'blog/:id', component: BlogComponent },
