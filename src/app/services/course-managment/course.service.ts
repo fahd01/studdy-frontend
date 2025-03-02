@@ -35,21 +35,19 @@ export class CourseService {
     return this.http.get<Course>(`${courseManagementApiProxyTarget}/courses/${id}`);
   }
 
-  public filterCourses(categoryIds: number[], levels: string[], searchQuery: string): Observable<Course[]> {
-    let queryParams = new HttpParams()
-    queryParams.set("categoryId", categoryIds.join(","))
-    queryParams.set("level", levels.join(","))
-    queryParams.set("query", searchQuery)
-    let queryParameters = `categoryId=${categoryIds.join(",")}&level=${levels.join(",")}&query=${searchQuery}`
-    return this.http.get<Course[]>(`${courseManagementApiProxyTarget}/courses/filter?${queryParameters}`);
+  public filterCourses(
+      categoryIds: number[],
+      levels: string[],
+      searchQuery: string,
+      page: number = 0,
+      size: number = 6
+  ): Observable<PaginatedResponse<Course>> {
+    let queryParameters = `categoryId=${categoryIds.join(",")}&level=${levels.join(",")}&query=${searchQuery}&page=${page}&size=${size}`
+    return this.http.get<PaginatedResponse<Course>>(`${courseManagementApiProxyTarget}/courses/filter?${queryParameters}`);
   }
 
   public fetchAllCourses(): Observable<Course[]> {
     return this.http.get<Course[]>(`${courseManagementApiProxyTarget}/courses`);
-  }
-
-  public fetchAllCoursesPaged(): Observable<PaginatedResponse<Course>> {
-    return this.http.get<PaginatedResponse<Course>>(`${courseManagementApiProxyTarget}/courses/paged`);
   }
 
   /***** Categories *******/

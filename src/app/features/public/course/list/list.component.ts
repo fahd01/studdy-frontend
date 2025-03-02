@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {NgForOf} from "@angular/common";
+import {NgClass, NgForOf} from "@angular/common";
 import {Course} from "../../../../models/Course.model";
 import {CourseService} from "../../../../services/course-managment/course.service";
 import {RouterLink} from "@angular/router";
 import {Category} from "../../../../models/Category.model";
 import {debounceTime} from "rxjs";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
+import {PaginatedResponse} from "../../../../models/paginated-response.model";
 
 @Component({
   selector: 'course-table-view',
@@ -13,13 +14,14 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
     imports: [
         NgForOf,
         RouterLink,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        NgClass
     ],
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css']
 })
 export class ListComponent implements OnInit {
-  courses: Course[] = [];
+  coursePages!: PaginatedResponse<Course>;
   categories: Category[] = [];
   constructor(private courseService: CourseService) {
       this.searchControl.valueChanges.pipe(debounceTime(300)).subscribe(value => {
@@ -33,10 +35,9 @@ export class ListComponent implements OnInit {
       this.loadCategories();
   }
 
-  loadCourses() {
-      /* TODO implement paging */
-      this.courseService.filterCourses(this.selectedCategories, this.selectedLevels, this.searchQuery).subscribe({
-          next: data => this.courses = data,
+  loadCourses(page: number = 0) {
+      this.courseService.filterCourses(this.selectedCategories, this.selectedLevels, this.searchQuery, page).subscribe({
+          next: data => this.coursePages = data,
           error: error => console.error('Error fetching courses', error)
       });
   }
@@ -65,5 +66,24 @@ export class ListComponent implements OnInit {
         if (isChecked) { this.selectedLevels.push(level); }
         else { this.selectedLevels = this.selectedLevels.filter(l => l !== level); }
         this.loadCourses();
+    }
+
+    levelBadgeClass(level: string){
+        switch(level){
+            case "BEGINNER": return "badge-success";
+            case "INTERMEDIATE": return "badge-warning";
+            case "ADVANCED": return "badge-danger";
+            default: return "badge-info";
+        }
+    }
+
+    nextPage() {
+        if (this.coursePages.last) return;
+        this.loadCourses(this.coursePages.number + 1)
+    }
+
+    previousPage(){
+        if (this.coursePages.first) return;
+        this.loadCourses(this.coursePages.number - 1)
     }
 }

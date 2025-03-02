@@ -59,35 +59,37 @@
             </div>
             <div class="col-lg-9">
                 <div class="row">
-                    <div *ngFor="let course of courses;"
+                    <div *ngFor="let course of coursePages.content;"
                          class="col-md-6 d-flex align-items-stretch ftco-animate"
                     >
                         <div class="project-wrap">
                             <a routerLink="/course/{{course.id}}" class="img" style="background-image: url(../../../../../assets/landing/images/work-1.jpg);">
-                                <span class="price">Software</span>
+                                <span class="price">{{ course.category?.name }}</span>
                             </a>
                             <div class="text p-4">
                                 <h3><a routerLink="/course/{{course.id}}">{{ course.title }}</a></h3>
                                 <p class="advisor">Advisor <span>Tony Garret</span></p>
                                 <ul class="d-flex justify-content-between">
-                                    <li><span class="flaticon-shower"></span>2300</li>
+                                    <li><label class="badge {{ levelBadgeClass(course.level) }}">{{ course.level }}</label></li>
                                     <li class="price">${{ course.price }}</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row mt-5">
+                <div id="pagination-control" class="row mt-5">
                     <div class="col">
                         <div class="block-27">
                             <ul>
-                                <li><a href="#">&lt;</a></li>
-                                <li class="active"><span>1</span></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                                <li><a href="#">&gt;</a></li>
+                                <li><a (click)="previousPage()">&lt;</a></li>
+                                <li *ngFor="let pageIndex of [].constructor(coursePages.totalPages); let i = index"
+                                    [ngClass]="coursePages.number == i ? 'active':'' "
+                                    (click)="loadCourses(i)"
+                                >
+                                    <span>{{ i + 1 }}</span>
+                                </li>
+                                <li><a (click)="nextPage()">&gt;</a></li>
+
                             </ul>
                         </div>
                     </div>
