@@ -23,50 +23,47 @@ export class ListComponent implements OnInit {
   categories: Category[] = [];
   constructor(private courseService: CourseService) {
       this.searchControl.valueChanges.pipe(debounceTime(300)).subscribe(value => {
-          console.log('Search text:', value);
+          this.searchQuery = value!
+          this.loadCourses();
       });
   }
 
   ngOnInit(): void {
-    /* TODO implement paging
-    this.courseService.fetchAllCoursesPaged().subscribe({
-      next: data => console.log(data),
-      error: error => console.error('Error fetching paged courses', error)
-    })
-     */
-    this.courseService.fetchAllCourses().subscribe({
-        next: data => this.courses = data,
-        error: error => console.error('Error fetching courses', error)
-    });
-    this.courseService.fetchAllCategories().subscribe({
-        next: data => this.categories = data,
-        error: error => console.error('Error fetching courses table-view:', error)
-    });
+      this.loadCourses();
+      this.loadCategories();
+  }
+
+  loadCourses() {
+      /* TODO implement paging */
+      this.courseService.filterCourses(this.selectedCategories, this.selectedLevels, this.searchQuery).subscribe({
+          next: data => this.courses = data,
+          error: error => console.error('Error fetching courses', error)
+      });
+  }
+
+  loadCategories(){
+      this.courseService.fetchAllCategories().subscribe({
+          next: data => this.categories = data,
+          error: error => console.error('Error fetching courses table-view:', error)
+      });
   }
 
   /*** Filtering ****/
     searchControl = new FormControl('');
+    searchQuery:string = "";
     selectedCategories: number[] = [];
     selectedLevels: string[] = [];
     onCategoryChange(event: Event, categoryId: number) {
         const isChecked = (event.target as HTMLInputElement).checked;
-        if (isChecked) {
-            this.selectedCategories.push(categoryId);
-        } else {
-            this.selectedCategories = this.selectedCategories.filter(id => id !== categoryId);
-        }
-
-        console.log(this.selectedCategories)
+        if (isChecked) { this.selectedCategories.push(categoryId); }
+        else { this.selectedCategories = this.selectedCategories.filter(id => id !== categoryId);}
+        this.loadCourses();
     }
 
     onLevelChange(event: Event, level: string) {
         const isChecked = (event.target as HTMLInputElement).checked;
-        if (isChecked) {
-            this.selectedLevels.push(level);
-        } else {
-            this.selectedLevels = this.selectedLevels.filter(l => l !== level);
-        }
-
-        console.log(this.selectedLevels)
+        if (isChecked) { this.selectedLevels.push(level); }
+        else { this.selectedLevels = this.selectedLevels.filter(l => l !== level); }
+        this.loadCourses();
     }
 }

@@ -26,6 +26,8 @@ import { CourseTableViewComponent } from './features/admin/course/table-view/cou
 import {ListComponent} from "./features/public/course/list/list.component";
 import {CategoryManagementComponent} from "./features/admin/course/category-management/category-management.component";
 import { LiveCourseComponent } from './features/public/course/live-course/live-course.component';
+import {QuizManagementComponent} from "./features/admin/course/quiz-management/quiz-management.component";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -48,6 +50,7 @@ import { LiveCourseComponent } from './features/public/course/live-course/live-c
     CreateCourseComponent,
     CourseTableViewComponent,
     CategoryManagementComponent,
+    QuizManagementComponent,
     LiveCourseComponent
   ],
   imports: [
@@ -55,7 +58,8 @@ import { LiveCourseComponent } from './features/public/course/live-course/live-c
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ListComponent
+    ListComponent,
+    BrowserAnimationsModule
 
 
   ],

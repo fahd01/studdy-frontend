@@ -4,7 +4,7 @@ import {first, Observable, startWith, take} from "rxjs";
 import {map} from "rxjs/operators";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Quiz} from "../../../../models/Quiz.model";
-import {Question} from "../../../../models/Questions.model";
+import {Question} from "../../../../models/Question.model";
 
 @Component({
   selector: 'app-quiz-management',

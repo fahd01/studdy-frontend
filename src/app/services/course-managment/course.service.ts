@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
 import {PaginatedResponse} from "../../models/paginated-response.model";
@@ -33,6 +33,15 @@ export class CourseService {
 
   public fetchCourseDetails(id: number): Observable<Course> {
     return this.http.get<Course>(`${courseManagementApiProxyTarget}/courses/${id}`);
+  }
+
+  public filterCourses(categoryIds: number[], levels: string[], searchQuery: string): Observable<Course[]> {
+    let queryParams = new HttpParams()
+    queryParams.set("categoryId", categoryIds.join(","))
+    queryParams.set("level", levels.join(","))
+    queryParams.set("query", searchQuery)
+    let queryParameters = `categoryId=${categoryIds.join(",")}&level=${levels.join(",")}&query=${searchQuery}`
+    return this.http.get<Course[]>(`${courseManagementApiProxyTarget}/courses/filter?${queryParameters}`);
   }
 
   public fetchAllCourses(): Observable<Course[]> {
