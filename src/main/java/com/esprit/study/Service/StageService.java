@@ -36,4 +36,8 @@ public class StageService {
     public void deleteStage(int id) {
         repo.deleteById(id);
     }
+
+    public List<Stage> searchStagesByTitle(String title) {
+        return repo.searchByTitle(title);
+    }
 }

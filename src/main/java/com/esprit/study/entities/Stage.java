@@ -1,11 +1,10 @@
 package com.esprit.study.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 
 
 @Entity
@@ -21,6 +20,18 @@ public class Stage {
     private String title;
 
     private String description;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "stage", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Candidature> candidatures;
+
+    public List<Candidature> getCandidatures() {
+        return candidatures;
+    }
+
+    public void setCandidatures(List<Candidature> candidatures) {
+        this.candidatures = candidatures;
+    }
 
     public void setId(int id) {
         this.id = id;
