@@ -5,7 +5,7 @@ import {CourseService} from "../../../../services/course-managment/course.servic
 import {RouterLink} from "@angular/router";
 import {Category} from "../../../../models/Category.model";
 import {debounceTime} from "rxjs";
-import {FormControl, ReactiveFormsModule} from "@angular/forms";
+import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {PaginatedResponse} from "../../../../models/paginated-response.model";
 
 @Component({
@@ -15,7 +15,8 @@ import {PaginatedResponse} from "../../../../models/paginated-response.model";
         NgForOf,
         RouterLink,
         ReactiveFormsModule,
-        NgClass
+        NgClass,
+        FormsModule
     ],
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css']
@@ -36,7 +37,7 @@ export class ListComponent implements OnInit {
   }
 
   loadCourses(page: number = 0) {
-      this.courseService.filterCourses(this.selectedCategories, this.selectedLevels, this.searchQuery, page).subscribe({
+      this.courseService.filterCourses(this.selectedCategories, this.selectedLevels, this.searchQuery, this.myEnrolledCourses, page).subscribe({
           next: data => this.coursePages = data,
           error: error => console.error('Error fetching courses', error)
       });
@@ -54,6 +55,13 @@ export class ListComponent implements OnInit {
     searchQuery:string = "";
     selectedCategories: number[] = [];
     selectedLevels: string[] = [];
+    myEnrolledCourses: boolean = false;
+
+    onMyEnrolledCoursesChange(event: any) {
+        this.myEnrolledCourses = event.target.checked
+        this.loadCourses();
+    }
+
     onCategoryChange(event: Event, categoryId: number) {
         const isChecked = (event.target as HTMLInputElement).checked;
         if (isChecked) { this.selectedCategories.push(categoryId); }

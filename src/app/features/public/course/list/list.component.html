@@ -24,6 +24,15 @@
                 </div>
 
                 <div class="sidebar-box bg-white p-4 ftco-animate">
+                    <form action="#" class="browse-form">
+                            <label for="option-category-1">
+                                <input (change)="onMyEnrolledCoursesChange($event)" type="checkbox" id="my-enrolled-courses">
+                                Only Show My Enrolled Courses
+                            </label>
+                    </form>
+                </div>
+
+                <div class="sidebar-box bg-white p-4 ftco-animate">
                     <h3 class="heading-sidebar">Course Category</h3>
                     <form action="#" class="browse-form">
                         <ng-container *ngFor="let category of categories">

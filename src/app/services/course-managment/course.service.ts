@@ -43,10 +43,15 @@ export class CourseService {
       categoryIds: number[],
       levels: string[],
       searchQuery: string,
+      onlyEnrolledCourses: boolean = false,
       page: number = 0,
       size: number = 6
   ): Observable<PaginatedResponse<Course>> {
-    let queryParameters = `categoryId=${categoryIds.join(",")}&level=${levels.join(",")}&query=${searchQuery}&page=${page}&size=${size}`
+    let currentUserId = this.authenticationService.getCurrentUser()?.id;
+    console.log(currentUserId)
+    console.log(onlyEnrolledCourses)
+    let enrolledUserId:string = currentUserId && onlyEnrolledCourses ? String(currentUserId) : ''
+    let queryParameters = `categoryId=${categoryIds.join(",")}&level=${levels.join(",")}&query=${searchQuery}&enrolledUserId=${enrolledUserId}&page=${page}&size=${size}`
     return this.http.get<PaginatedResponse<Course>>(`${courseManagementApiProxyTarget}/courses/filter?${queryParameters}`);
   }
 
