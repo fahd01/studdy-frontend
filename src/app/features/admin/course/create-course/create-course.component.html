@@ -90,8 +90,8 @@
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Category</label>
                                 <div class="col-sm-9">
-                                    <select formControlName="category" class="form-control">
-                                        <option *ngFor="let category of categories" value="{{category.id}}">{{ category.name }}</option>
+                                    <select formControlName="category" class="form-control" [compareWith]="compareCategories">
+                                        <option *ngFor="let category of categories" [ngValue]="category">{{ category.name }}</option>
                                     </select>
                                     <div class="invalid-feedback"
                                          *ngIf="courseForm.controls?.['category']!.invalid && courseForm.controls?.['category']!.touched"

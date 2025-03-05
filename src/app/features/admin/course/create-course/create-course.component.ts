@@ -43,7 +43,7 @@ export class CreateCourseComponent implements OnInit{
       level: new FormControl('', Validators.required),
       duration: new FormControl<number>(7, [Validators.required, Validators.min(1)]),
       price: new FormControl<number>(50, [Validators.required, Validators.min(1)]),
-      category: new FormControl('', Validators.required),
+      category: new FormControl<Category | null>(null, Validators.required),
     });
 
     if (this.id) {
@@ -58,15 +58,13 @@ export class CreateCourseComponent implements OnInit{
   }
 
 
-
   public saveCourse() {
     let course = {
       ... this.courseForm.value,
       id: this.id ? this.id : null ,
       status: this.id ? this.courseToEdit.status : 'PUBLISHED',
+      // TODO use AI to generate
       thumbnailUrl: this.id ? this.courseToEdit.thumbnailUrl : null,
-      // TODO assign category to course on create / edit
-      category: this.id ? this.courseToEdit.category : null
     } as Course
 
     let response = this.id ? this.courseService.update(course) : this.courseService.create(course)
@@ -78,4 +76,7 @@ export class CreateCourseComponent implements OnInit{
     })
   }
 
+  compareCategories(category1: Category, category2: Category) {
+    return category1 && category2 && category1.id === category2.id;
+  }
 }

@@ -4,12 +4,12 @@
 - [ ] Integrate Contact
 - [ ] Integrate admin dashboard
 - Generic
-    - [ ] Title image is larger than it should be (compare with original template)
+    - [X] Title image is larger than it should be (compare with original template)
     - [ ] Clean footer
     - [ ] Use Studdy email for contact page and footer
 - Course Management
     - Course Creation:
-        - Assign course category
+        - [X] Assign course category
     - Course List
         - [ ] Clicking on Level or Category on the course card filters by the clicked item
     - Course details
@@ -50,3 +50,4 @@
 - [X] Filtering: courses filtering by category, level and free fuzzy search in title and description
 - [X] Pagination: Courses cards view (Front-office)
 - [ ] Jointure
+  - Course / Category
