@@ -73,7 +73,11 @@
                         <p>5.00 pm - 7.00 pm</p>
                     </div>
 
-                    <p class="mb-0 float-right"><a href="#" class="btn btn-primary px-4 py-3">Enroll Now</a></p>
+                    <p class="mb-0 float-right">
+                        <button [disabled]="isEnrolled" (click)="enroll(course.id!)" class="btn btn-primary px-4 py-3">
+                            {{ isEnrolled ? "Already Enrolled" : "Enroll Now" }}
+                        </button>
+                    </p>
 
                 </div>
             </div>

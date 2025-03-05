@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {PaginatedResponse} from "../../models/paginated-response.model";
 import {Course} from "../../models/Course.model";
 import {Category} from "../../models/Category.model";
+import {AuthenticationService} from "../Authenticarion.service";
 
 // TODO use .env for configuring API urls
 const courseManagementApiProxyTarget = '/course-management'
@@ -13,7 +14,10 @@ const courseManagementApiProxyTarget = '/course-management'
 })
 export class CourseService {
 
-  constructor(private http: HttpClient) {}
+  constructor(
+      private http: HttpClient,
+      private authenticationService: AuthenticationService
+  ) {}
 
   public get(id: number): Observable<Course> {
     return this.http.get<Course>(`${courseManagementApiProxyTarget}/courses/${id}`);
@@ -48,6 +52,16 @@ export class CourseService {
 
   public fetchAllCourses(): Observable<Course[]> {
     return this.http.get<Course[]>(`${courseManagementApiProxyTarget}/courses`);
+  }
+
+  public enroll(courseId: number): Observable<any> {
+    let currentUserId = this.authenticationService.getCurrentUser()?.id;
+    return this.http.post(`${courseManagementApiProxyTarget}/courses/${courseId}/users/${currentUserId}`, null);
+  }
+
+  public isEnrolled(courseId: number): Observable<any> {
+    let currentUserId = this.authenticationService.getCurrentUser()?.id;
+    return this.http.get(`${courseManagementApiProxyTarget}/courses/${courseId}/users/${currentUserId}/enrollments`)
   }
 
   /***** Categories *******/
