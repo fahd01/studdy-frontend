@@ -2,6 +2,7 @@ package com.example.blog_mangmnt_microservice.blog.service;
 
 
 import com.example.blog_mangmnt_microservice.blog.model.Blog;
+import com.example.blog_mangmnt_microservice.blog.model.Comment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -12,8 +13,11 @@ public interface BlogService {
     Blog getBlogById(Long id);
 
 
-    Page<Blog> getAllBlogs(Pageable pageable);
+    List<Blog> getAllBlogs();
+
+    Page<Blog> getAllBlogs(int page, int size, String searchTerm);
 
     Blog updateBlog(Long id, Blog blog);
     void deleteBlog(Long id);
+
 }

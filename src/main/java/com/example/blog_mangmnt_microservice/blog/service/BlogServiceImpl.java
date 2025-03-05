@@ -4,9 +4,13 @@ package com.example.blog_mangmnt_microservice.blog.service;
 
 import com.example.blog_mangmnt_microservice.blog.exception.ResourceNotFoundException;
 import com.example.blog_mangmnt_microservice.blog.model.Blog;
+import com.example.blog_mangmnt_microservice.blog.model.Comment;
 import com.example.blog_mangmnt_microservice.blog.repository.BlogRepository;
+import com.example.blog_mangmnt_microservice.blog.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +22,10 @@ public class BlogServiceImpl implements BlogService {
 
     @Autowired
     private BlogRepository blogRepository;
+
+    @Autowired
+    private CommentRepository commentRepository;
+
 
     @Override
     public Blog createBlog(Blog blog) {
@@ -35,8 +43,18 @@ public class BlogServiceImpl implements BlogService {
 
 
     @Override
-    public Page<Blog> getAllBlogs(Pageable pageable) {
-        return blogRepository.findAll(pageable);
+    public Page<Blog> getAllBlogs(int page, int size, String searchTerm) {
+        Pageable pageable = PageRequest.of(page, size);
+        if (searchTerm != null && !searchTerm.isEmpty()) {
+
+            return blogRepository.findByTitleContainingIgnoreCase(searchTerm, pageable);
+        } else {
+            return blogRepository.findAll(pageable);
+        }
+    }
+
+    public List<Blog> getAllBlogs() {
+        return blogRepository.findAll();
     }
 
 
@@ -49,10 +67,17 @@ public class BlogServiceImpl implements BlogService {
         blog.setUpdatedAt(LocalDateTime.now());
         return blogRepository.save(blog);
     }
-
     @Override
     public void deleteBlog(Long id) {
         Blog blog = getBlogById(id);
+
+        // Delete all comments associated with this blog first
+        commentRepository.deleteAll(commentRepository.findByBlogId(id));
+
+        // Now delete the blog
         blogRepository.delete(blog);
     }
+
+
+
 }

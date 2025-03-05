@@ -3,7 +3,10 @@ package com.example.blog_mangmnt_microservice.blog.controller;
 
 
 import com.example.blog_mangmnt_microservice.blog.model.Blog;
+import com.example.blog_mangmnt_microservice.blog.model.Comment;
+import com.example.blog_mangmnt_microservice.blog.model.CreateComment;
 import com.example.blog_mangmnt_microservice.blog.service.BlogService;
+import com.example.blog_mangmnt_microservice.blog.service.CommentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -23,6 +26,8 @@ public class BlogController {
     @Autowired
     private BlogService blogService;
 
+
+
     @PostMapping
     public ResponseEntity<Blog> createBlog(@Valid @RequestBody Blog blog) {
         return new ResponseEntity<>(blogService.createBlog(blog), HttpStatus.CREATED);
@@ -35,8 +40,16 @@ public class BlogController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<Blog>> getAllBlogs(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "6") int size) {
-        return ResponseEntity.ok((Page<Blog>) blogService.getAllBlogs(PageRequest.of(page, size)));
+    public ResponseEntity<Page<Blog>> getAllBlogs(@RequestParam(defaultValue = "0") int page,
+                                                  @RequestParam(defaultValue = "6") int size,
+                                                  @RequestParam(required = false) String searchTerm) {
+        Page<Blog> blogs = blogService.getAllBlogs(page, size, searchTerm);
+        return new ResponseEntity<>(blogs, HttpStatus.OK);
+    }
+    @GetMapping("/all")
+    public ResponseEntity<List<Blog>> getAllBlogs() {
+        List<Blog> blogs = blogService.getAllBlogs();
+        return new ResponseEntity<>(blogs, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
@@ -49,4 +62,6 @@ public class BlogController {
         blogService.deleteBlog(id);
         return ResponseEntity.noContent().build();
     }
+
+
 }
