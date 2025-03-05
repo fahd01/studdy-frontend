@@ -16,6 +16,12 @@
         - [ ] Add skills to learn
         - [ ] Add tags for: AI, Quiz, Certificate
         - [ ] Add enroll button
+    - Course Content
+      - [ ] Modules / lessons
+        - Create
+        - Assign to course
+    - Course Enrollment
+      - [ ] My (enrolled) courses
     - About page:
         - [ ] course, students, enrollment stats
         - [ ] enrollment link
