@@ -1,5 +1,6 @@
 import {AfterViewInit, Component} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
+import {AuthenticationService} from "../../../../services/Authenticarion.service";
 
 // Jitsi server
 const JITSI_SERVER_DOMAIN: string = 'meet.jit.si';
@@ -14,7 +15,10 @@ export class LiveCourseComponent  implements AfterViewInit {
   roomName: string = ''; // Room name
   api: any;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+      private route: ActivatedRoute,
+      private authenticationService: AuthenticationService
+  ) {}
 
   ngAfterViewInit() {
     this.loadJitsiScript();
@@ -49,7 +53,7 @@ export class LiveCourseComponent  implements AfterViewInit {
       width: '100%',
       height: 500,
       parentNode: document.querySelector('#jitsi-container'),
-      userInfo: { displayName: 'Instructor' }
+      userInfo: { displayName: `Instructor ${this.authenticationService.getCurrentUser()?.firstName} ${this.authenticationService.getCurrentUser()?.lastName}` }
     };
 
     this.api = new (window as any).JitsiMeetExternalAPI(JITSI_SERVER_DOMAIN, options);
@@ -73,8 +77,7 @@ export class LiveCourseComponent  implements AfterViewInit {
       width: '100%',
       height: 500,
       parentNode: document.querySelector('#jitsi-container'),
-      // TODO Use user full name as default attendee name
-      userInfo: { displayName: 'Student' }
+      userInfo: { displayName: `${this.authenticationService.getCurrentUser()?.firstName}` }
     };
 
     this.api = new (window as any).JitsiMeetExternalAPI(JITSI_SERVER_DOMAIN, options);

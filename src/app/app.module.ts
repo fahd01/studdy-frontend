@@ -28,6 +28,7 @@ import {CategoryManagementComponent} from "./features/admin/course/category-mana
 import { LiveCourseComponent } from './features/public/course/live-course/live-course.component';
 import {QuizManagementComponent} from "./features/admin/course/quiz-management/quiz-management.component";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {AuthenticationService} from "./services/Authenticarion.service";
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   providers: [
       provideHttpClient(),
       CourseService,
+      AuthenticationService
   ],
   bootstrap: [AppComponent]
 })
