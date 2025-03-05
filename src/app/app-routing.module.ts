@@ -9,6 +9,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout/admin-
 
 import { CommentComponent } from './features/public/comments/comments.component';
 import { BlogDetailsComponent } from './features/public/blog-details/blog-details.component';
+import { CalendarComponent } from './features/admin/calendar/calendar.component';
 
 
 const routes: Routes = [
@@ -22,6 +23,7 @@ const routes: Routes = [
       { path: 'blog', component: BlogComponent },
       { path: 'blogs/:id', component: BlogDetailsComponent },
       { path: 'contact', component: ContactComponent },
+      
       { path: '', redirectTo: '/home', pathMatch: 'full' }
     
     ]
@@ -32,6 +34,7 @@ const routes: Routes = [
   children: [
 
     { path: 'dashboard', component: DashboardComponent },
+    { path: 'calendar', component: CalendarComponent }
     
     
   
@@ -42,7 +45,7 @@ const routes: Routes = [
 
 @NgModule({
   
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'top'})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

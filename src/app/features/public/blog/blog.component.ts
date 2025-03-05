@@ -1,25 +1,40 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Blog, BlogService } from './blog.service';
+import { trigger, transition, style, animate } from '@angular/animations';
+import { filter } from 'rxjs/operators';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-blog',
   templateUrl: './blog.component.html',
-  styleUrls: ['./blog.component.css']
+  styleUrls: ['./blog.component.css'],
+  animations: [
+    trigger('slideAnimation', [
+      transition(':increment', [
+        style({ transform: 'translateX(100%)' }),
+        animate('0.5s ease-out', style({ transform: 'translateX(0%)' }))
+      ]),
+      transition(':decrement', [
+        style({ transform: 'translateX(-100%)' }),
+        animate('0.5s ease-out', style({ transform: 'translateX(0%)' }))
+      ])
+    ])
+  ]
 })
 export class BlogComponent implements OnInit {
 
   totalPages: number = 0;
   currentPage: number = 0;
-
-  postId!: number;
-  postDetails: any;
+  pageSize: number = 6; // Number of blogs per page
 
   blogForm: FormGroup;
   blogs: Blog[] = [];
+
   editMode = false;
   currentBlogId: number | null = null;
+  searchTerm: string = '';
 
   constructor(private route: ActivatedRoute,
               private fb: FormBuilder,
@@ -33,26 +48,43 @@ export class BlogComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
+    this.router.events
+    .pipe(filter(event => event instanceof NavigationEnd))
+    .subscribe(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
     this.getAllBlogs(0);
+
   }
 
   getAllBlogs(page: number): void {
-    this.blogService.getAllBlogs(page, 6).subscribe(data => {
+    this.blogService.getAllBlogs(page, this.pageSize, this.searchTerm).subscribe(data => {
       this.blogs = data.content;
       this.totalPages = data.totalPages;
       this.currentPage = data.number;
-    }, error => {
+    }, (error: HttpErrorResponse) => {
       console.error('Error loading blogs:', error);
     });
   }
 
-  viewBlogDetails(id: number): void {
-    this.router.navigate(['/blogs', id]);
+  searchBlogs(): void {
+    this.getAllBlogs(0);
   }
 
-  goToPage(page: number): void {
+  viewBlogDetails(id: number): void {
+    this.router.navigate(['/blogs', id]).then(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  goToPage(page: number, event: Event): void {
+    event.preventDefault();
     if (page >= 0 && page < this.totalPages) {
       this.getAllBlogs(page);
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 100);
     }
   }
 
@@ -64,7 +96,7 @@ export class BlogComponent implements OnInit {
             this.getAllBlogs(this.currentPage);
             this.resetForm();
           },
-          (error) => {
+          (error: HttpErrorResponse) => {
             console.error('Error updating blog:', error);
           }
         );
@@ -113,16 +145,5 @@ export class BlogComponent implements OnInit {
     this.editMode = false;
     this.currentBlogId = null;
     this.blogForm.reset();
-  }
-
-  fetchPostDetails(): void {
-    // Fetch post details using the postId
-    // For simplicity, hardcode it here or fetch it from a backend
-    this.postDetails = {
-      title: "I'm not creative, Should I take this course?",
-      content: "This is where the full content of the blog post would go...",
-      date: "Sept. 17, 2020",
-      author: "Admin"
-    };
   }
 }

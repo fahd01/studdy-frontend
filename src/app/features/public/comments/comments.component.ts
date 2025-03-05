@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommentService } from 'src/app/features/public/comments/comments.service';
+import { noBadWordsValidator } from './no-bad-words.validator';
 
 @Component({
   selector: 'app-comment',
@@ -12,7 +13,7 @@ export class CommentComponent {
 
   constructor(private fb: FormBuilder, private commentService: CommentService) {
     this.commentForm = this.fb.group({
-      content: ['', [Validators.required]],
+      content: ['', [Validators.required, noBadWordsValidator()]],
       blogId: ['', [Validators.required]],
       userId: ['', [Validators.required]],
     });

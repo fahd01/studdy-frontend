@@ -16,7 +16,7 @@ import { AdminFooterComponent } from './layouts/admin-layout/admin-footer/admin-
 import { HomeComponent } from './features/public/home/home.component';
 import { DashboardComponent } from './features/admin/dashboard/dashboard.component';
 import { RegisterComponent } from './features/public/register/register.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BlogComponent } from './features/public/blog/blog.component';
 import { ContactComponent } from './features/public/contact/contact.component';
 import { AdminSidebarComponent } from './layouts/admin-layout/admin-sidebar/admin-sidebar.component';
@@ -26,6 +26,22 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommentComponent } from './features/public/comments/comments.component';
 import { BlogDetailsComponent } from './features/public/blog-details/blog-details.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
+
+
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { CalendarComponent } from './features/admin/calendar/calendar.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+
+
+
 
 
 @NgModule({
@@ -46,7 +62,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AdminSidebarComponent,
     UserComponent,
     CommentComponent,
-    BlogDetailsComponent
+    BlogDetailsComponent,
+    CalendarComponent
    
     
 
@@ -56,9 +73,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    MatButtonModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    FormsModule,
+    CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory })
     
    
     
