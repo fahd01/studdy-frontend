@@ -26,11 +26,21 @@
                             <div class="form-group">
                                 <label for="course-title">Title</label>
                                 <input formControlName="title" type="text" class="form-control" id="course-title" placeholder="Course Title" />
+                                <div class="invalid-feedback"
+                                        *ngIf="courseForm.controls?.['title']!.invalid && courseForm.controls?.['title']!.touched"
+                                >
+                                    Please Enter Course Title
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="course-title">Course Description</label>
                                 <textarea formControlName="description" class="form-control" id="course-description" rows="4"
                                 ></textarea>
+                                <div class="invalid-feedback"
+                                     *ngIf="courseForm.controls?.['description']!.invalid && courseForm.controls?.['description']!.touched"
+                                >
+                                    Please Enter Course Description
+                                </div>
                             </div>
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Course Level</label>
@@ -40,6 +50,11 @@
                                             <option value="INTERMEDIATE">INTERMEDIATE</option>
                                             <option value="ADVANCED">ADVANCED</option>
                                         </select>
+                                        <div class="invalid-feedback"
+                                             *ngIf="courseForm.controls?.['level']!.invalid && courseForm.controls?.['level']!.touched"
+                                        >
+                                            Please Select a Course Level
+                                        </div>
                                     </div>
                                 </div>
                             <div class="form-group">
@@ -51,6 +66,11 @@
                                     <div class="input-group-append">
                                         <span class="input-group-text">.00</span>
                                     </div>
+                                    <div class="invalid-feedback"
+                                         *ngIf="courseForm.controls?.['price']!.invalid && courseForm.controls?.['price']!.touched"
+                                    >
+                                        Please Enter a Positive Number for Course Price
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -59,15 +79,25 @@
                                     <div class="input-group-append">
                                         <span class="input-group-text">Weeks</span>
                                     </div>
+                                    <div class="invalid-feedback"
+                                         *ngIf="courseForm.controls?.['duration']!.invalid && courseForm.controls?.['duration']!.touched"
+                                    >
+                                        Please Enter a Positive Number for Course Duration
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Category</label>
                                 <div class="col-sm-9">
-                                    <select formControlName="level" class="form-control">
+                                    <select formControlName="category" class="form-control">
                                         <option *ngFor="let category of categories" value="{{category.id}}">{{ category.name }}</option>
                                     </select>
+                                    <div class="invalid-feedback"
+                                         *ngIf="courseForm.controls?.['category']!.invalid && courseForm.controls?.['category']!.touched"
+                                    >
+                                        Please Select a Course Category
+                                    </div>
                                 </div>
                             </div>
 

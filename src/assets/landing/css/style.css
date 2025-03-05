@@ -8590,7 +8590,7 @@ h1, h2, h3, h4, h5,
 
 .hero-wrap {
   width: 100%;
-  min-height: 100vh; /* Assure que la section prend toute la hauteur de l'écran */
+  min-height: 600px; /* Assure que la section prend toute la hauteur de l'écran */
   display: flex;
   align-items: center;
   justify-content: center;

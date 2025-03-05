@@ -28,7 +28,6 @@ const routes: Routes = [
       { path: 'course/live', component: LiveCourseComponent },
       { path: 'course/:id', component: CourseDetailComponent },
       { path: 'about', component: AboutComponent },
-      // TODO remove { path: 'blog/:id', component: BlogComponent },
       { path: '', redirectTo: '/home', pathMatch: 'full' }
     
     ]

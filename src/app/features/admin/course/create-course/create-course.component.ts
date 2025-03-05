@@ -41,9 +41,9 @@ export class CreateCourseComponent implements OnInit{
       title: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
       level: new FormControl('', Validators.required),
-      // TODO add HTML validation
       duration: new FormControl<number>(7, [Validators.required, Validators.min(1)]),
       price: new FormControl<number>(50, [Validators.required, Validators.min(1)]),
+      category: new FormControl('', Validators.required),
     });
 
     if (this.id) {
@@ -65,6 +65,7 @@ export class CreateCourseComponent implements OnInit{
       id: this.id ? this.id : null ,
       status: this.id ? this.courseToEdit.status : 'PUBLISHED',
       thumbnailUrl: this.id ? this.courseToEdit.thumbnailUrl : null,
+      // TODO assign category to course on create / edit
       category: this.id ? this.courseToEdit.category : null
     } as Course
 

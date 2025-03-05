@@ -69,10 +69,20 @@
                     <div class="form-group">
                         <label for="name">Category Name</label>
                         <input type="text" id="name" class="form-control" formControlName="name">
+                        <div class="invalid-feedback"
+                             *ngIf="categoryForm.controls?.['name']!.invalid && categoryForm.controls?.['name']!.touched"
+                        >
+                            Please Enter Category Name
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="description">Description</label>
                         <textarea id="description" class="form-control" formControlName="description"></textarea>
+                        <div class="invalid-feedback"
+                             *ngIf="categoryForm.controls?.['description']!.invalid && categoryForm.controls?.['description']!.touched"
+                        >
+                            Please Enter Category Description
+                        </div>
                     </div>
                     <div class="modal-footer d-flex justify-content-end gap-2">
                         <button type="submit" class="btn btn-success" [disabled]="categoryForm.invalid">{{ modalInfo.button }}</button>
