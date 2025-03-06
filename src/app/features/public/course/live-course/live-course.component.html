@@ -3,8 +3,12 @@
     <div class="container">
         <div class="row no-gutters slider-text align-items-end justify-content-center">
             <div class="col-md-9 ftco-animate pb-5 text-center">
-                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="fa fa-chevron-right"></i></a></span> <span>Course Lists <i class="fa fa-chevron-right"></i></span></p>
-                <h1 class="mb-0 bread">Course Lists</h1>
+                <p class="breadcrumbs">
+                    <span class="mr-2"><a href="index.html">Home <i class="fa fa-chevron-right"></i></a></span>
+                    <span class="mr-2"><a routerLink="/course/list">Courses List <i class="fa fa-chevron-right"></i></a></span>
+                    <span>Live Course <i class="fa fa-chevron-right"></i></span>
+                </p>
+                <h1 class="mb-0 bread">Conference</h1>
             </div>
         </div>
     </div>
@@ -17,12 +21,9 @@
 
                 <div class="video-conference">
                     <h4>Live Video Conference</h4>
-                    <!--
-                    TODO Show start | join buttons depending on the logged-in user
-                    -->
                     <div class="d-flex gap-2">
-                        <button class="btn btn-primary" (click)="startConference()">Start Conference</button>
-                        <button class="btn btn-secondary" (click)="joinConference()">Join Conference</button>
+                        <button *ngIf="isInstructor()" class="btn btn-primary" (click)="startConference()">Start Conference</button>
+                        <button *ngIf="isStudent() && isInstructor() == false" class="btn btn-secondary" (click)="joinConference()">Join Conference</button>
                         <button class="btn btn-danger" (click)="endConference()">End Conference</button>
                     </div>
                     <div id="jitsi-container" class="mt-3"></div>

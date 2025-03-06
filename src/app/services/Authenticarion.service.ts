@@ -5,10 +5,11 @@ import { Injectable } from '@angular/core';
 })
 export class AuthenticationService {
   public getCurrentUser(): User | null {
-    return new User(1, 'Test User', 'Test User', [Role.INSTRUCTOR])
+    return new User(1, 'Fahd', 'Elgayed (Test)', [Role.INSTRUCTOR])
   }
 }
 
+// TODO move to models
 export class User {
   id: number;
   firstName: string;

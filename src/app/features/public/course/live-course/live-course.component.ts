@@ -1,6 +1,6 @@
 import {AfterViewInit, Component} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {AuthenticationService} from "../../../../services/Authenticarion.service";
+import {AuthenticationService, Role} from "../../../../services/Authenticarion.service";
 
 // Jitsi server
 const JITSI_SERVER_DOMAIN: string = 'meet.jit.si';
@@ -95,5 +95,13 @@ export class LiveCourseComponent  implements AfterViewInit {
       this.api = null;
       console.log("Conference ended");
     }
+  }
+
+  isStudent() {
+    return this.authenticationService.getCurrentUser()?.roles.includes(Role.STUDENT)
+  }
+
+  isInstructor() {
+    return this.authenticationService.getCurrentUser()?.roles.includes(Role.INSTRUCTOR)
   }
 }
