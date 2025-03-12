@@ -29,6 +29,12 @@ import { LiveCourseComponent } from './features/public/course/live-course/live-c
 import {QuizManagementComponent} from "./features/admin/course/quiz-management/quiz-management.component";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {AuthenticationService} from "./services/Authenticarion.service";
+import {MatCardModule} from "@angular/material/card";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {MatDividerModule} from "@angular/material/divider";
+import {MatRadioModule} from "@angular/material/radio";
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -54,16 +60,22 @@ import {AuthenticationService} from "./services/Authenticarion.service";
     QuizManagementComponent,
     LiveCourseComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    ListComponent,
-    BrowserAnimationsModule
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        ListComponent,
+        BrowserAnimationsModule,
+        MatCardModule,
+        MatFormFieldModule,
+        MatAutocompleteModule,
+        MatDividerModule,
+        MatRadioModule,
+        MatIconModule
 
 
-  ],
+    ],
   providers: [
       provideHttpClient(),
       CourseService,
