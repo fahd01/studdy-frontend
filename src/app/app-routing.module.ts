@@ -14,6 +14,10 @@ import {CourseTableViewComponent} from "./features/admin/course/table-view/cours
 import {CategoryManagementComponent} from "./features/admin/course/category-management/category-management.component";
 import {LiveCourseComponent} from "./features/public/course/live-course/live-course.component";
 import {QuizManagementComponent} from "./features/admin/course/quiz-management/quiz-management.component";
+import {CreateModuleComponent} from "./features/admin/course/module-management/create-module/create-module.component";
+import {
+  CourseStatisticsComponent
+} from "./features/admin/course/statistics/course-statistics/course-statistics.component";
 
 
 const routes: Routes = [
@@ -42,7 +46,9 @@ const routes: Routes = [
       { path: 'course/table-view', component: CourseTableViewComponent },
       { path: 'course/category', component: CategoryManagementComponent },
       { path: 'course/category/edit/:id', component: CategoryManagementComponent },
-      { path: 'course/quiz', component: QuizManagementComponent }
+      { path: 'course/quiz', component: QuizManagementComponent },
+      { path: 'course/statistics', component: CourseStatisticsComponent },
+      { path: 'module/create', component: CreateModuleComponent }
     ]
   }
 

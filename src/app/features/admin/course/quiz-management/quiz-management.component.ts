@@ -4,6 +4,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Quiz} from "../../../../models/Quiz.model";
 import {Question} from "../../../../models/Question.model";
 
+// TODO add input validation (look at course creation component)
+
 @Component({
   selector: 'app-quiz-management',
   templateUrl: './quiz-management.component.html',

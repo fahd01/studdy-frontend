@@ -15,7 +15,7 @@ import { AdminFooterComponent } from './layouts/admin-layout/admin-footer/admin-
 import { HomeComponent } from './features/public/home/home.component';
 import { DashboardComponent } from './features/admin/dashboard/dashboard.component';
 import { RegisterComponent } from './features/public/register/register.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BlogComponent } from './features/public/blog/blog.component';
 import { ContactComponent } from './features/public/contact/contact.component';
 import { AdminSidebarComponent } from './layouts/admin-layout/admin-sidebar/admin-sidebar.component';
@@ -35,11 +35,13 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatDividerModule} from "@angular/material/divider";
 import {MatRadioModule} from "@angular/material/radio";
 import {MatIconModule} from "@angular/material/icon";
+import { CreateModuleComponent } from './features/admin/course/module-management/create-module/create-module.component';
+import { CourseStatisticsComponent } from './features/admin/course/statistics/course-statistics/course-statistics.component';
 
 @NgModule({
   declarations: [
-    AppComponent, 
-    
+    AppComponent,
+
     LandingLayoutComponent,
     LandingNavbarComponent,
     LandingFooterComponent,
@@ -58,7 +60,9 @@ import {MatIconModule} from "@angular/material/icon";
     CourseTableViewComponent,
     CategoryManagementComponent,
     QuizManagementComponent,
-    LiveCourseComponent
+    LiveCourseComponent,
+    CreateModuleComponent,
+    CourseStatisticsComponent
   ],
     imports: [
         BrowserModule,
@@ -72,7 +76,8 @@ import {MatIconModule} from "@angular/material/icon";
         MatAutocompleteModule,
         MatDividerModule,
         MatRadioModule,
-        MatIconModule
+        MatIconModule,
+        FormsModule
 
 
     ],

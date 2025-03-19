@@ -85,6 +85,11 @@ export class CourseService {
   public getCategory(id: number): Observable<Category> {
     return this.http.get<Category>(`${courseManagementApiProxyTarget}/categories/${id}`);
   }
+
+  /******* Statistics ************/
+  public getStatistics(): Observable<any> {
+    return this.http.get(`${courseManagementApiProxyTarget}/courses/statistics`);
+  }
 }
 
 
