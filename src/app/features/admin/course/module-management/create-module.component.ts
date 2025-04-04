@@ -1,8 +1,13 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {FileUploadService} from "../../../../../services/file-upload.service";
+import {FileUploadService} from "../../../../services/file-upload.service";
 import {HttpResponse} from "@angular/common/http";
 import {ArrayUtils, StringUtils} from 'turbocommons-ts';
+import {Course} from "../../../../models/Course.model";
+import {CourseService} from "../../../../services/course-managment/course.service";
+import {ActivatedRoute} from "@angular/router";
+import {Module} from "../../../../models/Module.model";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-create-module',
@@ -10,29 +15,49 @@ import {ArrayUtils, StringUtils} from 'turbocommons-ts';
   styleUrls: ['./create-module.component.css']
 })
 export class CreateModuleComponent {
-  id?: number;
   moduleForm!: FormGroup
   //courseToEdit!: Course
-  page = {
-    title: "Create Module",
-    breadcrumb: "Create",
-    cardTitle: "Module Creation Form",
-    cardDescription: "Fill details for your module"
-  }
 
+  courseIdPathParam!: number | null;
+  courses: Course[] = []
   selectedFiles?: FileList;
   externalLinks: URL[] = [];
   message: string[] = [];
 
-  constructor(private uploadService: FileUploadService) {}
+  modules: Module[] = []
+
+  @ViewChild('createModuleModalContent') modalContent: any
+
+  constructor(
+      private uploadService: FileUploadService,
+      private modalService: NgbModal,
+      private activatedRoute: ActivatedRoute,
+      private courseService: CourseService
+  ) {}
 
   ngOnInit(): void {
+    // TODO make local ?
+    this.courseIdPathParam = this.activatedRoute.snapshot.params['id'];
+    console.log(this.courseIdPathParam)
+
     this.moduleForm = new FormGroup({
+      courseId: new FormControl('', Validators.required),
       title: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
       externalLink: new FormControl('')
       // TODO add the rest of form elements
     });
+
+    this.courseService.fetchAllCourses().subscribe({
+      next: data => {
+        this.courses = data
+        if (this.courseIdPathParam) {
+          let courseIdFormControl = `${this.courseIdPathParam} - ${data.filter(couse => couse.id == this.courseIdPathParam)[0].title}`
+          this.moduleForm.patchValue({courseId: courseIdFormControl});
+        }
+      },
+      error: error => console.error("Error fetching course", error)
+    })
   }
 
   addExternalLink(event: Event){
@@ -94,21 +119,36 @@ export class CreateModuleComponent {
     }
   }
 
-  uploadFiles(): void {
-    this.message = [];
+  addModule(modal: any) {
+    let module = {
+      ... this.moduleForm.value,
+      attachments: this.selectedFiles ? Array.from(this.selectedFiles!) : [],
+      externalLinks: this.externalLinks
+    } as Module
+    this.modules.push(module)
+    modal.close()
+    this.clearDefineModuleModal()
+  }
 
-    if (this.selectedFiles) {
-      for (let i = 0; i < this.selectedFiles.length; i++) {
-        this.upload(this.selectedFiles[i]);
-      }
-      this.selectedFiles = undefined;
+  // TODO directly issue delete request to backend ?
+  deleteModule(index: number) {
+    if(confirm(`Are you sure you want to delete this module`)) {
+      console.log("Module to delete")
+      console.log(index)
+      this.modules = this.modules.slice(index, 1);
+      this.modules = []
     }
   }
 
+  /* TODO For bulk module handling
+  save(){
+    const selectedCourseValue = this.moduleForm.value.courseId;
+    const courseIdOnly = selectedCourseValue.split(" - ")[0];
 
-  saveModule(){
-
+    console.log('this.modules')
+    console.log(this.modules)
   }
+  */
 
   humanReadableFileSize(size: number | undefined) {
     if (!size) return '0 Bytes'
@@ -118,6 +158,15 @@ export class CreateModuleComponent {
     return `${size.toFixed(1)} ${units[i]}`;
   }
 
+  openDefineModuleModal(content: any) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
+  }
+
+  clearDefineModuleModal(){
+    this.moduleForm.reset()
+    this.externalLinks = []
+    this.selectedFiles = new DataTransfer().files;
+  }
+
   protected readonly StringUtils = StringUtils;
-  protected readonly ArrayUtils = ArrayUtils;
 }

@@ -35,7 +35,7 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatDividerModule} from "@angular/material/divider";
 import {MatRadioModule} from "@angular/material/radio";
 import {MatIconModule} from "@angular/material/icon";
-import { CreateModuleComponent } from './features/admin/course/module-management/create-module/create-module.component';
+import { CreateModuleComponent } from './features/admin/course/module-management/create-module.component';
 import { CourseStatisticsComponent } from './features/admin/course/statistics/course-statistics/course-statistics.component';
 
 @NgModule({
