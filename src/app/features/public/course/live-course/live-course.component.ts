@@ -16,13 +16,17 @@ export class LiveCourseComponent  implements AfterViewInit {
   api: any;
 
   constructor(
-      private route: ActivatedRoute,
+      private activatedRoute: ActivatedRoute,
       private authenticationService: AuthenticationService
   ) {}
 
   ngAfterViewInit() {
     this.loadJitsiScript();
-    this.route.queryParams.subscribe(params => {
+
+    const courseId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
+    const moduleId = Number(this.activatedRoute.snapshot.paramMap.get('moduleId'));
+
+    this.activatedRoute.queryParams.subscribe(params => {
       // Get room name from URL or default
       this.roomName = params['room'] || 'CourseRoom-123';
     });

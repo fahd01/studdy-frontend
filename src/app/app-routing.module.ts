@@ -29,7 +29,7 @@ const routes: Routes = [
       { path: 'blog', component: BlogComponent },
       { path: 'contact', component: ContactComponent },
       { path: 'course/list', component: ListComponent },
-      { path: 'course/live', component: LiveCourseComponent },
+      { path: 'course/:id/module/:moduleId/live', component: LiveCourseComponent },
       { path: 'course/:id', component: CourseDetailComponent },
       { path: 'about', component: AboutComponent },
       { path: '', redirectTo: '/home', pathMatch: 'full' }

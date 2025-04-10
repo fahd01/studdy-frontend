@@ -6,9 +6,7 @@ import {Course} from "../../models/Course.model";
 import {Category} from "../../models/Category.model";
 import {AuthenticationService} from "../Authenticarion.service";
 import {Module} from "../../models/Module.model";
-
-// TODO use .env for configuring API urls
-const courseManagementApiProxyTarget = '/course-management'
+import {ApiEndpoints} from "../api-endpoints";
 
 @Injectable({
   providedIn: 'root'
@@ -21,23 +19,23 @@ export class CourseService {
   ) {}
 
   public get(id: number): Observable<Course> {
-    return this.http.get<Course>(`${courseManagementApiProxyTarget}/courses/${id}`);
+    return this.http.get<Course>(`${ApiEndpoints.COURSE_MANAGEMENT_API_PATH}/courses/${id}`);
   }
 
   public create(course: Course): Observable<any> {
-    return this.http.post(`${courseManagementApiProxyTarget}/courses`, course)
+    return this.http.post(`${ApiEndpoints.COURSE_MANAGEMENT_API_PATH}/courses`, course)
   }
 
   public update(course: Course): Observable<any> {
-    return this.http.put(`${courseManagementApiProxyTarget}/courses`, course)
+    return this.http.put(`${ApiEndpoints.COURSE_MANAGEMENT_API_PATH}/courses`, course)
   }
 
   public delete(id: number): Observable<any> {
-    return this.http.delete(`${courseManagementApiProxyTarget}/courses/${id}`);
+    return this.http.delete(`${ApiEndpoints.COURSE_MANAGEMENT_API_PATH}/courses/${id}`);
   }
 
   public fetchCourseDetails(id: number): Observable<Course> {
-    return this.http.get<Course>(`${courseManagementApiProxyTarget}/courses/${id}`);
+    return this.http.get<Course>(`${ApiEndpoints.COURSE_MANAGEMENT_API_PATH}/courses/${id}`);
   }
 
   public filterCourses(
@@ -53,52 +51,56 @@ export class CourseService {
     console.log(onlyEnrolledCourses)
     let enrolledUserId:string = currentUserId && onlyEnrolledCourses ? String(currentUserId) : ''
     let queryParameters = `categoryId=${categoryIds.join(",")}&level=${levels.join(",")}&query=${searchQuery}&enrolledUserId=${enrolledUserId}&page=${page}&size=${size}`
-    return this.http.get<PaginatedResponse<Course>>(`${courseManagementApiProxyTarget}/courses/filter?${queryParameters}`);
+    return this.http.get<PaginatedResponse<Course>>(`${ApiEndpoints.COURSE_MANAGEMENT_API_PATH}/courses/filter?${queryParameters}`);
   }
 
   public fetchAllCourses(): Observable<Course[]> {
-    return this.http.get<Course[]>(`${courseManagementApiProxyTarget}/courses`);
+    return this.http.get<Course[]>(`${ApiEndpoints.COURSE_MANAGEMENT_API_PATH}/courses`);
   }
 
   public enroll(courseId: number): Observable<any> {
     let currentUserId = this.authenticationService.getCurrentUser()?.id;
-    return this.http.post(`${courseManagementApiProxyTarget}/courses/${courseId}/users/${currentUserId}`, null);
+    return this.http.post(`${ApiEndpoints.COURSE_MANAGEMENT_API_PATH}/courses/${courseId}/users/${currentUserId}`, null);
   }
 
   public isEnrolled(courseId: number): Observable<any> {
     let currentUserId = this.authenticationService.getCurrentUser()?.id;
-    return this.http.get(`${courseManagementApiProxyTarget}/courses/${courseId}/users/${currentUserId}/enrollments`)
+    return this.http.get(`${ApiEndpoints.COURSE_MANAGEMENT_API_PATH}/courses/${courseId}/users/${currentUserId}/enrollments`)
   }
 
   /***** Modules **********/
-  public saveModule(courseId: number, module: Module): Observable<any> {
-    return this.http.post(`${courseManagementApiProxyTarget}/courses/${courseId}/modules`, module)
+  public getModules(courseId: number): Observable<Module[]> {
+    return this.http.get<Module[]>(`${ApiEndpoints.COURSE_MANAGEMENT_API_PATH}/courses/${courseId}/modules`)
+  }
+
+  public saveModule(courseId: number, module: Module): Observable<Module> {
+    return this.http.post<Module>(`${ApiEndpoints.COURSE_MANAGEMENT_API_PATH}/courses/${courseId}/modules`, module)
   }
 
   public deleteModule(courseId: number, moduleId: number): Observable<any> {
-    return this.http.delete(`${courseManagementApiProxyTarget}/courses/${courseId}/modules/${moduleId}`)
+    return this.http.delete(`${ApiEndpoints.COURSE_MANAGEMENT_API_PATH}/courses/${courseId}/modules/${moduleId}`)
   }
 
   /***** Categories *******/
   public fetchAllCategories(): Observable<Category[]> {
-    return this.http.get<Category[]>(`${courseManagementApiProxyTarget}/categories`);
+    return this.http.get<Category[]>(`${ApiEndpoints.COURSE_MANAGEMENT_API_PATH}/categories`);
   }
 
   public createCategory(category: Category): Observable<any> {
-    return this.http.post(`${courseManagementApiProxyTarget}/categories`, category)
+    return this.http.post(`${ApiEndpoints.COURSE_MANAGEMENT_API_PATH}/categories`, category)
   }
 
   public deleteCategory(id: number): Observable<any> {
-    return this.http.delete(`${courseManagementApiProxyTarget}/categories/${id}`);
+    return this.http.delete(`${ApiEndpoints.COURSE_MANAGEMENT_API_PATH}/categories/${id}`);
   }
 
   public getCategory(id: number): Observable<Category> {
-    return this.http.get<Category>(`${courseManagementApiProxyTarget}/categories/${id}`);
+    return this.http.get<Category>(`${ApiEndpoints.COURSE_MANAGEMENT_API_PATH}/categories/${id}`);
   }
 
   /******* Statistics ************/
   public getStatistics(): Observable<any> {
-    return this.http.get(`${courseManagementApiProxyTarget}/courses/statistics`);
+    return this.http.get(`${ApiEndpoints.COURSE_MANAGEMENT_API_PATH}/courses/statistics`);
   }
 }
 

@@ -23,8 +23,7 @@
                             <div class="form-group">
                                 <label for="courses">Select course to assign modules to</label>
                                 <div class="form-inline">
-                                    <!-- TODO disable for edit -->
-                                    <input formControlName="courseId" list="courses" name="courses"
+                                    <input [readOnly]="courseIdPathParam" list="courses" formControlName="courseId" name="courses"
                                            class="form-control col-sm-6 custom-select custom-select-sm">
                                     <datalist id="courses">
                                         <option *ngFor="let course of courses"
@@ -43,10 +42,10 @@
                             </div>
 
                             <div *ngFor="let module of modules; let i = index">
-                                <div class="card">
+                                <div class="card module-card">
                                     <div class="card-header">
                                         {{ module.title }}
-                                        <button (click)="deleteModule(i)"
+                                        <button (click)="deleteModule(module.id!)"
                                                 type="button"
                                                 class="btn btn-inverse-danger btn-icon float-right"
                                                 title="Delete this module">
@@ -54,7 +53,7 @@
                                         </button>
                                     </div>
                                     <div class="card-body">
-                                        <p class="card-text">{{ module.description | slice:0:50 }}</p>
+                                        <p class="card-text">{{ ( module.description | slice:0:350 ) + (module.description.length > 350 ? '...' : '') }}</p>
                                     </div>
 
                                     <div class="card" *ngIf="module.attachments.length > 0">
@@ -62,9 +61,9 @@
                                         <ul class="list-group list-group-flush">
                                             <li class="list-group-item"
                                                 *ngFor="let attachment of module.attachments"
-                                                [title]="'Name: ' + attachment.name + '\n' + 'Type: ' + attachment.type + '\n' +'Size: ' + attachment.size">
-                                                {{ attachment.name }}; {{ attachment.type }}
-                                                ; {{ humanReadableFileSize(attachment.size) }}
+                                                [title]="'Name: ' + attachment.name + '\n' + 'Type: ' + attachment.contentType + '\n' +'Size: ' + attachment.content.length">
+                                                {{ attachment.name }}; {{ attachment.contentType }}
+                                                ; {{ humanReadableFileSize((attachment.content.length * 3) / 4) }}
                                             </li>
                                         </ul>
                                     </div>

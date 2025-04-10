@@ -2,12 +2,13 @@ import {Component, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {FileUploadService} from "../../../../services/file-upload.service";
 import {HttpResponse} from "@angular/common/http";
-import {ArrayUtils, StringUtils} from 'turbocommons-ts';
+import {StringUtils} from 'turbocommons-ts';
 import {Course} from "../../../../models/Course.model";
 import {CourseService} from "../../../../services/course-managment/course.service";
 import {ActivatedRoute} from "@angular/router";
 import {Module} from "../../../../models/Module.model";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {catchError, forkJoin, of} from "rxjs";
 
 @Component({
   selector: 'app-create-module',
@@ -18,7 +19,7 @@ export class CreateModuleComponent {
   moduleForm!: FormGroup
   //courseToEdit!: Course
 
-  courseIdPathParam!: number | null;
+  courseIdPathParam!: number;
   courses: Course[] = []
   selectedFiles?: FileList;
   externalLinks: URL[] = [];
@@ -38,16 +39,16 @@ export class CreateModuleComponent {
   ngOnInit(): void {
     // TODO make local ?
     this.courseIdPathParam = this.activatedRoute.snapshot.params['id'];
-    console.log(this.courseIdPathParam)
+    this.loadModules(this.courseIdPathParam!);
 
     this.moduleForm = new FormGroup({
       courseId: new FormControl('', Validators.required),
       title: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
       externalLink: new FormControl('')
-      // TODO add the rest of form elements
     });
 
+    // TODO shift from loading all courses to loading a single course by id
     this.courseService.fetchAllCourses().subscribe({
       next: data => {
         this.courses = data
@@ -57,6 +58,13 @@ export class CreateModuleComponent {
         }
       },
       error: error => console.error("Error fetching course", error)
+    })
+  }
+
+  loadModules(courseId: number) {
+    return this.courseService.getModules(courseId).subscribe({
+      next: data => this.modules = data,
+      error: error => console.error(`Error fetching modules for course ${courseId}`)
     })
   }
 
@@ -97,6 +105,7 @@ export class CreateModuleComponent {
     return list.files
   }
 
+  /*
   upload(file: File): void {
     if (file) {
       this.uploadService.upload(file).subscribe({
@@ -118,25 +127,42 @@ export class CreateModuleComponent {
       });
     }
   }
+  */
 
   addModule(modal: any) {
     let module = {
       ... this.moduleForm.value,
-      attachments: this.selectedFiles ? Array.from(this.selectedFiles!) : [],
+      files: this.selectedFiles ? Array.from(this.selectedFiles!) : [],
       externalLinks: this.externalLinks
     } as Module
-    this.modules.push(module)
+    this.persistModuleAddition(this.courseIdPathParam!, module)
+    // TODO move modal close and clean up inside persistModuleAddition
     modal.close()
     this.clearDefineModuleModal()
   }
 
-  // TODO directly issue delete request to backend ?
-  deleteModule(index: number) {
+  persistModuleAddition(courseId: number, module: Module) {
+    // Save module, when successful upload module attachments
+    this.courseService.saveModule(courseId, module).subscribe({
+      next: data => {
+        const uploads = module.files.map(file => this.uploadService.upload(courseId, data.id!, file).pipe(
+            catchError(error => { console.error(`Error uploading file: ${file.name}`, error); return of(null);})
+        ));
+        forkJoin(uploads).subscribe({
+          next: results => this.loadModules(courseId),
+          error: err => console.error("Unexpected error during uploads", err)
+        });
+      },
+      error: error => console.error("Error occurred while saving module to backend")
+    })
+  }
+
+  deleteModule(moduleId: number) {
     if(confirm(`Are you sure you want to delete this module`)) {
-      console.log("Module to delete")
-      console.log(index)
-      this.modules = this.modules.slice(index, 1);
-      this.modules = []
+      this.courseService.deleteModule(this.courseIdPathParam, moduleId).subscribe({
+        next: data => this.loadModules(this.courseIdPathParam),
+        error: error => console.error(`Error deleting module ${moduleId}`, error)
+      })
     }
   }
 
@@ -163,7 +189,9 @@ export class CreateModuleComponent {
   }
 
   clearDefineModuleModal(){
+    let courseId = this.moduleForm.get('courseId')?.value;
     this.moduleForm.reset()
+    this.moduleForm.patchValue({ courseId: courseId });
     this.externalLinks = []
     this.selectedFiles = new DataTransfer().files;
   }

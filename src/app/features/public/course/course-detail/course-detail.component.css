@@ -1,3 +1,23 @@
+.tabs .nav-link.active {
+    background-color: var(--surface-color);
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+.tabs .details h3 {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.tabs .details p {
+    color: color-mix(in srgb, #444444, transparent 20%);
+}
+
+.fst-italic {
+    font-style: italic !important;
+}
+
 /*--------------------------------------------------------------
 # Courses Course Details Section
 --------------------------------------------------------------*/

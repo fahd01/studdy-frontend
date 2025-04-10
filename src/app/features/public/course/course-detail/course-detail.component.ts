@@ -35,4 +35,8 @@ export class CourseDetailComponent {
     })
   }
 
+  activeModule = 0
+  showModuleDetails(moduleId: number) {
+    this.activeModule = moduleId
+  }
 }

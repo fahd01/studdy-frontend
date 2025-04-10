@@ -1,4 +1,5 @@
 import {Category} from "./Category.model";
+import {Module} from "./Module.model";
 
 export class Course {
     id: number | null;
@@ -10,9 +11,10 @@ export class Course {
     duration: number;
     level: string;
     category: Category | null;
+    modules: Module[] | null;
 
 
-    constructor(id: number, title: string, description: string, thumbnailUrl: string, status: string, price: number, duration: number, level: string, category: Category) {
+    constructor(id: number, title: string, description: string, thumbnailUrl: string, status: string, price: number, duration: number, level: string, category: Category, modules: Module[]) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -22,5 +24,6 @@ export class Course {
         this.duration = duration;
         this.level = level;
         this.category = category;
+        this.modules = modules;
     }
 }
