@@ -1,6 +1,8 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {AuthenticationService, Role} from "../../../../services/Authenticarion.service";
+import {CourseService} from "../../../../services/course-managment/course.service";
+import {Module} from "../../../../models/Module.model";
 
 // Jitsi server
 const JITSI_SERVER_DOMAIN: string = 'meet.jit.si';
@@ -10,21 +12,31 @@ const JITSI_SERVER_DOMAIN: string = 'meet.jit.si';
   templateUrl: './live-course.component.html',
   styleUrls: ['./live-course.component.css']
 })
-export class LiveCourseComponent  implements AfterViewInit {
+export class LiveCourseComponent  implements AfterViewInit, OnInit {
 
   roomName: string = ''; // Room name
   api: any;
+  module!: Module
+
 
   constructor(
       private activatedRoute: ActivatedRoute,
-      private authenticationService: AuthenticationService
+      private authenticationService: AuthenticationService,
+      private courseService: CourseService
   ) {}
+
+  ngOnInit() {
+    const courseId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
+    const moduleId = Number(this.activatedRoute.snapshot.paramMap.get('moduleId'));
+
+    this.courseService.getModule(courseId, moduleId).subscribe({
+      next: data => this.module = data,
+      error: error => console.error(`Error occurred while fetching module ${moduleId}`, error)
+    })
+  }
 
   ngAfterViewInit() {
     this.loadJitsiScript();
-
-    const courseId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
-    const moduleId = Number(this.activatedRoute.snapshot.paramMap.get('moduleId'));
 
     this.activatedRoute.queryParams.subscribe(params => {
       // Get room name from URL or default
@@ -107,5 +119,13 @@ export class LiveCourseComponent  implements AfterViewInit {
 
   isInstructor() {
     return this.authenticationService.getCurrentUser()?.roles.includes(Role.INSTRUCTOR)
+  }
+
+  humanReadableFileSize(size: number | undefined) {
+    if (!size) return '0 Bytes'
+    let units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+    let i = 0;
+    while(size >= 1024) { size /= 1024; ++i;}
+    return `${size.toFixed(1)} ${units[i]}`;
   }
 }

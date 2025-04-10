@@ -69,6 +69,10 @@ export class CourseService {
   }
 
   /***** Modules **********/
+  public getModule(courseId: number, moduleId: number): Observable<Module> {
+    return this.http.get<Module>(`${ApiEndpoints.COURSE_MANAGEMENT_API_PATH}/courses/${courseId}/modules/${moduleId}`)
+  }
+
   public getModules(courseId: number): Observable<Module[]> {
     return this.http.get<Module[]>(`${ApiEndpoints.COURSE_MANAGEMENT_API_PATH}/courses/${courseId}/modules`)
   }
@@ -79,6 +83,16 @@ export class CourseService {
 
   public deleteModule(courseId: number, moduleId: number): Observable<any> {
     return this.http.delete(`${ApiEndpoints.COURSE_MANAGEMENT_API_PATH}/courses/${courseId}/modules/${moduleId}`)
+  }
+
+  public getCompletedModules(courseId: number): Observable<number[]> {
+    let currentUserId = this.authenticationService.getCurrentUser()?.id;
+    return this.http.get<number[]>(`${ApiEndpoints.COURSE_MANAGEMENT_API_PATH}/courses/${courseId}/users/${currentUserId}/completions`)
+  }
+
+  public getCompletionProgress (courseId: number): Observable<number> {
+    let currentUserId = this.authenticationService.getCurrentUser()?.id;
+    return this.http.get<number>(`${ApiEndpoints.COURSE_MANAGEMENT_API_PATH}/courses/${courseId}/users/${currentUserId}/progress`)
   }
 
   /***** Categories *******/

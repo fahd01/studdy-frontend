@@ -1,3 +1,7 @@
+.module-completion-status {
+    margin-left: 20px;
+}
+
 .tabs .nav-link.active {
     background-color: var(--surface-color);
     color: var(--accent-color);
