@@ -14,110 +14,20 @@
 <section class="ftco-section bg-light">
   <div class="container">
     <div class="row d-flex">
-      <div class="col-lg-4 ftco-animate">
+      <div *ngFor="let blog of blogs" class="col-lg-4 ftco-animate">
         <div class="blog-entry">
-          <a href="#" class="block-20" style="background-image: url('assets/dashboard/images/image_1.jpg');"></a>
+          <a href="#" class="block-20" [ngStyle]="{'background-image': 'url(assets/dashboard/images/image_' + blog.id + '.jpg)'}"></a>
           <div class="text d-block">
             <div class="meta">
               <p>
-                <a href="#"><span class="fa fa-calendar mr-2"></span>Sept. 17, 2020</a>
-                <a href="#"><span class="fa fa-user mr-2"></span>Admin</a>
+                <a href="#"><span class="fa fa-calendar mr-2"></span>{{ blog.createdAt | date:'MMM. d, y' }}</a>
+                <a href="#"><span class="fa fa-user mr-2"></span>{{ blog.author }}</a>
                 <a href="#" class="meta-chat"><span class="fa fa-comment mr-2"></span> 3</a>
               </p>
             </div>
-            <h3 class="heading"><a href="#">I'm not creative, Should I take this course?</a></h3>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia...</p>
-            <p><a href="#" class="btn btn-secondary py-2 px-3">Read more</a></p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-4 ftco-animate">
-        <div class="blog-entry">
-          <a href="#" class="block-20" style="background-image: url('assets/dashboard/images/image_2.jpg');"></a>
-          <div class="text d-block">
-            <div class="meta">
-              <p>
-                <a href="#"><span class="fa fa-calendar mr-2"></span>Sept. 17, 2020</a>
-                <a href="#"><span class="fa fa-user mr-2"></span>Admin</a>
-                <a href="#" class="meta-chat"><span class="fa fa-comment mr-2"></span> 3</a>
-              </p>
-            </div>
-            <h3 class="heading"><a href="#">I'm not creative, Should I take this course?</a></h3>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia...</p>
-            <p><a href="#" class="btn btn-secondary py-2 px-3">Read more</a></p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-4 ftco-animate">
-        <div class="blog-entry">
-          <a href="#" class="block-20" style="background-image: url('assets/dashboard/images/image_3.jpg');"></a>
-          <div class="text d-block">
-            <div class="meta">
-              <p>
-                <a href="#"><span class="fa fa-calendar mr-2"></span>Sept. 17, 2020</a>
-                <a href="#"><span class="fa fa-user mr-2"></span>Admin</a>
-                <a href="#" class="meta-chat"><span class="fa fa-comment mr-2"></span> 3</a>
-              </p>
-            </div>
-            <h3 class="heading"><a href="#">I'm not creative, Should I take this course?</a></h3>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia...</p>
-            <p><a href="#" class="btn btn-secondary py-2 px-3">Read more</a></p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-4 ftco-animate">
-        <div class="blog-entry">
-          <a href="#" class="block-20" style="background-image: url('assets/dashboard/images/image_4.jpg');"></a>
-          <div class="text d-block">
-            <div class="meta">
-              <p>
-                <a href="#"><span class="fa fa-calendar mr-2"></span>Sept. 17, 2020</a>
-                <a href="#"><span class="fa fa-user mr-2"></span>Admin</a>
-                <a href="#" class="meta-chat"><span class="fa fa-comment mr-2"></span> 3</a>
-              </p>
-            </div>
-            <h3 class="heading"><a href="#">I'm not creative, Should I take this course?</a></h3>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia...</p>
-            <p><a href="#" class="btn btn-secondary py-2 px-3">Read more</a></p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-4 ftco-animate">
-        <div class="blog-entry">
-          <a href="#" class="block-20" style="background-image: url('assets/dashboard/images/image_5.jpg');"></a>
-          <div class="text d-block">
-            <div class="meta">
-              <p>
-                <a href="#"><span class="fa fa-calendar mr-2"></span>Sept. 17, 2020</a>
-                <a href="#"><span class="fa fa-user mr-2"></span>Admin</a>
-                <a href="#" class="meta-chat"><span class="fa fa-comment mr-2"></span> 3</a>
-              </p>
-            </div>
-            <h3 class="heading"><a href="#">I'm not creative, Should I take this course?</a></h3>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia...</p>
-            <p><a href="#" class="btn btn-secondary py-2 px-3">Read more</a></p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-4 ftco-animate">
-        <div class="blog-entry">
-          <a href="#" class="block-20" style="background-image: url('assets/dashboard/images/image_6.jpg');"></a>
-          <div class="text d-block">
-            <div class="meta">
-              <p>
-                <a href="#"><span class="fa fa-calendar mr-2"></span>Sept. 17, 2020</a>
-                <a href="#"><span class="fa fa-user mr-2"></span>Admin</a>
-                <a href="#" class="meta-chat"><span class="fa fa-comment mr-2"></span> 3</a>
-              </p>
-            </div>
-            <h3 class="heading"><a href="#">I'm not creative, Should I take this course?</a></h3>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia...</p>
-            <p><a href="#" class="btn btn-secondary py-2 px-3">Read more</a></p>
+            <h3 class="heading"><a href="#">{{ blog.title }}</a></h3>
+            <p>{{ blog.content | slice:0:100 }}...</p>
+            <p><a (click)="viewBlogDetails(blog.id)" class="btn btn-secondary py-2 px-3">Read more</a></p>
           </div>
         </div>
       </div>
@@ -128,14 +38,101 @@
       <div class="col text-center">
         <div class="block-27">
           <ul>
-            <li><a href="#">&lt;</a></li>
-            <li class="active"><span>1</span></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li><a href="#">&gt;</a></li>
+            <li (click)="goToPage(currentPage - 1)" [class.disabled]="currentPage === 0"><a href="#">&lt;</a></li>
+            <li *ngFor="let page of [].constructor(totalPages); let i = index" (click)="goToPage(i)" [class.active]="i === currentPage"><a href="#">{{ i + 1 }}</a></li>
+            <li (click)="goToPage(currentPage + 1)" [class.disabled]="currentPage === totalPages - 1"><a href="#">&gt;</a></li>
           </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="ftco-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-12">
+        <div class="wrapper">
+          <div class="row no-gutters">
+            <!-- Blog Form Section -->
+            <div class="col-lg-8 col-md-7 order-md-last d-flex align-items-stretch">
+              <div class="contact-wrap w-100 p-md-5 p-4">
+                <h3 class="mb-4">{{editMode ? 'Edit Blog Post' : 'Create New Blog Post'}}</h3>
+                <form [formGroup]="blogForm" (ngSubmit)="onSubmit()">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label class="label" for="title">Title</label>
+                        <input type="text" class="form-control" formControlName="title" placeholder="Blog Title">
+                        <div *ngIf="blogForm.get('title')?.invalid && blogForm.get('title')?.touched" class="text-danger">
+                          <small *ngIf="blogForm.get('title')?.errors?.['required']">Title is required</small>
+                          <small *ngIf="blogForm.get('title')?.errors?.['minlength']">Title must be at least 3 characters</small>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label class="label" for="author">Author</label>
+                        <input type="text" class="form-control" formControlName="author" placeholder="Author Name">
+                        <div *ngIf="blogForm.get('author')?.invalid && blogForm.get('author')?.touched" class="text-danger">
+                          <small *ngIf="blogForm.get('author')?.errors?.['required']">Author is required</small>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label class="label">Content</label>
+                        <textarea class="form-control" formControlName="content" cols="30" rows="8" placeholder="Blog Content"></textarea>
+                        <div *ngIf="blogForm.get('content')?.invalid && blogForm.get('content')?.touched" class="text-danger">
+                          <small *ngIf="blogForm.get('content')?.errors?.['required']">Content is required</small>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <button type="submit" class="btn btn-primary" [disabled]="blogForm.invalid">
+                          {{editMode ? 'Update' : 'Create'}} Blog Post
+                        </button>
+                        <button type="button" class="btn btn-secondary ml-2" *ngIf="editMode" (click)="cancelEdit()">
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <!-- Blog List Section -->
+            <div class="col-lg-4 col-md-5 d-flex align-items-stretch">
+              <div class="info-wrap bg-primary w-100 p-md-5 p-4">
+                <h3>Recent Blog Posts</h3>
+                <p class="mb-4">Manage your blog posts</p>
+
+                <div class="blog-list">
+                  <div *ngFor="let blog of blogs" class="dbox w-100 d-flex align-items-start mb-3">
+                    <div class="text pl-3">
+                      <h5 class="text-white">{{blog.title}}</h5>
+                      <p class="text-white-50">By {{blog.author}}</p>
+                      <div class="actions">
+                        <button class="btn btn-sm btn-light d-inline-block mr-2" (click)="editBlog(blog)">
+                          <i class="fa fa-edit"></i> Edit
+                        </button>
+                        <button class="btn btn-sm btn-danger d-inline-block" (click)="deleteBlog(blog.id)">
+                          <i class="fa fa-trash"></i> Delete
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

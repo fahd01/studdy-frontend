@@ -19,6 +19,9 @@ import {
   CourseStatisticsComponent
 } from "./features/admin/course/statistics/course-statistics/course-statistics.component";
 
+import { CommentComponent } from './features/public/comments/comments.component';
+import { BlogDetailsComponent } from './features/public/blog-details/blog-details.component';
+
 
 const routes: Routes = [
   {
@@ -27,13 +30,15 @@ const routes: Routes = [
     children: [
       { path: 'home', component: HomeComponent },
       { path: 'blog', component: BlogComponent },
+      { path: 'blogs/:id', component: BlogDetailsComponent },
+      { path: 'comment', component: CommentComponent },
       { path: 'contact', component: ContactComponent },
       { path: 'course/list', component: ListComponent },
       { path: 'course/:id/module/:moduleId/live', component: LiveCourseComponent },
       { path: 'course/:id', component: CourseDetailComponent },
       { path: 'about', component: AboutComponent },
       { path: '', redirectTo: '/home', pathMatch: 'full' }
-    
+
     ]
   },
   {
@@ -56,7 +61,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  
+
   imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'top' } ) ],
   exports: [RouterModule]
 })

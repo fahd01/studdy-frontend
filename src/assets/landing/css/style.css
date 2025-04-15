@@ -8377,7 +8377,7 @@ h1, h2, h3, h4, h5,
 .text-primary {
   color: #4986fc !important; }
 
-  
+
 
 .ftco-navbar-light {
   background: transparent !important;
@@ -8591,6 +8591,9 @@ h1, h2, h3, h4, h5,
 .hero-wrap {
   width: 100%;
   min-height: 600px; /* Assure que la section prend toute la hauteur de l'écran */
+  /* TODO integration diff from blogmanagement
+  min-height: 100vh; /* Assure que la section prend toute la hauteur de l'écran */
+  */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9043,8 +9046,8 @@ textarea.form-control {
     transform: translateY(30px); /* Commence légèrement en bas */
     transition: all 0.8s ease-in-out;
   }
-  
-  
+
+
 .bg-primary {
   background: #4986fc !important; }
 
@@ -10116,4 +10119,4 @@ textarea.form-control {
     stroke-dasharray: 89, 200;
     stroke-dashoffset: -136px; } }
 
-    
+

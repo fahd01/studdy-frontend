@@ -6,17 +6,17 @@
   display: flex;
   flex-direction: column;
 
-  // No need to set table-view-style: none; since .table-view-group-item is block level
+  // No need to set list-style: none; since .list-group-item is block level
   padding-left: 0; // reset padding because ul and ol
   margin-bottom: 0;
   @include border-radius($list-group-border-radius);
 }
 
 
-// Interactive table-view items
+// Interactive list items
 //
 // Use anchor or button elements instead of `li`s or `div`s to create interactive
-// table-view items. Includes an extra `.active` modifier class for selected items.
+// list items. Includes an extra `.active` modifier class for selected items.
 
 .list-group-item-action {
   width: 100%; // For `<button>`s (anchors become 100% by default though)
@@ -38,9 +38,9 @@
 }
 
 
-// Individual table-view items
+// Individual list items
 //
-// Use on `li`s or `div`s within the `.table-view-group` parent.
+// Use on `li`s or `div`s within the `.list-group` parent.
 
 .list-group-item {
   position: relative;
@@ -87,7 +87,7 @@
 
 // Horizontal
 //
-// Change the layout of table-view group items from vertical (default) to horizontal.
+// Change the layout of list group items from vertical (default) to horizontal.
 
 @each $breakpoint in map-keys($grid-breakpoints) {
   @include media-breakpoint-up($breakpoint) {
@@ -126,9 +126,9 @@
 }
 
 
-// Flush table-view items
+// Flush list items
 //
-// Remove borders and border-radius to keep table-view group items edge-to-edge. Most
+// Remove borders and border-radius to keep list group items edge-to-edge. Most
 // useful within other components (e.g., cards).
 
 .list-group-flush {
