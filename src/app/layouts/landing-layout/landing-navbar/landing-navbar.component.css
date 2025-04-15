@@ -4,7 +4,7 @@
     top: 0; /* Adjust this value based on your navbar height */
     left: 0;
     right: 0;
-  /* TODO migration diff from course management
+  /* TODO integration diff from course management */
     z-index: 1000;
     transition: top 0.3s;
 }
@@ -17,8 +17,7 @@
 .ftco-navbar-light .navbar-nav > .nav-item.active > a {
     color: #4986fc;
 }
-   */
-  /* TODO migration diff from blog management */
+  /* TODO migration diff from blog management
     z-index: 3;
     transition: top 0.3s;
   }
@@ -35,7 +34,7 @@
   }
 
   .content {
-    margin-top: 100px; /* Adjust this value based on your navbar height */
+    margin-top: 100px;
   }
-
+*/
   /* Add any other styles you need for your app */

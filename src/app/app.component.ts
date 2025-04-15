@@ -7,8 +7,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  // TODO integration diff from blogmanagement
-  //title = 'blog-management';
   title = 'Studdy Learning Platform';
   private lastScrollTop = 0;
   constructor(private router: Router, private renderer: Renderer2) {}

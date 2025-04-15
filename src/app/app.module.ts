@@ -42,7 +42,6 @@ import { CourseStatisticsComponent } from './features/admin/course/statistics/co
 import { UserComponent } from './features/public/user/user.component';
 import { CommentComponent } from './features/public/comments/comments.component';
 import { BlogDetailsComponent } from './features/public/blog-details/blog-details.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
