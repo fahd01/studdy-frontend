@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import { Chart } from 'chart.js/auto';
 import {CourseService} from "../../../../../services/course-managment/course.service";
 
+import { MatrixController, MatrixElement } from 'chartjs-chart-matrix';
+Chart.register(MatrixController, MatrixElement);
+
 // TODO add the following stats
 // Enrollments by category (polar area)
 // Enrollments by month (bar)
@@ -15,6 +18,7 @@ import {CourseService} from "../../../../../services/course-managment/course.ser
 export class CourseStatisticsComponent implements OnInit {
   barChart: any
   pieChart: any
+  heatMapChart: any
 
   constructor(private courseService: CourseService) {}
 
@@ -23,6 +27,8 @@ export class CourseStatisticsComponent implements OnInit {
       next: data => this.parseStatisticsData(data),
       error: error => console.error("Error fetching course statistics")
     })
+
+    //this.createHeatmapChart()
   }
 
   createPieChart(pieChartData: any) {
@@ -82,5 +88,78 @@ export class CourseStatisticsComponent implements OnInit {
 
   generateRandomColor() {
     return '#'+Math.floor(Math.random()*16777215).toString(16);
+  }
+
+  createHeatmapChart() {
+    const rawData = [
+      { user: 'Alice', date: '2025-04-07', count: 2 },
+      { user: 'Alice', date: '2025-04-08', count: 4 },
+      { user: 'Alice', date: '2025-04-09', count: 1 },
+      { user: 'Bob',   date: '2025-04-07', count: 1 },
+      { user: 'Bob',   date: '2025-04-08', count: 0 },
+      { user: 'Bob',   date: '2025-04-09', count: 3 },
+      { user: 'Charlie', date: '2025-04-08', count: 5 },
+      { user: 'Charlie', date: '2025-04-09', count: 2 },
+    ];
+
+    const users = [...new Set(rawData.map((d) => d.user))];
+    const dates = [...new Set(rawData.map((d) => d.date))];
+
+    const data = rawData.map((item) => ({
+      x: dates.indexOf(item.date),
+      y: users.indexOf(item.user),
+      v: item.count,
+    }));
+
+    this.heatMapChart = new Chart('heatMap', {
+      type: 'matrix',
+      data: {
+        datasets: [
+          {
+            label: 'Module Completion Heatmap',
+            data,
+            backgroundColor(ctx: { raw: { v: number } }) {
+              const v = ctx.raw.v;
+              return `rgba(0, 123, 255, ${v / 6 + 0.1})`;
+            },
+            width: () => 40,
+            height: () => 30,
+          } as any,
+        ],
+      },
+      options: {
+        maintainAspectRatio: false,
+        responsive: true,
+        scales: {
+          x: {
+            ticks: {
+              callback: (_tickValue: string | number, index: number) => dates[index],
+            },
+            title: { display: true, text: 'Date' },
+          },
+          y: {
+            ticks: {
+              callback: (_tickValue: string | number, index: number) => users[index],
+            },
+            title: { display: true, text: 'User' },
+          },
+        },
+        plugins: {
+          tooltip: {
+            callbacks: {
+              title: (ctx) => {
+                const raw = ctx[0].raw as { x: number; y: number; v: number };
+                return `User: ${users[raw.y]}`;
+              },
+              label: (ctx) => {
+                const raw = ctx.raw as { x: number; y: number; v: number };
+                return `Date: ${dates[raw.x]}, Completions: ${raw.v}`;
+              },
+            },
+          },
+          legend: { display: false },
+        },
+      }
+    });
   }
 }
