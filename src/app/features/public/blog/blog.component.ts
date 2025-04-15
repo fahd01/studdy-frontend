@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { Blog, BlogService } from './blog.service';
+import { Blog, BlogService, Suggestion } from './blog.service';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { filter } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
-
+import { NotificationService } from '../../admin/notification.service';
+ 
 @Component({
   selector: 'app-blog',
   templateUrl: './blog.component.html',
@@ -23,7 +24,7 @@ import { HttpErrorResponse } from '@angular/common/http';
     ])
   ]
 })
-export class BlogComponent implements OnInit {
+export class BlogComponent implements OnInit  {
 
   totalPages: number = 0;
   currentPage: number = 0;
@@ -35,10 +36,13 @@ export class BlogComponent implements OnInit {
   editMode = false;
   currentBlogId: number | null = null;
   searchTerm: string = '';
-
-  constructor(private route: ActivatedRoute,
+  suggestions:Suggestion[]=[];
+  suggestionIndex=0;
+  
+   constructor(private route: ActivatedRoute,
               private fb: FormBuilder,
               private blogService: BlogService,
+              private notificationService: NotificationService,
               private router: Router) { 
     this.blogForm = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(3)]],
@@ -46,6 +50,7 @@ export class BlogComponent implements OnInit {
       content: ['', Validators.required]
     });
   }
+  modalInstance: any;
 
   ngOnInit(): void {
     
@@ -57,7 +62,6 @@ export class BlogComponent implements OnInit {
     this.getAllBlogs(0);
 
   }
-
   getAllBlogs(page: number): void {
     this.blogService.getAllBlogs(page, this.pageSize, this.searchTerm).subscribe(data => {
       this.blogs = data.content;
@@ -145,5 +149,42 @@ export class BlogComponent implements OnInit {
     this.editMode = false;
     this.currentBlogId = null;
     this.blogForm.reset();
+  }
+
+  postBlog(blogData: any) {
+    this.blogService.createBlog(blogData).subscribe((response) => {
+      this.notificationService.notifyNewBlog(response);
+    });
+  }
+  loadSuggestions(){
+    this.blogService.loadSuggestion({
+      title: this.blogForm.get('title')?.value||"", // Corrected form control value access
+      description: this.blogForm.get('content')?.value||"", // Corrected form control value access
+    }).subscribe(suggestions => {
+      this.suggestions = suggestions; // Assuming this loads suggestions from the service
+    });
+  }
+  ignoreSuggestion() {
+    if (this.suggestionIndex < this.suggestions.length - 1) {
+      this.suggestionIndex++;
+    } else {
+      this.closeModal();
+    }
+  }
+
+  // Method to choose a suggestion
+  choiceSuggestion(index: number) {
+    this.blogForm.patchValue({
+      title: this.suggestions[index].title, // Use patchValue to update specific fields
+      content: this.suggestions[index].description
+    });
+    this.closeModal();
+  }
+  openSuggestion(){
+    this.loadSuggestions();
+
+  }
+  closeModal(){
+    document.getElementById("closeModalSuggestion")?.click()
   }
 }

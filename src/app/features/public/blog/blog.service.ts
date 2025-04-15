@@ -20,7 +20,10 @@ export interface Comment {
   createdAt: string;
   username: string;
 }
-
+export interface Suggestion{
+  title:string,
+  description:string
+}
 
 
 @Injectable({
@@ -47,11 +50,19 @@ export class BlogService {
     return this.http.put<any>(`${this.apiUrl}/${id}`, blog);
   }
 
+  updateBlogStatus(blogId: number, status: string): Observable<any> {
+    return this.http.patch<any>(`${this.apiUrl}/${blogId}/status`, { status });
+  }
+
   deleteBlog(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
     createComment(blogId: number, comment: Comment): Observable<any> {
     return this.http.post(`${this.apiUrl}/${blogId}/comments`, comment);
+  }
+  loadSuggestion(suggestion:Suggestion):Observable<Suggestion[]>{
+    return this.http.post<Suggestion[]>(`${this.apiUrl}/suggestions`,suggestion);
+
   }
 }

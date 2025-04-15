@@ -13,6 +13,10 @@ export interface Comment {
   username: string;
   likes: number;
   dislikes: number;
+  rating: number;
+   user?:{
+    email:string;
+  }
 }
 
 @Injectable({
@@ -38,6 +42,13 @@ export class CommentService {
 
   dislikeComment(commentId: number, userId: number): Observable<Comment> {
     return this.http.post<Comment>(`${this.apiUrl}/${commentId}/dislike`, null, { params: { userId: userId.toString() } });
+  }
+  
+
+  rateComment(commentid: number, rating: number): Observable<Comment> {
+    return this.http.put<Comment>(`${this.apiUrl}/${commentid}/rate`, null, {
+      params: { rating: rating.toString() }
+    });
   }
   
 }

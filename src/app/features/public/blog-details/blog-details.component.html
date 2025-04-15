@@ -39,8 +39,17 @@
                                         <button mat-icon-button color="accent" (click)="dislikeComment(comment.id)">
                                           👎 {{ comment.dislikes }}
                                         </button>
-                                      </li>
+                                        <div class="star-rating">
+                                          <span *ngFor="let star of [1, 2, 3, 4, 5]; let i = index" (click)="rateComment(comment.id, i + 1)">
+                                            <i class="fa" [ngClass]="i < comment.rating ? 'fa-star' : 'fa-star-o'"></i>
+                                          </span>
+                                        </div>
+                                        <span> Rating: {{ comment.rating }}/5</span>
+                                       </li>
+                                       
                                     </ul>
+                                    
+                                  </div>
                                   </div>
                                   
                                   <!-- Show message if there are no comments -->
@@ -82,5 +91,5 @@
               </div>
           </div>
       </div>
-  </div>
+  
 </section>

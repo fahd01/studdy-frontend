@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Blog, BlogService } from '../blog/blog.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommentService } from '../comments/comments.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { noBadWordsValidator } from '../comments/no-bad-words.validator';
-import { UserService } from '../user/user.service';
-import { Comment } from '../comments/comments.service';
+ import { Comment } from '../comments/comments.service';
+import { HttpClient } from '@angular/common/http';
 
 
 
@@ -21,18 +21,20 @@ export class BlogDetailsComponent implements OnInit {
   comments: Comment[] = [];
   users: { [key: number]: string } = {};
   userId: number = 1;
+  stars = [1, 2, 3, 4, 5];
+  comment: any;
 
   constructor(
-    private userService: UserService,
-    private route: ActivatedRoute,
+    private http: HttpClient,
+     private route: ActivatedRoute,
     private blogService: BlogService,
     private fb: FormBuilder,
     private commentService: CommentService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private router: Router
   ) {
     this.commentForm = this.fb.group({
       content: ['', [Validators.required, noBadWordsValidator()]],
-      blogId: [''],
       userId: [this.userId, [Validators.required]],
     });
   }
@@ -44,10 +46,17 @@ export class BlogDetailsComponent implements OnInit {
         this.blog = data;
         this.commentForm.patchValue({ blogId: this.blog.id });
         this.loadComments(+blogId);
+      
       });
       
     }
+
+    
   }
+
+  
+
+  
 
 loadComments(blogId: number): void {
   this.commentService.getCommentsByBlogId(blogId).subscribe(
@@ -62,7 +71,7 @@ loadComments(blogId: number): void {
 }
 
 loadUsernames(): void {
-  const userIds = this.comments.map(comment => comment.userId);
+  /*const userIds = this.comments.map(comment => comment.userId);
   userIds.forEach(userId => {
     this.userService.getUserById(userId).subscribe(
       user => {
@@ -72,13 +81,18 @@ loadUsernames(): void {
         console.error('Error fetching user: ', error);
       }
     );
-  });
+  });*/
+  
 }
   
 
   onSubmit(): void {
     if (this.commentForm.valid) {
-      this.commentService.createComment(this.commentForm.value).subscribe(
+      const data={
+        ...this.commentForm.value,
+        blogId:this.blog?.id,
+      }
+      this.commentService.createComment(data).subscribe(
         response => {
           console.log('Comment added successfully', response);
           this.snackBar.open('Comment added successfully!', 'Close', {
@@ -126,5 +140,19 @@ loadUsernames(): void {
         console.error('Error disliking comment', error);
       }
     );
+  }
+  rateComment(commentId: number, rating: number) {
+    this.commentService.rateComment(commentId, rating).subscribe((updatedComment: Comment) => {
+      const commentIndex = this.comments.findIndex(c => c.id === commentId);
+      if (commentIndex !== -1) {
+        this.comments[commentIndex].rating = updatedComment.rating; // Update the rating
+      }
+    });
+  }
+
+  navigateToEmail(email: string): void {
+    if(email==="") return;
+
+    this.router.navigate(['/send-email'], { queryParams: { email } });
   }
 }

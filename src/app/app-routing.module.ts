@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { LandingLayoutComponent } from './layouts/landing-layout/landing-layout/landing-layout.component';
 import { HomeComponent } from './features/public/home/home.component';
 import { BlogComponent } from './features/public/blog/blog.component';
@@ -10,9 +10,11 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout/admin-
 import { CommentComponent } from './features/public/comments/comments.component';
 import { BlogDetailsComponent } from './features/public/blog-details/blog-details.component';
 import { CalendarComponent } from './features/admin/calendar/calendar.component';
+import { EmailComponent } from './features/public/email/email.component';
 
-
-const routes: Routes = [
+import { ChartsComponent } from './features/admin/charts/charts.component';
+ 
+export const routes: Routes = [
   {
     path: '',
     component: LandingLayoutComponent,
@@ -23,6 +25,7 @@ const routes: Routes = [
       { path: 'blog', component: BlogComponent },
       { path: 'blogs/:id', component: BlogDetailsComponent },
       { path: 'contact', component: ContactComponent },
+      { path: 'send-email', component: EmailComponent },
       
       { path: '', redirectTo: '/home', pathMatch: 'full' }
     
@@ -34,6 +37,7 @@ const routes: Routes = [
   children: [
 
     { path: 'dashboard', component: DashboardComponent },
+    { path: 'charts', component: ChartsComponent },
     { path: 'calendar', component: CalendarComponent }
     
     
@@ -43,9 +47,13 @@ const routes: Routes = [
  
 ];
 
+
+const config: ExtraOptions = {
+  useHash: false,
+};
+
 @NgModule({
-  
-  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'top'})],
-  exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes, config)],
+  exports: [RouterModule],
 })
 export class AppRoutingModule { }

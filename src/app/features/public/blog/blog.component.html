@@ -56,6 +56,7 @@
 
 
 <section class="ftco-section">
+  
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-12">
@@ -100,12 +101,47 @@
 
                     <div class="col-md-12">
                       <div class="form-group">
-                        <button type="submit" class="btn btn-primary" [disabled]="blogForm.invalid">
+                        <button type="submit" class="btn btn-primary me-2" [disabled]="blogForm.invalid">
                           {{editMode ? 'Update' : 'Create'}} Blog Post
                         </button>
+                        <button type="button" class="btn btn-light "  data-bs-toggle="modal" data-bs-target="#myModal" (click)="openSuggestion()" [disabled]="blogForm.invalid">Gemini reformulation </button>
+
                         <button type="button" class="btn btn-secondary ml-2" *ngIf="editMode" (click)="cancelEdit()">
                           Cancel
                         </button>
+
+                      </div>
+                    </div>
+                    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" >
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <!-- Modal Header -->
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="myModalLabel">Suggestion </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="closeModalSuggestion"></button>
+                          </div>
+                          
+                          <!-- Modal Body -->
+                          <div class="modal-body" *ngIf="suggestions.length>0">
+
+                            <p>
+                              Titel :   {{suggestions[suggestionIndex].title}}
+
+                            </p>
+                            <p>                          Description : {{suggestions[suggestionIndex].description}}
+                            </p>
+                          </div>
+                          <div class="modal-body" *ngIf="suggestions.length===0">
+                          Loading ...   
+                          
+                          </div>
+                          
+                          <!-- Modal Footer -->
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" (click)="ignoreSuggestion()" >Ingore </button>
+                            <button type="button" class="btn btn-primary" (click)="choiceSuggestion(suggestionIndex)">Save changes</button>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
