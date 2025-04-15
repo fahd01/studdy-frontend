@@ -1,6 +1,6 @@
 ## Integration
 - course management -> 15.04 16:00
-- 
+- blog management   -> 15.04 18:00
 
 ## Tasks
 - [ ] Add logo to back offices
