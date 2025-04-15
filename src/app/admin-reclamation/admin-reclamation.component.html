@@ -1,0 +1,36 @@
+<div class="admin-reclamation-container">
+    <h2>User Reclamations</h2>
+
+    <!-- Display user reclamations -->
+    <div *ngIf="reclamations.length > 0" class="table-container">
+        <table class="reclamation-table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let reclamation of reclamations">
+                <td>{{ reclamation.recId }}</td>
+                <td>{{ reclamation.description }}</td>
+                <td>
+                    <select [(ngModel)]="reclamation.status" (change)="confirmUpdateStatus(reclamation)">
+                        <option value="Pending">Pending</option>
+                        <option value="APPROVED">Approved</option>
+                        <option value="DENIED">Denied</option>
+                    </select>
+                </td>
+                <td class="actions">
+                    <button (click)="deleteReclamation(reclamation.recId!)" class="action-btn delete-btn">Delete</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="reclamations.length === 0" class="no-reclamations">
+        No reclamations available.
+    </div>
+</div>

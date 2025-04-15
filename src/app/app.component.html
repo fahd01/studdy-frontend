@@ -1,2 +1,12 @@
+<!-- app.component.html -->
+<app-navbar *ngIf="!isLoginPage && !isRegisterPage && !isPasswordResetPage "></app-navbar>
+  
+<!-- Main Content -->
 
-<router-outlet></router-outlet>
+
+<router-outlet></router-outlet> <!-- Angular will load routed components here -->
+
+
+
+
+<app-footer *ngIf="!isLoginPage && !isRegisterPage  && !isPasswordResetPage"></app-footer>

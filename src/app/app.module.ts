@@ -1,99 +1,59 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 
-import { AppRoutingModule } from './app-routing.module';
+import {AppRoutingModule, routes} from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { HttpClientModule, provideHttpClient } from '@angular/common/http';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { LandingLayoutComponent } from './layouts/landing-layout/landing-layout/landing-layout.component';
-import { LandingNavbarComponent } from './layouts/landing-layout/landing-navbar/landing-navbar.component';
-import { LandingFooterComponent } from './layouts/landing-layout/landing-footer/landing-footer.component';
-import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout/admin-layout.component';
-import { AdminNavbarComponent } from './layouts/admin-layout/admin-navbar/admin-navbar.component';
-import { AdminFooterComponent } from './layouts/admin-layout/admin-footer/admin-footer.component';
-import { HomeComponent } from './features/public/home/home.component';
-import { DashboardComponent } from './features/admin/dashboard/dashboard.component';
-import { RegisterComponent } from './features/public/register/register.component';
-import { FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { BlogComponent } from './features/public/blog/blog.component';
-import { ContactComponent } from './features/public/contact/contact.component';
-import { AdminSidebarComponent } from './layouts/admin-layout/admin-sidebar/admin-sidebar.component';
-import { CourseService} from "./services/course-managment/course.service";
-import { CourseDetailComponent } from './features/public/course/course-detail/course-detail.component';
-import { CreateCourseComponent } from './features/admin/course/create-course/create-course.component';
-import { CourseTableViewComponent } from './features/admin/course/table-view/course-table-view.component';
-import { ListComponent} from "./features/public/course/list/list.component";
-import { CategoryManagementComponent} from "./features/admin/course/category-management/category-management.component";
-import { LiveCourseComponent } from './features/public/course/live-course/live-course.component';
-import { QuizManagementComponent} from "./features/admin/course/quiz-management/quiz-management.component";
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AuthenticationService} from "./services/Authenticarion.service";
-import { MatCardModule} from "@angular/material/card";
-import { MatFormFieldModule} from "@angular/material/form-field";
-import { MatAutocompleteModule} from "@angular/material/autocomplete";
-import { MatDividerModule} from "@angular/material/divider";
-import { MatRadioModule} from "@angular/material/radio";
-import { MatIconModule} from "@angular/material/icon";
-import { CreateModuleComponent } from './features/admin/course/module-management/create-module.component';
-import { CourseStatisticsComponent } from './features/admin/course/statistics/course-statistics/course-statistics.component';
 
-import { UserComponent } from './features/public/user/user.component';
-import { CommentComponent } from './features/public/comments/comments.component';
-import { BlogDetailsComponent } from './features/public/blog-details/blog-details.component';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {NavbarComponent} from "./navbar/navbar.component";
+import {FooterComponent} from "./footer/footer.component";
+import {RouterModule} from "@angular/router";
+import {RegisterComponent} from "./Authentication/register/register.component";
+import {LoginComponent} from "./Authentication/login/login.component";
+import {PasswordResetComponent} from "./Authentication/password-reset/password-reset.component";
+import {UserComponent} from "./user/user.component";
+import {PaginationComponent} from "./pagination/pagination.component";
+import {UserSettingsComponent} from "./user-settings/user-settings.component";
+import {LoadingComponent} from "./loading/loading.component";
+import {UnauthorizedComponent} from "./unauthorized/unauthorized.component";
+import {UserReclamationComponent} from "./user-reclamation/user-reclamation.component";
+import {AdminReclamationComponent} from "./admin-reclamation/admin-reclamation.component";
+import {NgxEmojiPickerModule} from 'ngx-emoji-picker';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 
 @NgModule({
   declarations: [
     AppComponent,
-
-    LandingLayoutComponent,
-    LandingNavbarComponent,
-    LandingFooterComponent,
-    AdminLayoutComponent,
-    AdminNavbarComponent,
-    AdminFooterComponent,
-    HomeComponent,
-    DashboardComponent,
-    RegisterComponent,
-    BlogComponent,
-    ContactComponent,
-    AdminSidebarComponent,
-    BlogComponent,
-    BlogDetailsComponent,
-    CourseDetailComponent,
-    CreateCourseComponent,
-    CourseTableViewComponent,
-    CategoryManagementComponent,
-    QuizManagementComponent,
-    LiveCourseComponent,
-    CreateModuleComponent,
-    CourseStatisticsComponent,
-    UserComponent,
-    CommentComponent
+    RegisterComponent ,
+      LoginComponent,
+    PasswordResetComponent,
+    UserComponent ,
+    PaginationComponent,
+      UserSettingsComponent,
+      LoadingComponent,
+UserReclamationComponent ,
+      AdminReclamationComponent
+  
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        ListComponent,
-        BrowserAnimationsModule,
-        MatCardModule,
-        MatFormFieldModule,
-        MatAutocompleteModule,
-        MatDividerModule,
-        MatRadioModule,
-        MatIconModule,
-        MatSnackBarModule,
-        FormsModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    FormsModule,
+    NavbarComponent,
+    FooterComponent,PickerModule,
+    RouterModule.forRoot(routes)
+  ],
   providers: [
       provideHttpClient(),
-      CourseService,
-      AuthenticationService
+
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule { }

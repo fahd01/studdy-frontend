@@ -1,8 +1,6 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 README_LOCAL.md
-Tasks.md
-data.txt
 
 # Compiled output
 /dist
