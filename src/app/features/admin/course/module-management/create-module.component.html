@@ -1,0 +1,228 @@
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="page-header">
+            <h3 class="page-title">Manage Course Modules</h3>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="../table-view">Course Management</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"> Modules</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="row">
+            <!--
+            <div class="col-md-6 grid-margin stretch-card">
+            -->
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Manage Course Modules</h4>
+                        <p class="card-description">Fill details for your modules</p>
+                        <form class="forms-sample" [formGroup]="moduleForm">
+
+                            <div class="form-group">
+                                <label for="courses">Select course to assign modules to</label>
+                                <div class="form-inline">
+                                    <input [readOnly]="courseIdPathParam" list="courses" formControlName="courseId" name="courses"
+                                           class="form-control col-sm-6 custom-select custom-select-sm">
+                                    <datalist id="courses">
+                                        <option *ngFor="let course of courses"
+                                                [value]="course.id + ' - ' + course.title"> {{ course.id }}
+                                            - {{ course.title }}
+                                        </option>
+                                    </datalist>
+                                    <button style="margin-left: 10px" [disabled]="!moduleForm.value['courseId']" (click)="openDefineModuleModal(createModuleModalContent)" type="button"
+                                            class="btn btn-success" title="Create New category">
+                                        <!--
+                                        <i class="mdi mdi-plus-circle"></i>
+                                        -->
+                                        Add Module
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div *ngFor="let module of modules; let i = index">
+                                <div class="card module-card">
+                                    <div class="card-header">
+                                        {{ module.title }}
+                                        <button (click)="deleteModule(module.id!)"
+                                                type="button"
+                                                class="btn btn-inverse-danger btn-icon float-right"
+                                                title="Delete this module">
+                                            <i class="mdi mdi-trash-can-outline"></i>
+                                        </button>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-text">{{ ( module.description | slice:0:350 ) + (module.description.length > 350 ? '...' : '') }}</p>
+                                    </div>
+
+                                    <div class="card" *ngIf="module.attachments.length > 0">
+                                        <div class="card-header">Attachments</div>
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item"
+                                                *ngFor="let attachment of module.attachments"
+                                                [title]="'Name: ' + attachment.name + '\n' + 'Type: ' + attachment.contentType + '\n' +'Size: ' + attachment.content.length">
+                                                {{ attachment.name }}; {{ attachment.contentType }}
+                                                ; {{ humanReadableFileSize((attachment.content.length * 3) / 4) }}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="card" *ngIf="module.externalLinks.length > 0">
+                                        <div class="card-header">External Links</div>
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item" *ngFor="let link of module.externalLinks">
+                                                <a href="{{link}}" target="_blank">{{ link }}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- TODO put back in case of bulk module handling
+                            <button [disabled]="!moduleForm.valid" type="submit" class="btn btn-primary mr-2">
+                                Save
+                            </button>
+                            <button class="btn btn-light">Cancel</button>
+                            -->
+
+                            <!-- Bootstrap Modal -->
+                            <ng-template #createModuleModalContent let-moduleModal>
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Define Module</h5>
+                                                <button type="button" class="close" aria-label="Close"
+                                                        (click)="clearDefineModuleModal(); moduleModal.dismiss('Cross click')">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label for="course-title">Title</label>
+                                                    <input formControlName="title" type="text" class="form-control"
+                                                           id="course-title" placeholder="Module Title"/>
+                                                    <div class="invalid-feedback"
+                                                         *ngIf="moduleForm.controls?.['title']!.invalid && moduleForm.controls?.['title']!.touched"
+                                                    >
+                                                        Please Enter Module Title
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="module-description">Module Description</label>
+                                                    <textarea formControlName="description"
+                                                              placeholder="Module Description"
+                                                              class="form-control" id="module-description" rows="4"
+                                                    ></textarea>
+                                                    <div class="invalid-feedback"
+                                                         *ngIf="moduleForm.controls?.['description']!.invalid && moduleForm.controls?.['description']!.touched"
+                                                    >
+                                                        Please Enter Module Description
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <input
+                                                                type="file"
+                                                                multiple
+                                                                class="form-control file-input"
+                                                                placeholder="Attach File"
+                                                                aria-label="Attach File"
+                                                                aria-describedby="basic-addon2"
+                                                                #fileUpload
+                                                                (change)="selectFiles($event)"
+                                                        >
+                                                        <div class="input-group-append">
+                                                            <button class="btn btn-sm btn-primary" type="button"
+                                                                    (click)="fileUpload.click()">
+                                                                <i class="mdi mdi-attachment"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div *ngIf="selectedFiles && selectedFiles.length > 0"
+                                                     class="form-group card mt-3">
+                                                    <div class="card-header">Attachments</div>
+                                                    <ul class="list-group list-group-flush">
+                                                        <li *ngFor="let file of [].constructor(selectedFiles?.length); let i = index"
+                                                            class="list-group-item">
+                                                            <a href="" style="pointer-events: none;cursor: not-allowed;">
+                                                                    {{ selectedFiles.item(i)?.name }}
+                                                                | [ {{ humanReadableFileSize(selectedFiles.item(i)?.size) }} ]
+                                                                | [ {{ selectedFiles.item(i)?.type }} ]
+                                                            </a>
+                                                            <button (click)="removeFile(i)"
+                                                                    type="button"
+                                                                    class="btn btn-inverse-danger btn-icon float-right"
+                                                                    title="Remove this attachment">
+                                                                <i class="mdi mdi-trash-can-outline"></i>
+                                                            </button>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <input
+                                                                formControlName="externalLink"
+                                                                type="url"
+                                                                class="form-control file-input"
+                                                                placeholder="External Links: Video, PDF, Sources, ..."
+                                                                aria-label="External Links: Video, PDF, Sources, ..."
+                                                                aria-describedby="basic-addon2"
+                                                                #externalLink
+                                                        >
+                                                        <div class="input-group-append">
+                                                            <button
+                                                                    class="btn btn-sm btn-primary"
+                                                                    type="button"
+                                                                    [disabled]="!StringUtils.isUrl(externalLink.value)"
+                                                                    (click)="addExternalLink($event)"
+                                                            >
+                                                                <i class="mdi mdi-arrow-right"></i>
+                                                            </button>
+                                                        </div>
+                                                        <div class="invalid-feedback"
+                                                             *ngIf="moduleForm.controls?.['externalLink']!.invalid && moduleForm.controls?.['externalLink']!.touched"
+                                                        >
+                                                            Please Enter a Valid URL
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div *ngIf="externalLinks.length > 0" class="form-group card mt-3">
+                                                    <div class="card-header">External Links</div>
+                                                    <ul class="list-group list-group-flush">
+                                                        <li *ngFor="let link of externalLinks; let i = index"
+                                                            class="list-group-item">
+                                                            <a href="{{link}}"> {{ link }} </a>
+                                                            <button (click)="removeExternalLink(i)"
+                                                                    type="button"
+                                                                    class="btn btn-inverse-danger btn-icon float-right"
+                                                                    title="Remove this link">
+                                                                <i class="mdi mdi-trash-can-outline"></i>
+                                                            </button>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer d-flex justify-content-end gap-2">
+                                                <button (click)="addModule(moduleModal)" [disabled]="!moduleForm.valid"
+                                                        type="button" class="btn btn-primary mr-2">
+                                                    Add Module
+                                                </button>
+                                                <button type="button" class="btn btn-secondary"
+                                                        (click)="clearDefineModuleModal(); moduleModal.dismiss('Cancel click')">
+                                                    Close
+                                                </button>
+                                            </div>
+
+                            </ng-template>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./admin-footer.component.css']
 })
 export class AdminFooterComponent {
-
+  currentYear: number = new Date().getFullYear();
 }
