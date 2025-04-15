@@ -1,3 +1,7 @@
+## Integration
+- course management -> 15.04 16:00
+- 
+
 ## Tasks
 - [ ] Add logo to back offices
 - [ ] Integrate About
