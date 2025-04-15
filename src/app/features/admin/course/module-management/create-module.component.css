@@ -1,0 +1,16 @@
+.invalid-feedback {
+    display: block !important;
+}
+
+.modal-title {
+    font-size: 20px;
+    margin: 0px;
+}
+
+.modal-header .close {
+    margin: -1rem -1rem -1rem auto;
+}
+
+.module-card {
+    margin-bottom: 20px;
+}

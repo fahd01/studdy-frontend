@@ -12,3 +12,7 @@
     background: white !important;
     top: 0 !important;
 }
+
+.ftco-navbar-light .navbar-nav > .nav-item.active > a {
+    color: #4986fc;
+}

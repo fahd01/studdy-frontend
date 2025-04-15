@@ -30,10 +30,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 
 ## Templates
-### front template:
-- https://themewagon.com/themes/free-responsive-bootstrap-4-html5-education-website-template-studylab/
-### back template:
-### original choices
 - https://themewagon.com/themes/mentor/
 - https://themewagon.github.io/elearning/index.html
 - https://themewagon.com/theme-tag/education-template/
@@ -44,4 +40,3 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 - Inspire from:
   - https://colorlib.com/wp/cat/education/
-  - 

@@ -1,22 +1,24 @@
-<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-transparent ftco-navbar-light" id="ftco-navbar">
-    <div class="container">
-        <a class="navbar-brand" href="index.html"><span>Studdy</span></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="oi oi-menu"></span> Menu
-        </button>
+<section>
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-transparent ftco-navbar-light" id="ftco-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="index.html"><span>Studdy</span></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> Menu
+            </button>
 
-        <div class="collapse navbar-collapse justify-content-start" id="ftco-nav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active"><a class="nav-link" href="#">Home</a></li>
-                <li class="nav-item"><a class="nav-link" routerLink="/about">About</a></li>
-                <li class="nav-item"><a class="nav-link" routerLink="/course/list" >Course</a></li>
-                <li class="nav-item"><a class="nav-link">Instructor</a></li>
-                <li class="nav-item"><a class="nav-link" routerLink="/blog" >Blog</a></li>
-                <li class="nav-item"><a class="nav-link">Contact</a></li>
-                <li class="nav-item">
-                    <a routerLink="/dashboard" class="btn btn-primary ml-3" routerLinkActive="active">Dashboard</a>
-                </li>
-            </ul>
+            <div class="collapse navbar-collapse justify-content-start" id="ftco-nav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item" routerLinkActive="active"><a  routerLink="/home" class="nav-link">Home</a></li>
+                    <li class="nav-item" routerLinkActive="active"><a routerLink="/about" class="nav-link">About</a></li>
+                    <li class="nav-item" routerLinkActive="active"><a routerLink="/course/list" class="nav-link">Course</a></li>
+                    <li class="nav-item" routerLinkActive="active"><a class="nav-link">Instructor</a></li>
+                    <li class="nav-item" routerLinkActive="active"><a routerLink="/blog" class="nav-link">Blog</a></li>
+                    <li class="nav-item" routerLinkActive="active"><a  routerLink="/contact" class="nav-link">Contact</a></li>
+                    <li class="nav-item">
+                        <a routerLink="admin/dashboard" class="btn btn-primary ml-3" routerLinkActive="active">Dashboard</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
+</section>
