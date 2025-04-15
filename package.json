@@ -20,6 +20,8 @@
     "@angular/platform-browser": "^16.2.0",
     "@angular/platform-browser-dynamic": "^16.2.0",
     "@angular/router": "^16.2.0",
+    "@jitsi/react-sdk": "^1.4.4",
+    "@mdi/font": "^7.4.47",
     "@ctrl/ngx-emoji-mart": "^9.2.0",
     "@google/generative-ai": "^0.24.0",
     "@nebular/auth": "^15.0.0",
