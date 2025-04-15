@@ -1,12 +1,12 @@
 import {ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { User } from 'src/app/Model/User/user';
-import { Role } from 'src/app/Model/enum/Role.enum';
+import { User } from 'src/app/models/user.model';
+import { Role } from 'src/app/models/enum/Role.enum';
 import { AdminService } from 'src/app/services/Admin/admin.service';
 //import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { EmailService } from 'src/app/services/Email/email.service';
 import {UserService} from "../services/UserServ/user.service";
-import {EmailDto} from "../model/DTO/EmailDto";
+import {EmailDto} from "../models/EmailDto";
 import {SearchService} from "../services/Search/search.service";
 
 @Component({

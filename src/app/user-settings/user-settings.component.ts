@@ -3,9 +3,9 @@ import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { Role } from 'src/app/Model/enum/Role.enum';
+import { Role } from 'src/app/models/enum/Role.enum';
 import { UserService } from "../services/UserServ/user.service";
-import { User } from "../Model/User/user";
+import { User } from "../models/user.model";
 (pdfMake as any).vfs = (pdfFonts as any).vfs;
 @Component({
   selector: 'app-user-settings',
@@ -21,7 +21,7 @@ export class UserSettingsComponent implements OnInit {
   profilePictureUrl: string | ArrayBuffer | null = '';
   confirmDeactivation: boolean = false; // This will be bound to the checkbox
   passwordVisible = false;
-//variable pour savoir si les données d'utilisateur sont completes ou non 
+//variable pour savoir si les données d'utilisateur sont completes ou non
 userDataComplete: boolean = false;
   constructor(
       private userService: UserService,
@@ -66,7 +66,7 @@ updateUser(): void {
           showConfirmButton: false,
           timer: 1500
         });
-        //refresh apres 2.5 s 
+        //refresh apres 2.5 s
         setTimeout(() => {
           window.location.reload();
         }, 2500);
@@ -211,8 +211,8 @@ updateUser(): void {
 
   // Téléchargement du PDF (vous pouvez supprimer cette ligne si vous ne voulez pas le télécharger)
   pdf.download('Informations.pdf');
-  
 
-  
+
+
 }
 }

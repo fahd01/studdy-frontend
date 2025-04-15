@@ -1,7 +1,7 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
-import { Reclamation } from "../model/Reclamation/reclamation";
+import { Reclamation } from "../models/reclamation.model";
 import { ReclamationService } from "../services/Reclamation/reclamation.service";
-import {BadWordResponse} from "../model/Badword/bad-word-response";
+import {BadWordResponse} from "../models/bad-word.response";
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import Swal from 'sweetalert2';
 
@@ -21,7 +21,7 @@ export class UserReclamationComponent implements OnInit {
     selectedReclamation: Reclamation | null = null; // Reclamation selected for update
     showEmojiPicker: boolean = false; // Nouvelle propriété pour contrôler l'affichage
     private genAI = new GoogleGenerativeAI('AIzaSyDy8ck9bmDHeY71p-Lg8TFYU5X2GM1wG18'); // ta clé de gemini
-    
+
     isRecording = false; // Variable to track if recording is in progress
     private recognition: any; // Variable to hold the speech recognition instance
     constructor(private reclamationService: ReclamationService) {}
@@ -39,16 +39,16 @@ export class UserReclamationComponent implements OnInit {
     // Pour fermer le picker quand on clique ailleurs
     @HostListener('document:click', ['$event'])
     onClickOutside(event: Event) {
-        if (!this.emojiPicker?.nativeElement.contains(event.target) && 
+        if (!this.emojiPicker?.nativeElement.contains(event.target) &&
             !(event.target as Element).classList.contains('emoji-trigger')) {
             this.showEmojiPicker = false;
         }
     }
-    
+
     ngOnInit(): void {
         this.loadReclamations();
 
-      
+
     }
 
 
@@ -119,16 +119,16 @@ export class UserReclamationComponent implements OnInit {
 
 
         const textToCheck = this.newReclamation.description;
-    
+
         const model = this.genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
-    
+
         const prompt = `Analyse le texte suivant et dis-moi si c'est vulgaire, offensant ou inapproprié. Réponds uniquement par "OK" ou "VULGAIRE".
         Texte: "${textToCheck}"`;
-    
+
         try {
           const result = await model.generateContent(prompt);
           const response = await result.response.text();
-    
+
           if (response.trim().toUpperCase().includes('VULGAIRE')) {
             Swal.fire({
               icon: 'warning',
@@ -160,14 +160,14 @@ export class UserReclamationComponent implements OnInit {
             text: 'Merci pour votre retour.',
           });
           this.newReclamation.description = ''; // reset formulaire
-    
+
         } catch (err) {
           console.error(err);
           Swal.fire('Erreur', 'Une erreur est survenue lors de l’analyse du texte.', 'error');
         }
 
 
-    
+
     }
     updateReclamation(): void {
         if (!this.selectedReclamation) return;
@@ -195,9 +195,9 @@ export class UserReclamationComponent implements OnInit {
         // Format a detailed warning message
         const message = `
     ${warning.message}
-    
+
     Reason: ${warning.details}
-    
+
     ${warning.suggestion}
   `;
 
@@ -274,7 +274,7 @@ export class UserReclamationComponent implements OnInit {
                 });
                 return;
             }
-        
+
             if (this.isRecording) {
                 this.stopRecording();
                 await Swal.fire({
@@ -285,10 +285,10 @@ export class UserReclamationComponent implements OnInit {
                 });
                 return;
             }
-        
+
             this.isRecording = true;
             this.newReclamation.description += '\n[Enregistrement en cours...]\n';
-        
+
             this.recognition = new (window as any).webkitSpeechRecognition();
             this.recognition.lang = 'fr-FR';
             this.recognition.interimResults = false;
@@ -296,9 +296,9 @@ export class UserReclamationComponent implements OnInit {
             this.recognition.onresult = (event: any) => {
                 const transcript = event.results[0][0].transcript;
                 this.processVoiceInput(transcript);
-              
+
             };
-        
+
             this.recognition.onerror = async (event: any) => {
                 console.error('Erreur de reconnaissance:', event.error);
                 this.isRecording = false;
@@ -310,7 +310,7 @@ export class UserReclamationComponent implements OnInit {
                     timer: 3000
                 });
             };
-        
+
             this.recognition.start();
             await Swal.fire({
                 icon: 'info',
@@ -327,7 +327,7 @@ export class UserReclamationComponent implements OnInit {
             this.isRecording = false;
             this.newReclamation.description = this.newReclamation.description.replace('\n[Enregistrement en cours...]\n', '');
         }
-          
+
         private async processVoiceInput(transcript: string) {
             try {
                 const model = this.genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
@@ -335,10 +335,10 @@ export class UserReclamationComponent implements OnInit {
                     Corrige les fautes de grammaire et de ponctuation.
                     Conserve le sens original.
                     Texte à corriger: "${transcript}"`;
-        
+
                 const result = await model.generateContent(prompt);
                 const response = await result.response.text();
-                
+
                 this.newReclamation.description += response.trim();
             } catch (err) {
                 console.error(err);

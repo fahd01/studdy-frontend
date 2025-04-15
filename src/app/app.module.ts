@@ -37,7 +37,7 @@ import { PickerComponent } from '@ctrl/ngx-emoji-mart';
       LoadingComponent,
 UserReclamationComponent ,
       AdminReclamationComponent
-  
+
   ],
   imports: [
     BrowserModule,
