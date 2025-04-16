@@ -1,0 +1,76 @@
+<div class="formations-container">
+    <div class="formations-header">
+      <h2>Formation Management</h2>
+      <div class="user-info">
+        <span class="user"><i class="fa fa-user"></i> {{currentUser}}</span>
+        <span class="datetime"><i class="fa fa-clock-o"></i> {{currentDateTime}}</span>
+      </div>
+    </div>
+  
+    <div class="actions-bar">
+      <div class="search-container">
+        <input 
+          type="text" 
+          placeholder="Search formations..." 
+          [(ngModel)]="searchTerm"
+          class="search-input">
+        <i class="fa fa-search search-icon"></i>
+      </div>
+      
+      <button class="btn btn-primary" (click)="createNewFormation()">
+        <i class="fa fa-plus"></i> Create New Formation
+      </button>
+    </div>
+    
+    <div *ngIf="loading" class="loading-spinner">
+      <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    
+    <div *ngIf="error" class="alert alert-danger">
+      {{ error }}
+      <button class="btn btn-link" (click)="loadFormations()">Try Again</button>
+    </div>
+  
+    <div *ngIf="!loading && !error && formations.length === 0" class="no-data">
+      <p>No formations found. Create your first formation!</p>
+      <button class="btn btn-outline-primary" (click)="createNewFormation()">
+        Create Formation
+      </button>
+    </div>
+  
+    <div *ngIf="!loading && filteredFormations.length > 0" class="formations-table-container">
+      <table class="table formations-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let formation of filteredFormations">
+            <td>{{ formation.id }}</td>
+            <td>{{ formation.title }}</td>
+            <td>{{ formation.description ? (formation.description | slice:0:50) + (formation.description.length > 50 ? '...' : '') : '' }}</td>
+            <td>${{ formation.price }}.00</td>
+            <td>{{ formation.startDate| date }}</td>
+            <td>{{ formation.endDate| date }}</td>
+            <td class="actions">
+              <button class="btn btn-sm btn-info" (click)="editFormation(formation.id || 0)">
+                <i class="fa fa-edit"></i> Edit
+              </button>
+              <button class="btn btn-sm btn-danger" (click)="deleteFormation(formation.id|| 0)">
+                <i class="fa fa-trash"></i> Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

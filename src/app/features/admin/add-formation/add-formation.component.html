@@ -1,0 +1,187 @@
+<div class="add-formation-container">
+    <div class="card">
+        <div class="card-header">
+            <h2>Add New Formation</h2>
+        </div>
+        <div class="card-body">
+            <form [formGroup]="formationForm" (ngSubmit)="onSubmit()">
+                <!-- Error message display -->
+                <div *ngIf="errorMessage" class="alert alert-danger">
+                    {{ errorMessage }}
+                </div>
+
+                <!-- Title -->
+                <div class="form-group">
+                    <label for="title">Title *</label>
+                    <input
+                            type="text"
+                            id="title"
+                            formControlName="title"
+                            class="form-control"
+                            [ngClass]="{'is-invalid': formationForm.get('title')?.touched && formationForm.get('title')?.invalid}"
+                    >
+                    <div class="invalid-feedback" *ngIf="formationForm.get('title')?.touched && formationForm.get('title')?.errors?.['required']">
+                        Title is required
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div class="form-group">
+                    <label for="description">Description *</label>
+                    <textarea
+                            id="description"
+                            formControlName="description"
+                            class="form-control"
+                            rows="4"
+                            [ngClass]="{'is-invalid': formationForm.get('description')?.touched && formationForm.get('description')?.invalid}"
+                    ></textarea>
+                    <div class="invalid-feedback" *ngIf="formationForm.get('description')?.touched && formationForm.get('description')?.errors?.['required']">
+                        Description is required
+                    </div>
+                </div>
+
+                <!-- Images upload -->
+                <div class="form-group">
+                    <label for="images">Formation Images</label>
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input
+                                    type="file"
+                                    id="images"
+                                    class="custom-file-input"
+                                    accept="image/*"
+                                    multiple
+                                    (change)="onFileSelected($event)"
+                            >
+                            <label class="custom-file-label" for="images">
+                                {{ selectedFiles.length ? selectedFiles.length + ' files selected' : 'Choose files' }}
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Preview selected images -->
+                    <div class="selected-images mt-3" *ngIf="selectedFiles.length > 0">
+                        <div class="row">
+                            <div class="col-md-3 mb-3" *ngFor="let file of selectedFiles; let i = index">
+                                <div class="image-preview-container">
+                                    <img [src]="getFilePreviewUrl(file)" alt="Preview" class="img-thumbnail preview-image">
+                                    <div class="image-actions">
+                                        <button type="button" class="btn btn-sm btn-danger" (click)="removeSelectedFile(i)">
+                                            <i class="fa fa-trash"></i> Remove
+                                        </button>
+                                    </div>
+                                    <div class="progress mt-1" *ngIf="uploadProgress[i] > 0">
+                                        <div class="progress-bar" [style.width.%]="uploadProgress[i]">{{ uploadProgress[i] }}%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Start Date -->
+                <div class="form-group">
+                    <label for="startDate">Start Date *</label>
+                    <input
+                            type="date"
+                            id="startDate"
+                            formControlName="startDate"
+                            class="form-control"
+                            [ngClass]="{'is-invalid': formationForm.get('startDate')?.touched && formationForm.get('startDate')?.invalid}"
+                    >
+                    <div class="invalid-feedback" *ngIf="formationForm.get('startDate')?.touched && formationForm.get('startDate')?.errors?.['required']">
+                        Start date is required
+                    </div>
+                </div>
+
+                <!-- End Date -->
+                <div class="form-group">
+                    <label for="endDate">End Date *</label>
+                    <input
+                            type="date"
+                            id="endDate"
+                            formControlName="endDate"
+                            class="form-control"
+                            [ngClass]="{'is-invalid': formationForm.get('endDate')?.touched && formationForm.get('endDate')?.invalid}"
+                    >
+                    <div class="invalid-feedback" *ngIf="formationForm.get('endDate')?.touched && formationForm.get('endDate')?.errors?.['required']">
+                        End date is required
+                    </div>
+                </div>
+
+                <!-- Price -->
+                <div class="form-group">
+                    <label for="price">Price (€) *</label>
+                    <input
+                            type="number"
+                            id="price"
+                            formControlName="price"
+                            class="form-control"
+                            min="0"
+                            step="0.01"
+                            [ngClass]="{'is-invalid': formationForm.get('price')?.touched && formationForm.get('price')?.invalid}"
+                    >
+                    <div class="invalid-feedback" *ngIf="formationForm.get('price')?.touched && formationForm.get('price')?.errors?.['required']">
+                        Price is required
+                    </div>
+                    <div class="invalid-feedback" *ngIf="formationForm.get('price')?.touched && formationForm.get('price')?.errors?.['min']">
+                        Price must be positive
+                    </div>
+                </div>
+
+                <!-- Participants (Users) -->
+                <div class="form-group">
+                    <label for="participants">Participants</label>
+                    <select
+                            id="participants"
+                            formControlName="participants"
+                            class="form-control"
+                            multiple
+                            [compareWith]="compareById"
+                    >
+                        <option *ngFor="let user of users" [ngValue]="user">
+                            {{ user.name  }} ({{ user.email }})
+                        </option>
+                    </select>
+                    <small class="form-text text-muted">Hold Ctrl/Cmd to select multiple participants</small>
+                </div>
+
+                <!-- Courses -->
+                <div class="form-group">
+                    <label for="coursesList">Courses</label>
+                    <select
+                            id="coursesList"
+                            formControlName="coursesList"
+                            class="form-control"
+                            multiple
+                            [compareWith]="compareById"
+                    >
+                        <option *ngFor="let course of courses" [ngValue]="course">
+                            {{ course.name }}
+                        </option>
+                    </select>
+                    <small class="form-text text-muted">Hold Ctrl/Cmd to select multiple courses</small>
+                </div>
+
+                <!-- Submit button -->
+                <div class="form-group text-center mt-4">
+                    <button
+                            type="submit"
+                            class="btn btn-primary btn-lg"
+                            [disabled]="isSubmitting"
+                    >
+                        <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm mr-2"></span>
+                        Create Formation
+                    </button>
+                    <button
+                            type="button"
+                            class="btn btn-secondary btn-lg ml-2"
+                            [routerLink]="['/formations']"
+                    >
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

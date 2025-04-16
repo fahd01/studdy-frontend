@@ -1,0 +1,287 @@
+<div class="enrollment-container">
+  <!-- Breadcrumb Navigation -->
+  <nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/courses">Courses</a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/formations', formationId]">Course Details</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Enrollment</li>
+    </ol>
+  </nav>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-section">
+    <div class="spinner"></div>
+    <p>Loading formation details...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error && !loading" class="error-section">
+    <div class="alert alert-danger">
+      <i class="fas fa-exclamation-circle"></i>
+      <p>{{ error }}</p>
+    </div>
+    <button class="btn btn-outline-primary" routerLink="/courses">
+      Return to Courses
+    </button>
+  </div>
+
+  <!-- Enrollment Form -->
+  <div *ngIf="!loading && !error && formation" class="enrollment-form-container">
+    <div class="row">
+      <!-- Formation Details -->
+      <div class="col-md-4">
+        <div class="formation-summary">
+          <h3>Course Summary</h3>
+          
+          <div class="formation-image" *ngIf="formation.imagesUrls && formation.imagesUrls.length > 0">
+            <img [src]="formation.imagesUrls[0]" [alt]="formation.title" class="img-fluid">
+          </div>
+          
+          <h4>{{ formation.title }}</h4>
+          <p class="formation-description">{{ formation.description }}</p>
+          
+          <div class="formation-details">
+            <div class="detail-row">
+              <span class="detail-label">Start Date:</span>
+              <span class="detail-value">{{ formation.startDate | date }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">End Date:</span>
+              <span class="detail-value">{{ formation.endDate | date }}</span>
+            </div>
+            <div class="detail-row price">
+              <span class="detail-label">Price:</span>
+              <span class="detail-value" [class.text-decoration-line-through]="isCouponApplied">€{{ formation.price }}</span>
+              <span class="detail-value text-success" *ngIf="isCouponApplied">€{{ discountedPrice }}</span>
+            </div>
+            <div class="detail-row" *ngIf="isCouponApplied">
+              <span class="detail-label">Discount:</span>
+              <span class="detail-value text-success">Coupon "{{ couponCode }}" applied</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Payment Form -->
+      <div class="col-md-8">
+        <div class="payment-form">
+          <h2>Complete Your Enrollment</h2>
+          <p>Please provide your information to complete the enrollment process.</p>
+          
+          <form [formGroup]="paymentForm" (ngSubmit)="submitPayment()">
+            <!-- Personal Information -->
+            <div class="form-section">
+              <h4>Personal Information</h4>
+              
+              <div class="mb-3">
+                <label for="fullName" class="form-label">Full Name</label>
+                <input 
+                  type="text" 
+                  id="fullName" 
+                  formControlName="fullName" 
+                  class="form-control"
+                  [ngClass]="{'is-invalid': paymentForm.get('fullName')?.invalid && paymentForm.get('fullName')?.touched}"
+                >
+                <div class="invalid-feedback" *ngIf="paymentForm.get('fullName')?.invalid && paymentForm.get('fullName')?.touched">
+                  Full name is required
+                </div>
+              </div>
+              
+              <div class="mb-3">
+                <label for="email" class="form-label">Email Address</label>
+                <input 
+                  type="email" 
+                  id="email" 
+                  formControlName="email" 
+                  class="form-control"
+                  [ngClass]="{'is-invalid': paymentForm.get('email')?.invalid && paymentForm.get('email')?.touched}"
+                >
+                <div class="invalid-feedback" *ngIf="paymentForm.get('email')?.invalid && paymentForm.get('email')?.touched">
+                  Please enter a valid email address
+                </div>
+              </div>
+            </div>
+            
+            <!-- Coupon Section -->
+            <div class="form-section">
+              <h4>Discount Coupon</h4>
+              <div class="input-group mb-3">
+                <input 
+                  type="text" 
+                  id="couponCode" 
+                  formControlName="couponCode" 
+                  class="form-control" 
+                  placeholder="Enter coupon code (optional)"
+                  [disabled]="isCouponApplied || validatingCoupon"
+                >
+                <button 
+                  type="button" 
+                  class="btn btn-outline-primary" 
+                  (click)="validateCoupon()" 
+                  [disabled]="!paymentForm.get('couponCode')?.value || validatingCoupon || isCouponApplied"
+                >
+                  <span *ngIf="!validatingCoupon">Apply</span>
+                  <span *ngIf="validatingCoupon" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                </button>
+                <button 
+                  type="button" 
+                  class="btn btn-outline-secondary" 
+                  (click)="removeCoupon()" 
+                  *ngIf="isCouponApplied"
+                >
+                  Remove
+                </button>
+              </div>
+              
+              <!-- Coupon messages -->
+              <div *ngIf="couponError" class="alert alert-danger small py-2">
+                <i class="fas fa-exclamation-circle me-2"></i>{{ couponError }}
+              </div>
+              
+              <div *ngIf="isCouponApplied" class="alert alert-success small py-2">
+                <i class="fas fa-check-circle me-2"></i>Coupon "{{ couponCode }}" applied successfully! You saved €{{ (formation.price - discountedPrice).toFixed(2) }}
+              </div>
+            </div>
+            
+            <!-- Payment Information -->
+            <div class="form-section">
+              <h4>Payment Summary</h4>
+              
+              <div class="payment-summary mb-4">
+                <div class="row">
+                  <div class="col">Course Fee:</div>
+                  <div class="col text-end">€{{ formation.price }}</div>
+                </div>
+                <div class="row" *ngIf="isCouponApplied">
+                  <div class="col">Discount:</div>
+                  <div class="col text-end text-success">-€{{ (formation.price - discountedPrice).toFixed(2) }}</div>
+                </div>
+                <hr>
+                <div class="row total">
+                  <div class="col"><strong>Total:</strong></div>
+                  <div class="col text-end">
+                    <strong>€{{ isCouponApplied ? discountedPrice : formation.price }}</strong>
+                    <span class="text-success small ms-2" *ngIf="isCouponApplied">
+                      ({{ ((formation.price - discountedPrice) / formation.price * 100).toFixed(0) }}% off)
+                    </span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="alert alert-info">
+                <i class="fas fa-info-circle me-2"></i>
+                <span>You will enter your payment details in the next step after clicking "Continue to Payment".</span>
+              </div>
+            </div>
+            
+            <!-- Terms & Conditions -->
+            <div class="form-section">
+              <div class="form-check mb-3">
+                <input 
+                  type="checkbox" 
+                  id="agreeTerms" 
+                  formControlName="agreeTerms" 
+                  class="form-check-input"
+                  [ngClass]="{'is-invalid': paymentForm.get('agreeTerms')?.invalid && paymentForm.get('agreeTerms')?.touched}"
+                >
+                <label class="form-check-label" for="agreeTerms">
+                  I agree to the <a href="#" target="_blank">Terms and Conditions</a> and <a href="#" target="_blank">Privacy Policy</a>
+                </label>
+                <div class="invalid-feedback" *ngIf="paymentForm.get('agreeTerms')?.invalid && paymentForm.get('agreeTerms')?.touched">
+                  You must agree to the terms and conditions
+                </div>
+              </div>
+            </div>
+            
+            <!-- Submit Button -->
+            <div class="form-actions">
+              <button 
+                type="submit" 
+                class="btn btn-primary btn-lg" 
+                [disabled]="paymentForm.invalid || processing"
+              >
+                <span *ngIf="!processing">Continue to Payment</span>
+                <span *ngIf="processing">
+                  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                  Processing...
+                </span>
+              </button>
+              <button type="button" class="btn btn-link" routerLink="/courses">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Payment Modal -->
+  <div class="modal" [class.show]="showCardForm" tabindex="-1" [style.display]="showCardForm ? 'block' : 'none'">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Complete Payment</h5>
+          <button type="button" class="btn-close" (click)="cancelCardPayment()" [disabled]="processingPayment"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Show any errors -->
+          <div class="alert alert-danger" *ngIf="error">
+            <i class="fas fa-exclamation-circle me-2"></i>
+            {{ error }}
+          </div>
+          
+          <div class="payment-details mb-4">
+            <div class="row mb-3">
+              <div class="col-5">Course:</div>
+              <div class="col-7">{{ formation?.title }}</div>
+            </div>
+            <div *ngIf="isCouponApplied" class="row mb-3">
+              <div class="col-5">Original Price:</div>
+              <div class="col-7">€{{ formation?.price }}</div>
+            </div>
+            <div *ngIf="isCouponApplied" class="row mb-3">
+              <div class="col-5">Coupon:</div>
+              <div class="col-7">{{ couponCode }} ({{ ((formation!.price - discountedPrice) / formation!.price * 100).toFixed(0) }}% off)</div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-5">Amount:</div>
+              <div class="col-7">
+                <strong>€{{ isCouponApplied ? discountedPrice : formation?.price }}</strong>
+                <span class="text-success small ms-2" *ngIf="isCouponApplied">Discounted</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="card-element-container">
+            <label class="form-label">Credit or Debit Card</label>
+            <div id="card-element" class="form-control"></div>
+            <div id="card-errors" class="text-danger mt-2" *ngIf="cardErrors">{{ cardErrors }}</div>
+          </div>
+          
+          <div class="test-card-info alert alert-info mt-3">
+            <small>
+              <strong>Test Card:</strong> 4242 4242 4242 4242 (any future date, any CVC, any postal code)
+            </small>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="cancelCardPayment()" [disabled]="processingPayment">Cancel</button>
+          <button type="button" class="btn btn-primary" (click)="processCardPayment()" [disabled]="processingPayment">
+            <span *ngIf="!processingPayment">Pay Now</span>
+            <span *ngIf="processingPayment">
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              Processing...
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal Backdrop -->
+  <div class="modal-backdrop fade show" *ngIf="showCardForm"></div>
+  
+  <!-- Footer with timestamp -->
+  <footer class="enrollment-footer text-center text-muted mt-4">
+    <small>Last updated: {{ currentDateTime }} • Esprit Learning Platform</small>
+  </footer>
+</div>

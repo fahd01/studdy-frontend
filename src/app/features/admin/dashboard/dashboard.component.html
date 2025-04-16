@@ -237,9 +237,11 @@
             <div class="d-flex">
               <button type="button" class="btn btn-sm bg-white btn-icon-text border">
                 <i class="mdi mdi-email btn-icon-prepend"></i> Email </button>
-              <button type="button" class="btn btn-sm bg-white btn-icon-text border ml-3">
-                <i class="mdi mdi-printer btn-icon-prepend"></i> Print </button>
-              <button type="button" class="btn btn-sm ml-3 btn-success"> Add User </button>
+              <button type="button" class="btn btn-sm bg-white btn-icon-text border ml-3" (click)="gotoList()">
+                 Formation List </button>
+              <button type="button" class="btn btn-sm ml-3 btn-success" (click)="goToAddFormation()"> Add Formation </button>
+              <button type="button" class="btn btn-sm ml-3 btn-success" (click)="addcoupon()"> Add COUPON </button>
+
             </div>
           </div>
           <div class="row">

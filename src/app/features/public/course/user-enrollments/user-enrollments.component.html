@@ -1,0 +1,102 @@
+<br><br><br><br>
+<div class="user-enrollments-container">
+    <div class="page-header">
+      <h1>My Enrolled Courses</h1>
+      <p class="text-muted">View all courses you've enrolled in</p>
+    </div>
+  
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading-container">
+      <div class="spinner"></div>
+      <p>Loading your enrollments...</p>
+    </div>
+  
+    <!-- Error State -->
+    <div *ngIf="error && !loading" class="error-container alert alert-danger">
+      <i class="fas fa-exclamation-triangle"></i>
+      <p>{{ error }}</p>
+      <button class="btn btn-outline-primary mt-3" (click)="loadEnrollments()">Try Again</button>
+    </div>
+  
+    <!-- No Enrollments State -->
+    <div *ngIf="!loading && !error && enrollments.length === 0" class="empty-state">
+      <div class="empty-state-icon">
+        <i class="fas fa-book-open"></i>
+      </div>
+      <h2>No Enrollments Found</h2>
+      <p>You haven't enrolled in any courses yet.</p>
+      <a routerLink="/courses" class="btn btn-primary mt-3">Browse Courses</a>
+    </div>
+  
+    <!-- Enrollments List -->
+    <div *ngIf="!loading && !error && enrollments.length > 0" class="enrollments-list">
+      <div class="row">
+        <div *ngFor="let enrollment of enrollments" class="col-md-6 col-lg-4 mb-4">
+          <div class="enrollment-card">
+            <div class="card">
+              <div class="card-header">
+                <span [ngClass]="getStatusClass(enrollment.status)" class="status-badge">
+                  {{ getEnrollmentStatus(enrollment.status) }}
+                </span>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">{{ enrollment.formationTitle }}</h5>
+                <div class="enrollment-details">
+                  <div class="detail-row">
+                    <span class="detail-label">Enrolled on:</span>
+                    <span class="detail-value">{{ formatDate(enrollment.enrollmentDate) }}</span>
+                  </div>
+                  <div class="detail-row" *ngIf="enrollment.progressPercentage !== undefined">
+                    <span class="detail-label">Progress:</span>
+                    <div class="progress">
+                      <div class="progress-bar" role="progressbar" 
+                           [style.width]="enrollment.progressPercentage + '%'"
+                           [attr.aria-valuenow]="enrollment.progressPercentage" 
+                           aria-valuemin="0" aria-valuemax="100">
+                        {{ enrollment.progressPercentage }}%
+                      </div>
+                    </div>
+                  </div>
+                  <div class="detail-row">
+                    <span class="detail-label">Amount Paid:</span>
+                    <span class="detail-value">€{{ enrollment.amount }}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+                <a  class="btn btn-primary">
+                  <i class="fas fa-play-circle me-2"></i>Go to Course
+                </a>
+                <a [routerLink]="['/enrollments', enrollment.id, 'certificate']" class="btn btn-outline-secondary ms-2" 
+                   *ngIf="enrollment.status === 'COMPLETED'">
+                  <i class="fas fa-certificate me-2"></i>Certificate
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Pagination - if needed for lots of enrollments -->
+    <div *ngIf="!loading && !error && enrollments.length > 12" class="pagination-container mt-4">
+      <nav aria-label="Enrollments pagination">
+        <ul class="pagination justify-content-center">
+          <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1">Previous</a>
+          </li>
+          <li class="page-item active"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="mt-4 text-center text-muted">
+      <small>Last updated: {{ currentDateTime }} • {{ currentUser }}</small>
+    </footer>
+  </div>

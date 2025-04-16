@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
+import {Course} from "../../../model/Model";
 
 // TODO use .env for configuring API urls
 const courseManagementApiProxyTarget = '/course-management'
@@ -9,47 +10,14 @@ const courseManagementApiProxyTarget = '/course-management'
   providedIn: 'root'
 })
 export class CourseService {
+  apiUrl ="http://localhost:8085/api/course"
+
 
   constructor(private http: HttpClient) {}
 
-  public fetchAllCourses(): Observable<Course[]> {
-    return this.http.get<Course[]>(`${courseManagementApiProxyTarget}/courses`);
+  getAllCourses(): Observable<Course[]> {
+    return this.http.get<Course[]>(this.apiUrl);
   }
-}
 
-// TODO move to a separate file ??
-export class Course {
-  id: number;
-  title: string;
-  description: string;
-  thumbnailUrl: string;
-  status: string;
-  price: number;
-  duration: number;
-  level: string;
-  category: Category;
-
-
-  constructor(id: number, title: string, description: string, thumbnailUrl: string, status: string, price: number, duration: number, level: string, category: Category) {
-    this.id = id;
-    this.title = title;
-    this.description = description;
-    this.thumbnailUrl = thumbnailUrl;
-    this.status = status;
-    this.price = price;
-    this.duration = duration;
-    this.level = level;
-    this.category = category;
-  }
-}
-
-export class Category {
-  name: string;
-  description: string;
-
-  constructor(name: string, description: string) {
-    this.name = name;
-    this.description = description;
-  }
 }
 
