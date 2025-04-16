@@ -36,8 +36,7 @@ export class AppComponent {
       this.renderer.addClass(navbar, 'navbar-scrolled-up');
     }
 
-    this.lastScrollTop = Math.max(st, 0);
-  }
+    this.lastScrollTop = Math.max(st, 0); }
 
   isDashboardRoute(): boolean {
     return this.router.url.startsWith('/dashboard');

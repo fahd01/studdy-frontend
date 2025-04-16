@@ -77,6 +77,7 @@ const routes: Routes = [
       { path: 'course/:id/modules', component: CreateModuleComponent },
     ]
   }
+];
 
 const config: ExtraOptions = {
   useHash: false,
