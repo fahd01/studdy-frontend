@@ -60,12 +60,7 @@ import {NavbarComponent} from "./navbar/navbar.component";
 
 
 
-
-
-
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -75,12 +70,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { EmailComponent } from './features/public/email/email.component';
 import { ChartsComponent } from './features/admin/charts/charts.component';
 import { ChartsService } from './features/admin/charts/charts.service';
-import { NavbarComponent } from './navbar/navbar.component';
-import { FooterComponent } from './footer/footer.component';
-import { NgxEmojiPickerModule } from 'ngx-emoji-picker';
-import { PickerModule } from '@ctrl/ngx-emoji-mart';
-import { PickerComponent } from '@ctrl/ngx-emoji-mart';
-import {RouterModule} from "@angular/router";
+
 
 @NgModule({
   declarations: [
@@ -144,8 +134,8 @@ import {RouterModule} from "@angular/router";
     MatRadioModule,
     FormsModule,
     // TODO integration integrate navbar and footer like done for user management
-    NavbarComponent,
-    FooterComponent,
+    //NavbarComponent,
+    //FooterComponent,
     // From User management
     // TODO integration integrate with navbar/footer
     //NavbarComponent,

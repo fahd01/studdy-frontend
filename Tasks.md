@@ -1,6 +1,12 @@
 ## Integration
 - course management -> 15.04 16:00
 - blog management   -> 15.04 18:00
+  - removed from angular.json styles array
+```
+              "node_modules/@fullcalendar/core/main.css",
+              "node_modules/@fullcalendar/daygrid/main.css"
+```
+
 
 ## Tasks
 - [ ] Add logo to back offices
