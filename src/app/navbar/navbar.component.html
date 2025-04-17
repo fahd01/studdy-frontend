@@ -4,16 +4,15 @@
         <!-- Ajoutez ceci dans votre template -->
         <div class="language-switcher">
             <button (click)="changeLanguage('fr')" [class.active]="currentLang === 'fr'">
-              🇫🇷 
+              🇫🇷
             </button>
             <button (click)="changeLanguage('en')" [class.active]="currentLang === 'en'">
-              🇬🇧 
+              🇬🇧
             </button>
             <button (click)="changeLanguage('es')" [class.active]="currentLang === 'es'">
-              🇪🇸 
+              🇪🇸
             </button>
-          </div>
-          
+        </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> Menu
         </button>
@@ -40,6 +39,7 @@
 
 
                     
+
                 <!-- Show Users link only for ADMIN -->
                 <li class="nav-item" *ngIf="userRole === 'ADMIN'">
                     <a href="users" class="nav-link">Users</a>
@@ -58,6 +58,7 @@
             </button>
             
            
+
         </div>
     </div>
 </nav>
@@ -68,6 +69,7 @@
       Here you can find all your history of reclamation.
     </p>
   
+
     <div *ngIf="history && history.length > 0; else noHistory">
       <ul>
         <li *ngFor="let h of history">
@@ -76,13 +78,13 @@
         </li>
       </ul>
     </div>
-  
+
     <ng-template #noHistory>
       <p>No history found.</p>
     </ng-template>
-  
+
     <div class="go-corner">
       <div class="go-arrow" (click)="closeCard()">→</div>
     </div>
   </div>
-  
+

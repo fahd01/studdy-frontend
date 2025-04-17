@@ -1,5 +1,6 @@
 import { Component, HostListener, Renderer2 } from '@angular/core';
-import { Router } from '@angular/router';
+import {NavigationEnd, Router} from '@angular/router';
+import { TranslationService } from './services/Translation/translation.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,16 @@ import { Router } from '@angular/router';
 export class AppComponent {
   title = 'Studdy Learning Platform';
   private lastScrollTop = 0;
-  constructor(private router: Router, private renderer: Renderer2) {}
+
+  isLoginPage: boolean = false;
+  isRegisterPage: boolean = false;
+  isPasswordResetPage: boolean = false;
+
+  constructor(
+    private router: Router,
+    private renderer: Renderer2,
+    private translationService: TranslationService
+  ) {}
 
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
@@ -30,5 +40,27 @@ export class AppComponent {
 
   isDashboardRoute(): boolean {
     return this.router.url.startsWith('/dashboard');
+  }
+
+  ngOnInit(): void {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        // Update flags based on the current route
+        this.isLoginPage = event.url === '/login';
+        this.isRegisterPage = event.url === '/register';
+        this.isPasswordResetPage = event.url.includes('/PasswordReset');
+
+        // Debug statements to verify flag updates
+        console.log(`isLoginPage: ${this.isLoginPage}`);
+        console.log(`isRegisterPage: ${this.isRegisterPage}`);
+        console.log(`isPasswordResetPage: ${this.isPasswordResetPage}`);
+      }
+    });
+
+
+    const savedLang = localStorage.getItem('userLang') ||
+    navigator.language.split('-')[0] ||
+    'fr';
+    this.translationService.translateApp(savedLang);
   }
 }
