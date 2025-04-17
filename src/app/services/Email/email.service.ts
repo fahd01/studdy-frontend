@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { EmailDto } from "../../model/DTO/EmailDto";
+import { EmailDto } from "../../models/EmailDto";
 
 @Injectable({
   providedIn: 'root'

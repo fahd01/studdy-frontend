@@ -5,7 +5,8 @@ import { CommonModule } from '@angular/common'; // Import CommonModule
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { TranslationService } from '../services/Translation/translation.service';
 import { HistoryService } from '../services/History/history.service';
-import { Historic } from '../model/Historic/Historic';
+import { Historic } from '../models/Historic';
+
 
 @Component({
   selector: 'app-navbar',
@@ -29,7 +30,7 @@ export class NavbarComponent implements OnInit {
       private cdr: ChangeDetectorRef // Inject ChangeDetectorRef
       ,private translationService: TranslationService,
       private renderer: Renderer2,
-      private el: ElementRef,private historyService:HistoryService   
+      private el: ElementRef,private historyService:HistoryService
   ) {}
 
   ngOnInit(): void {
@@ -39,7 +40,7 @@ export class NavbarComponent implements OnInit {
     this.startInactivityTimer();
     this.loadHistory(); // Load the user's reclamations on component initialization
 
-   
+
 
   }
 
@@ -127,7 +128,7 @@ openCardHistory() {
 
   closeCard() {
     console.log('History card closed'); // Debugging
-    this.historyCard = false; // Hide the history card    
+    this.historyCard = false; // Hide the history card
     }
 
 }

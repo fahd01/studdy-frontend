@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
-import { Reclamation } from '../../model/Reclamation/reclamation';
+import { Reclamation } from '../../models/reclamation.model';
 import {catchError, Observable, throwError} from 'rxjs';
-import {BadWordResponse} from "../../model/Badword/bad-word-response";
+import {BadWordResponse} from "../../models/bad-word.response";
 
 @Injectable({
   providedIn: 'root',

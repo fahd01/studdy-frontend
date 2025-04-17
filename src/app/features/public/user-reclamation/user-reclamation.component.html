@@ -1,0 +1,72 @@
+<div class="reclamation-container">
+    <h2>User Reclamations</h2>
+    
+    <!-- Form for submitting a new reclamation -->
+    <form (submit)="createReclamation()" class="reclamation-form">
+        <label for="description">Description:</label>
+        <textarea id="description" [(ngModel)]="newReclamation.description" name="description" required></textarea>
+        
+        <emoji-picker *ngIf="showEmojiPicker" #picker class="custom-emoji-picker" 
+                     [class.visible]="showEmojiPicker"
+                     (emoji-click)="addEmoji($event)"></emoji-picker>
+        
+        <button type="submit" class="submit-btn">Submit</button>
+    </form>
+
+    <div class="external-buttons">
+        <button (click)="GeminiRecord()" class="btn btn-secondary">
+            <span *ngIf="!isRecording">Voice</span>
+            <span *ngIf="isRecording">Stop</span>
+            <i class="fas" [class.fa-microphone]="!isRecording" [class.fa-microphone-slash]="isRecording"></i>
+        </button>
+        
+        <button type="button" (click)="toggleEmojiPicker()" class="emoji-trigger">😊</button>
+    </div>
+</div>
+
+    <!-- Form for updating a reclamation (only visible when a reclamation is selected) -->
+    <div *ngIf="selectedReclamation" class="update-form">
+        <h3>Update Reclamation</h3>
+        <form (submit)="updateReclamation()">
+            <label for="update-description">Description:</label>
+            <textarea id="update-description" [(ngModel)]="selectedReclamation.description" name="update-description" required></textarea>
+            <div class="form-buttons">
+                <button type="submit" class="update-button">Save Changes</button>
+                <button type="button" (click)="selectedReclamation = null" class="cancel-button">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Display user reclamations -->
+    <div class="table-container" *ngIf="reclamations.length > 0">
+        <table class="reclamation-table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let reclamation of reclamations">
+                <td>{{ reclamation.recId }}</td>
+                <td>{{ reclamation.description }}</td>
+                <td>
+                        <span class="status" [ngClass]="{'pending': reclamation.status === 'Pending', 'resolved': reclamation.status === 'Resolved', 'denied': reclamation.status === 'Denied'}">
+                            {{ reclamation.status }}
+                        </span>
+                </td>
+                <td>
+                    <button (click)="selectReclamationForUpdate(reclamation)" class="update-btn">Update</button>
+                    <button (click)="deleteReclamation(reclamation.recId!)" class="delete-btn">Delete</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Message when no reclamations are present -->
+    <div *ngIf="reclamations.length === 0" class="no-reclamations">
+        No reclamations available.
+    </div>
