@@ -4,23 +4,37 @@
     top: 0; /* Adjust this value based on your navbar height */
     left: 0;
     right: 0;
+  /* TODO integration diff from course management */
+    z-index: 1000;
+    transition: top 0.3s;
+}
+
+.ftco-navbar-light.scrolled {
+    background: white !important;
+    top: 0 !important;
+}
+
+.ftco-navbar-light .navbar-nav > .nav-item.active > a {
+    color: #4986fc;
+}
+  /* TODO migration diff from blog management
     z-index: 3;
     transition: top 0.3s;
   }
-  
+
   .navbar-scrolled-up {
-  
+
     top: 0 !important;
   }
-  
+
   .navbar-scrolled-down {
     background: white !important;
     top: 0 !important;
-   
+
   }
-  
+
   .content {
-    margin-top: 100px; /* Adjust this value based on your navbar height */
+    margin-top: 100px;
   }
-  
+*/
   /* Add any other styles you need for your app */

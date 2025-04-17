@@ -4,6 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import {AppRoutingModule, routes} from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HttpClientModule, provideHttpClient } from '@angular/common/http';
+
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { LandingLayoutComponent } from './layouts/landing-layout/landing-layout/landing-layout.component';
 import { LandingNavbarComponent } from './layouts/landing-layout/landing-navbar/landing-navbar.component';
@@ -14,15 +16,34 @@ import { AdminFooterComponent } from './layouts/admin-layout/admin-footer/admin-
 import { HomeComponent } from './features/public/home/home.component';
 import { DashboardComponent } from './features/admin/dashboard/dashboard.component';
 import { RegisterComponent } from './features/public/register/register.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BlogComponent } from './features/public/blog/blog.component';
 import { ContactComponent } from './features/public/contact/contact.component';
 import { AdminSidebarComponent } from './layouts/admin-layout/admin-sidebar/admin-sidebar.component';
- 
-import { HttpClientModule } from '@angular/common/http';
+import { CourseService} from "./services/course-managment/course.service";
+import { CourseDetailComponent } from './features/public/course/course-detail/course-detail.component';
+import { CreateCourseComponent } from './features/admin/course/create-course/create-course.component';
+import { CourseTableViewComponent } from './features/admin/course/table-view/course-table-view.component';
+import { ListComponent} from "./features/public/course/list/list.component";
+import { CategoryManagementComponent} from "./features/admin/course/category-management/category-management.component";
+import { LiveCourseComponent } from './features/public/course/live-course/live-course.component';
+import { QuizManagementComponent} from "./features/admin/course/quiz-management/quiz-management.component";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthenticationService} from "./services/Authenticarion.service";
+import { MatCardModule} from "@angular/material/card";
+import { MatFormFieldModule} from "@angular/material/form-field";
+import { MatAutocompleteModule} from "@angular/material/autocomplete";
+import { MatDividerModule} from "@angular/material/divider";
+import { MatRadioModule} from "@angular/material/radio";
+import { MatIconModule} from "@angular/material/icon";
+import { CreateModuleComponent } from './features/admin/course/module-management/create-module.component';
+import { CourseStatisticsComponent } from './features/admin/course/statistics/course-statistics/course-statistics.component';
+
+import { UserComponent } from './features/public/user/user.component';
+
 import { CommentComponent } from './features/public/comments/comments.component';
 import { BlogDetailsComponent } from './features/public/blog-details/blog-details.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 import { MatButtonModule } from '@angular/material/button';
@@ -52,7 +73,8 @@ import {RouterModule} from "@angular/router";
   declarations: [
     AppComponent, 
     RegisterComponent ,
-     LandingLayoutComponent,
+    LandingLayoutComponent,
+
     LandingNavbarComponent,
     LandingFooterComponent,
     AdminLayoutComponent,
@@ -64,26 +86,42 @@ import {RouterModule} from "@angular/router";
     BlogComponent,
     ContactComponent,
     AdminSidebarComponent,
-     CommentComponent,
     BlogDetailsComponent,
+    CourseDetailComponent,
+    CreateCourseComponent,
+    CourseTableViewComponent,
+    CategoryManagementComponent,
+    QuizManagementComponent,
+    LiveCourseComponent,
+    CreateModuleComponent,
+    CourseStatisticsComponent,
+    UserComponent,
+    CommentComponent,
     CalendarComponent,
     EmailComponent,
     ChartsComponent
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    HttpClientModule,
+    ListComponent, 
+    BrowserAnimationsModule,      
     MatButtonModule,
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
     MatSnackBarModule,
+    MatCardModule,
+    MatAutocompleteModule,
+    MatDividerModule,
+    MatRadioModule,
     FormsModule,
+    // TODO integration integrate navbar and footer like done for user management      
     NavbarComponent,
     FooterComponent,
     PickerModule,
@@ -92,7 +130,12 @@ import {RouterModule} from "@angular/router";
 
   
   ],
-  providers: [ChartsService],
+  providers: [
+    provideHttpClient(),
+    CourseService,
+    AuthenticationService,
+    ChartsService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
