@@ -1,0 +1,84 @@
+.contact-wrap {
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .info-wrap {
+    border-radius: 5px;
+  }
+  
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  .label {
+    color: #000;
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 0.5rem;
+  }
+  
+  .form-control {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+  
+  .btn-primary {
+    background: #01d28e;
+    border-color: #01d28e;
+  }
+  
+  .btn-primary:hover {
+    background: #00b377;
+    border-color: #00b377;
+  }
+  
+  .blog-list {
+    max-height: 500px;
+    overflow-y: auto;
+  }
+
+  /* Custom Scrollbar Styles */
+.blog-list::-webkit-scrollbar {
+  width: 10px;
+}
+
+.blog-list::-webkit-scrollbar-thumb {
+  background: #01d28e;
+  border-radius: 5px;
+}
+
+.blog-list::-webkit-scrollbar-thumb:hover {
+  background: #00b377;
+}
+
+.blog-list::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+  
+  .dbox {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+  }
+  
+  .actions {
+    margin-top: 10px;
+  }
+  
+  .text-white-50 {
+    font-size: 0.9rem;
+  }
+  
+
+  
+  .btn-danger {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    background-color: #dc3545;
+    border-color: #dc3545;
+  }

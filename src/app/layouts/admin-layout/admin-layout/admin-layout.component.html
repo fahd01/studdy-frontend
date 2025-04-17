@@ -1,4 +1,15 @@
-<app-dashboard></app-dashboard>
-<app-admin-footer></app-admin-footer>
+<div class="container-scroller">
+    <!-- Sidebar -->
+    <app-admin-sidebar [isCollapsed]="isSidebarCollapsed"></app-admin-sidebar>
 
-<router-outlet></router-outlet>
+    <!-- Main Container -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- Navbar -->
+      <app-admin-navbar (toggleSidebar)="toggleSidebar()"></app-admin-navbar>
+
+      <!-- Main Content Area -->
+      <div class="main-panel">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+</div>

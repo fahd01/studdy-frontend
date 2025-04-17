@@ -26,8 +26,11 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
-
-
+## Backend
+### Microservices
+- User management   -> localhost:8081
+- Course Management -> localhost:8082
+- Blog management   -> localhost:8083
 
 ## Templates
 ### front template:
@@ -44,4 +47,3 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 - Inspire from:
   - https://colorlib.com/wp/cat/education/
-  - 

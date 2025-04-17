@@ -1,0 +1,87 @@
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container">
+        <a class="navbar-brand" href="index.html"><span>Studdy</span></a>
+        <!-- Ajoutez ceci dans votre template -->
+        <div class="language-switcher">
+            <button (click)="changeLanguage('fr')" [class.active]="currentLang === 'fr'">
+              🇫🇷
+            </button>
+            <button (click)="changeLanguage('en')" [class.active]="currentLang === 'en'">
+              🇬🇧
+            </button>
+            <button (click)="changeLanguage('es')" [class.active]="currentLang === 'es'">
+              🇪🇸
+            </button>
+        </div>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="oi oi-menu"></span> Menu
+        </button>
+
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item" >
+                    <a (click)="openCardHistory()" class="nav-link">History</a>
+                </li>
+                <li class="nav-item" *ngIf="userRole === 'ETUDIANT' ">
+                    <a href="userRec" class="nav-link">Reclamation</a>
+                </li>
+                <li class="nav-item" *ngIf="userRole === 'ENSEIGNANT' ">
+                    <a href="userRec" class="nav-link">Reclamation</a>
+                </li>
+
+                <li class="nav-item" >
+
+                </li>
+
+                    <li class="nav-item"><a href="profile" class="nav-link">Profile</a></li>
+
+                    <!-- From Uiverse.io by SouravBandyopadhyay -->
+
+
+
+                <!-- Show Users link only for ADMIN -->
+                <li class="nav-item" *ngIf="userRole === 'ADMIN'">
+                    <a href="users" class="nav-link">Users</a>
+
+                </li>
+                <li class="nav-item" *ngIf="userRole === 'ADMIN'">
+                    <a href="adminRec" class="nav-link">Gestion Reclamation</a>
+
+                </li>
+
+
+            </ul>
+            <!-- Logout Button -->
+            <button class="btn btn-outline-primary ml-3" (click)="logout()">
+                Logout
+            </button>
+
+
+        </div>
+    </div>
+</nav>
+
+<div class="card" *ngIf="historyCard">
+    <p class="card-title">Your History</p>
+    <p class="small-desc">
+      Here you can find all your history of reclamation.
+    </p>
+
+    <div *ngIf="history && history.length > 0; else noHistory">
+      <ul>
+        <li *ngFor="let h of history">
+          <strong>{{ h.message }}</strong><br />
+          <small>{{ h.createdAt | date: 'medium' }}</small>
+        </li>
+      </ul>
+    </div>
+
+    <ng-template #noHistory>
+      <p>No history found.</p>
+    </ng-template>
+
+    <div class="go-corner">
+      <div class="go-arrow" (click)="closeCard()">→</div>
+    </div>
+  </div>

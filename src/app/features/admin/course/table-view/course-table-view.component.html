@@ -1,0 +1,72 @@
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="page-header">
+            <h3 class="page-title">View Courses</h3>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Courses Management</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"> View Courses </li>
+                </ol>
+            </nav>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Courses List</h4>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Description</th>
+                                    <th>Price</th>
+                                    <th>Level</th>
+                                    <th>Duration</th>
+                                    <!--
+                                    <th>Created At</th>
+                                    -->
+                                    <th>Status</th>
+                                    <th>Category</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let course of courses;">
+                                        <td>{{ course.title }}</td>
+                                        <td>{{ course.description | slice:0:50 }}...</td>
+                                        <td>$ {{ course.price }}</td>
+                                        <td>
+                                            <label class="badge {{ levelBadgeClass(course.level) }}">{{ course.level }}</label>
+                                        </td>
+                                        <td>{{ course.duration }} Week{{course.duration > 1 ? '' : 's' }}</td>
+                                       <!--
+                                        <td>TODO</td>
+                                        -->
+                                        <td>{{ course.status }}</td>
+                                        <td><a routerLink="TODO">{{ course.category?.name }}</a></td>
+                                        <td>
+                                            <a routerLink="../edit/{{course.id}}">
+                                                <button type="button" class="btn btn-inverse-success btn-icon" title="Edit this course">
+                                                <i class="mdi mdi-pencil"></i>
+                                                </button>
+                                            </a>
+                                            <a routerLink="../{{course.id}}/modules">
+                                                <button type="button" class="btn btn-inverse-success btn-icon" title="Manage Modules">
+                                                    <i class="mdi mdi-book-open-page-variant"></i>
+                                                </button>
+                                            </a>
+                                            <button (click)="deleteCourse(course)" type="button" class="btn btn-inverse-danger btn-icon" title="Delete this course">
+                                                <i class="mdi mdi-trash-can-outline"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

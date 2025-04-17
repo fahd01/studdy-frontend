@@ -1,0 +1,19 @@
+<form [formGroup]="commentForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="content">Content</label>
+      <textarea id="content" formControlName="content"></textarea>
+    </div>
+    <div>
+      <label for="blogId">Blog ID</label>
+      <input id="blogId" formControlName="blogId" type="text">
+    </div>
+    <div>
+      <label for="userId">User ID</label>
+      <input id="userId" formControlName="userId" type="text">
+    </div>
+    <div>
+      <label for="Username">Username</label>
+      <input id="Username" formControlName="Username" type="text">
+    </div>
+    <button type="submit">Add Comment</button>
+  </form>

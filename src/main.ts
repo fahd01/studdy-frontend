@@ -1,5 +1,5 @@
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-
+import 'emoji-picker-element';
 import { AppModule } from './app/app.module';
 
 

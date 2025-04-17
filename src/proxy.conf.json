@@ -1,9 +1,15 @@
 {
   "/course-management": {
-    "target": "http://host.docker.internal:8080",
+    "target": "http://host.docker.internal:8082",
     "secure": false,
     "pathRewrite": {
       "^/course-management": ""
     }
+  },
+  "/api": {
+    "target": "http://localhost:8083",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
   }
 }
