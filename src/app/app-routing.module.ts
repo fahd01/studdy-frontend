@@ -4,12 +4,15 @@ import { LandingLayoutComponent } from './layouts/landing-layout/landing-layout/
 import { HomeComponent } from './features/public/home/home.component';
 import { BlogComponent } from './features/public/blog/blog.component';
 import { DashboardComponent } from './features/admin/dashboard/dashboard.component';
-import {ListComponent} from "./features/public/course/list/list.component";
-import {AboutComponent} from "./features/public/about/about.component";
-import { StageFrontOfficeComponent } from './features/Stage/stage-front-office/stage-front-office.component';
-import { RegisterComponent } from './features/public/register/register.component';
-import { AddStageComponent } from './features/Stage/add-stage/add-stage.component';
-import { EditStageComponent } from './features/Stage/edit-stage/edit-stage.component';
+import { ListComponent } from "./features/public/course/list/list.component";
+import { AboutComponent } from "./features/public/about/about.component";
+import { AddFormationComponent } from "./features/admin/add-formation/add-formation.component";
+import { FormationDetailsComponent } from "./features/public/course/formation-details/formation-details.component";
+import { FormationsComponent } from './features/admin/formations/formations.component';
+import { EnrollmentComponent } from './features/public/course/enrollment/enrollment.component';
+import { EnrollmentSuccessComponent } from './features/public/course/enrollment-success/enrollment-success.component';
+import { UserEnrollmentsComponent } from './features/public/course/user-enrollments/user-enrollments.component';
+import { AddCouponComponent } from './features/admin/add-coupon/add-coupon.component';
 
 
 const routes: Routes = [
@@ -18,28 +21,40 @@ const routes: Routes = [
     component: LandingLayoutComponent,
     children: [
       { path: 'dashboard', component: DashboardComponent },
+      { path: 'admin/add-formation', component: AddFormationComponent },
+      { path: 'admin/add-coupon', component: AddCouponComponent },
+
+      { path: 'admin/list', component: FormationsComponent },
+
       { path: 'home', component: HomeComponent },
       { path: 'course/list', component: ListComponent },
+      {
+        path: 'formations/:id',
+        component: FormationDetailsComponent
+      },
       { path: 'about', component: AboutComponent },
       { path: 'blog/:id', component: BlogComponent },
-      { path: '', component: LandingLayoutComponent },
-      { path: 'stages', component: StageFrontOfficeComponent },
-      { path: 'register', component: RegisterComponent },
-      { path: 'addstage', component: AddStageComponent },
-      { path: 'stage/update/:id', component: EditStageComponent },
-
-
-
-
       
-    
+      // Enrollment routes - IMPORTANT: more specific route must come first!
+      { 
+        path: 'enrollment/success', 
+        component: EnrollmentSuccessComponent 
+      },
+      { 
+        path: 'enrollment/:id', 
+        component: EnrollmentComponent
+      },
+      {
+        path: 'enrollments/:email',
+        component: UserEnrollmentsComponent
+      },
+      
+      { path: '', redirectTo: '/home', pathMatch: 'full' },
     ]
   },
- 
 ];
 
 @NgModule({
-  
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })

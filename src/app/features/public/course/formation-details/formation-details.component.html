@@ -1,0 +1,329 @@
+<section class="hero-wrap hero-wrap-2" style="background-image: url('../../../../../assets/landing/images/bg_2.jpg');">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-end justify-content-center">
+            <div class="col-md-9 ftco-animate pb-5 text-center">
+                <p class="breadcrumbs">
+                    <span class="mr-2"><a [routerLink]="['/']">Home <i class="fa fa-chevron-right"></i></a></span>
+                    <span class="mr-2"><a [routerLink]="['/formations']">Formations <i class="fa fa-chevron-right"></i></a></span>
+                    <span>Details <i class="fa fa-chevron-right"></i></span>
+                </p>
+                <h1 class="mb-0 bread">Formation Details</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section bg-light">
+    <div class="container">
+        <!-- Loading State -->
+        <!-- Loading State -->
+        <div *ngIf="loading" class="text-center p-5">
+            <div class="spinner-border text-primary" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <p class="mt-2">Loading formation details...</p>
+            <div class="mt-3 text-center">
+                <small class="text-muted">Formation ID: {{ formationId }}</small>
+            </div>
+        </div>
+
+        <!-- Error State -->
+        <div *ngIf="!loading && error" class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">Error Loading Formation</h4>
+            <p>{{ error }}</p>
+            <hr>
+            <div class="d-flex justify-content-between">
+                <button type="button" class="btn btn-outline-danger" (click)="retryLoading()">
+                    <i class="fa fa-sync-alt mr-2"></i> Try Again
+                </button>
+                <button type="button" class="btn btn-outline-primary" [routerLink]="['/formations']">
+                    <i class="fa fa-arrow-left mr-2"></i> Back to Formations
+                </button>
+            </div>
+        </div>
+
+        <!-- No Formation Found -->
+        <div *ngIf="!loading && !error && !formation" class="alert alert-warning" role="alert">
+            <h4 class="alert-heading">Formation Not Found</h4>
+            <p>The formation you're looking for doesn't exist or has been removed.</p>
+            <hr>
+            <button type="button" class="btn btn-warning" [routerLink]="['/formations']">
+                <i class="fa fa-arrow-left mr-2"></i> Back to Formations
+            </button>
+        </div>
+
+        <!-- Formation Details -->
+        <div *ngIf="!loading && !error && formation" class="row">
+            <!-- Left Column: Formation Details -->
+            <div class="col-lg-8">
+                <div class="formation-detail-card bg-white rounded p-4 mb-4">
+                    <!-- Formation Header -->
+                    <div class="formation-header mb-4">
+                        <h2 class="formation-title mb-3">{{ formation.title }}</h2>
+                        <div class="formation-meta d-flex flex-wrap">
+              <span class="mr-4 mb-2">
+                <i class="fa fa-calendar mr-2"></i>
+                  {{ formatDateRange(formation.startDate, formation.endDate) }}
+              </span>
+                            <span class="mr-4 mb-2">
+                <i class="fa fa-users mr-2"></i>
+                                {{ getParticipantCount() }} enrolled
+              </span>
+
+                        </div>
+                    </div>
+
+                    <!-- Formation Image -->
+                    <div class="formation-image mb-4">
+                        <img [src]="getFormationImage()" alt="{{ formation.title }}" class="img-fluid rounded">
+                    </div>
+
+                    <!-- Formation Tabs -->
+                    <div class="formation-tabs mb-4">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link" [class.active]="activeTab === 'overview'" (click)="setActiveTab('overview')">Overview</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" [class.active]="activeTab === 'curriculum'" (click)="setActiveTab('curriculum')">Curriculum</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" [class.active]="activeTab === 'instructor'" (click)="setActiveTab('instructor')">Instructor</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" [class.active]="activeTab === 'reviews'" (click)="setActiveTab('reviews')">Reviews</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Tab Content -->
+                    <div class="tab-content p-3">
+                        <!-- Overview Tab -->
+                        <div *ngIf="activeTab === 'overview'" class="overview-tab">
+                            <h4 class="mb-3">About This Formation</h4>
+                            <p>{{ formation.description }}</p>
+
+                            <!-- Categories -->
+
+
+                            <!-- Learning Outcomes -->
+                            <div class="mt-4">
+                                <h5>What You'll Learn:</h5>
+                                <ul class="learning-outcomes">
+                                    <li *ngFor="let i of [1, 2, 3, 4, 5]">
+                                        <i class="fa fa-check-circle text-success mr-2"></i>
+                                        Example learning outcome {{ i }}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Curriculum Tab -->
+                        <div *ngIf="activeTab === 'curriculum'" class="curriculum-tab">
+                            <h4 class="mb-3">Course Curriculum</h4>
+
+                            <!-- If there are courses -->
+                            <div *ngIf="formation.coursesList?.length" class="course-list">
+                                <div class="accordion" id="coursesAccordion">
+                                    <div class="card mb-3" *ngFor="let course of formation.coursesList; let i = index">
+                                        <div class="card-header d-flex justify-content-between align-items-center"
+                                             id="heading{{ i }}"
+                                             data-toggle="collapse"
+                                             [attr.data-target]="'#collapse' + i"
+                                             aria-expanded="false"
+                                             [attr.aria-controls]="'collapse' + i">
+                                            <h5 class="mb-0">{{ course.name }}</h5>
+                                        </div>
+
+                                        <div id="collapse{{ i }}" class="collapse" [attr.aria-labelledby]="'heading' + i" data-parent="#coursesAccordion">
+                                            <div class="card-body">
+                                                <p>{{ course.name }}</p>
+
+                                                <!-- Course sessions/lessons if available -->
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- If no courses -->
+                            <div *ngIf="!formation.coursesList?.length" class="alert alert-info">
+                                No curriculum details available for this formation.
+                            </div>
+                        </div>
+
+
+
+                        <!-- Reviews Tab -->
+                        <div *ngIf="activeTab === 'reviews'" class="reviews-tab">
+                            <h4 class="mb-3">Student Reviews</h4>
+
+                            <div class="alert alert-info">
+                                No reviews available for this formation yet.
+                            </div>
+
+                            <!-- Reviews will be implemented in future updates -->
+                            <div class="text-center mt-4">
+                                <button class="btn btn-outline-primary">
+                                    <i class="fa fa-star mr-2"></i>
+                                    Write a Review
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Enrollment Card and Related Formations -->
+            <div class="col-lg-4">
+                <!-- Enrollment Card -->
+                <div class="enrollment-card bg-white rounded p-4 mb-4">
+                    <h4 class="mb-3">Formation Details</h4>
+
+                    <div class="price-box mb-4">
+                        <h3 class="price">{{ formatPrice(formation.price) }}</h3>
+                    </div>
+
+                    <div class="enrollment-features mb-4">
+                        <div class="feature-item d-flex align-items-center mb-3">
+                            <i class="fa fa-user-graduate fa-lg mr-3 text-primary"></i>
+                            <div>
+                                <div class="text-muted">Access</div>
+                                <strong>Lifetime</strong>
+                            </div>
+                        </div>
+                        <div class="feature-item d-flex align-items-center mb-3">
+                            <i class="fa fa-certificate fa-lg mr-3 text-primary"></i>
+                            <div>
+                                <div class="text-muted">Certificate</div>
+                                <strong>Yes</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button
+                            class="btn btn-primary btn-block btn-lg"
+                            [class.btn-success]="isUserEnrolled()"
+                            [disabled]="isUserEnrolled()"
+                            (click)="enrollInFormation()">
+                        {{ isUserEnrolled() ? 'Already Enrolled' : 'Enroll Now' }}
+                    </button>
+                    <button
+                        class="btn btn-outline-success btn-block mt-3"
+                        (click)="downloadCertificate()">
+                    <i class="fa fa-certificate mr-2"></i>
+                    Download Certificate
+                </button>
+
+                    <div class="text-center mt-3">
+                        <small class="text-muted">30-Day Money-Back Guarantee</small>
+                    </div>
+                </div>
+
+                <!-- Related Formations -->
+                <div class="related-formations bg-white rounded p-4">
+                    <h4 class="mb-3">Related Formations</h4>
+
+                    <div *ngFor="let relatedFormation of relatedFormations" class="related-formation-item mb-3">
+                        <div class="d-flex">
+                            <div class="related-formation-image mr-3">
+                                <img [src]="relatedFormation.imagesUrls?.[0] || 'assets/landing/images/course-default.jpg'"
+                                     alt="{{ relatedFormation.title }}"
+                                     class="img-fluid rounded"
+                                     style="width: 80px; height: 60px; object-fit: cover;">
+                            </div>
+                            <div class="related-formation-info">
+                                <h6 class="mb-1">
+                                    <a [routerLink]="['/formations', relatedFormation.id]">{{ relatedFormation.title }}</a>
+                                </h6>
+                                <div class="text-primary">{{ formatPrice(relatedFormation.price) }}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="!relatedFormations.length" class="alert alert-info">
+                        No related formations found.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Certificate Form Modal -->
+<div class="certificate-form-modal" *ngIf="showCertificateForm">
+    <div class="certificate-form-overlay" (click)="cancelCertificateForm()"></div>
+    <div class="certificate-form-content">
+        <div class="certificate-form-header">
+            <h4>Certificate Information</h4>
+            <button type="button" class="close" aria-label="Close" (click)="cancelCertificateForm()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="certificate-form-body">
+            <p>Please verify your information for the certificate for <strong>{{ formation?.title }}</strong>.</p>
+
+            <div class="form-group">
+                <label for="certificateName">Full Name *</label>
+                <input
+                        type="text"
+                        class="form-control"
+                        id="certificateName"
+                        [(ngModel)]="certificateUserInfo.name"
+                        placeholder="Enter your full name as it should appear on the certificate"
+                        required>
+                <small class="form-text text-muted">This name will be printed on your certificate.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="certificateEmail">Email Address *</label>
+                <input
+                        type="email"
+                        class="form-control"
+                        id="certificateEmail"
+                        [(ngModel)]="certificateUserInfo.email"
+                        placeholder="Enter your email address"
+                        required>
+            </div>
+
+            <div class="form-group">
+                <label for="certificateAddress">Address (Optional)</label>
+                <input
+                        type="text"
+                        class="form-control"
+                        id="certificateAddress"
+                        [(ngModel)]="certificateUserInfo.address"
+                        placeholder="Enter your address (optional)">
+            </div>
+
+            <div class="alert alert-info">
+                <i class="fa fa-info-circle mr-2"></i>
+                Your certificate will be generated as a PDF document that you can download and print.
+            </div>
+        </div>
+        <div class="certificate-form-footer">
+            <div class="d-flex flex-column w-100">
+                <div class="d-flex justify-content-between">
+                    <button type="button" class="btn btn-secondary" (click)="cancelCertificateForm()">Cancel</button>
+                    <button
+                            type="button"
+                            class="btn btn-primary"
+                            (click)="submitCertificateRequest()"
+                            [disabled]="downloadingCertificate || !certificateUserInfo.name || !certificateUserInfo.email">
+                        <span *ngIf="downloadingCertificate" class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>
+                        Generate Certificate
+                    </button>
+                </div>
+
+                <!-- Add help text and troubleshooting option -->
+                <div class="mt-3 text-center" *ngIf="downloadingCertificate">
+                    <small class="text-muted">This may take a few moments...</small>
+                </div>
+                <div class="mt-3 text-center server-troubleshooting">
+                    <small class="text-muted">Having trouble? <a href="#" (click)="$event.preventDefault()">Try alternate server</a></small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,214 @@
+/* List View Styles */
+.project-wrap {
+    width: 100%;
+    margin-bottom: 30px;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    transition: all 0.3s ease;
+}
+
+.project-wrap:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.project-wrap .img {
+    height: 250px;
+    display: block;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.project-wrap .img .price {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 5px 10px;
+    background: #007bff;
+    color: #fff;
+    border-radius: 3px;
+    font-weight: 500;
+}
+
+.project-wrap .text {
+    padding: 20px;
+    background: #fff;
+}
+
+.project-wrap .text h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.project-wrap .text h3 a {
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.project-wrap .text h3 a:hover {
+    color: #007bff;
+}
+
+.project-wrap .text p {
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.project-wrap .text ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    margin-top: 15px;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+    width: 100%;
+}
+
+.project-wrap .text ul li {
+    display: inline-block;
+    color: #666;
+}
+
+.project-wrap .text ul li.price {
+    font-weight: bold;
+    color: #007bff;
+    font-size: 18px;
+}
+
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+}
+
+/* Calendar Container */
+.calendar-container {
+    min-height: 700px;
+    margin-bottom: 30px;
+}
+
+/* FullCalendar Custom Styles */
+::ng-deep .fc .fc-toolbar {
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+::ng-deep .fc .fc-toolbar-title {
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+::ng-deep .fc .fc-button-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+::ng-deep .fc .fc-button-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+::ng-deep .fc .fc-button-primary:disabled {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+::ng-deep .fc .fc-button-active {
+    background-color: #0056b3 !important;
+    border-color: #0056b3 !important;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5) !important;
+}
+
+::ng-deep .fc-day-today {
+    background-color: rgba(0, 123, 255, 0.1) !important;
+}
+
+::ng-deep .fc-event {
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 2px 4px;
+    font-size: 0.85em;
+}
+
+::ng-deep .fc-event:hover {
+    filter: brightness(0.9);
+}
+
+/* Responsive calendar */
+@media (max-width: 768px) {
+    ::ng-deep .fc .fc-toolbar.fc-header-toolbar {
+        display: flex;
+        flex-direction: column;
+    }
+
+    ::ng-deep .fc .fc-toolbar-title {
+        margin-bottom: 10px;
+        font-size: 1.25rem;
+    }
+}
+
+/* Add these styles to your component CSS */
+
+/* Modal styles */
+::ng-deep .modal-content {
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+::ng-deep .modal-header {
+    border-bottom: 1px solid #f0f0f0;
+    background-color: #f8f9fa;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+::ng-deep .modal-footer {
+    border-top: 1px solid #f0f0f0;
+    background-color: #f8f9fa;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.price-badge {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.categories-badges .badge {
+    font-size: 0.9rem;
+    padding: 5px 10px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.description {
+    max-height: 200px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.description::-webkit-scrollbar {
+    width: 5px;
+}
+
+.description::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.description::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+
+.description::-webkit-scrollbar-thumb:hover {
+    background: #007bff;
+}

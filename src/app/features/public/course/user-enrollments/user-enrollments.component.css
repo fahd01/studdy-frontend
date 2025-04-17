@@ -1,0 +1,138 @@
+.user-enrollments-container {
+    padding: 2rem 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .page-header {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #e9ecef;
+    padding-bottom: 1rem;
+  }
+  
+  .loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+  }
+  
+  .spinner {
+    width: 3rem;
+    height: 3rem;
+    border: 0.25rem solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top-color: #007bff;
+    animation: spin 1s infinite linear;
+    margin-bottom: 1rem;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .error-container {
+    text-align: center;
+    padding: 2rem;
+  }
+  
+  .empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    background-color: #f8f9fa;
+    border-radius: 0.5rem;
+  }
+  
+  .empty-state-icon {
+    font-size: 4rem;
+    color: #6c757d;
+    margin-bottom: 1rem;
+  }
+  
+  .enrollment-card {
+    height: 100%;
+  }
+  
+  .enrollment-card .card {
+    height: 100%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s;
+  }
+  
+  .enrollment-card .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .enrollment-card .card-header {
+    background-color: #f8f9fa;
+    padding: 0.75rem 1.25rem;
+  }
+  
+  .status-badge {
+    padding: 0.35rem 0.65rem;
+    border-radius: 2rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  
+  .status-active {
+    background-color: #cff4fc;
+    color: #055160;
+  }
+  
+  .status-completed {
+    background-color: #d1e7dd;
+    color: #0f5132;
+  }
+  
+  .status-cancelled {
+    background-color: #f8d7da;
+    color: #842029;
+  }
+  
+  .enrollment-details {
+    margin-top: 1rem;
+  }
+  
+  .detail-row {
+    margin-bottom: 0.75rem;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .detail-label {
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 0.25rem;
+  }
+  
+  .detail-value {
+    color: #6c757d;
+  }
+  
+  .progress {
+    margin-top: 0.25rem;
+    height: 0.75rem;
+  }
+  
+  .card-footer {
+    background-color: white;
+    border-top: 1px solid rgba(0,0,0,.125);
+    padding: 1rem 1.25rem;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 767px) {
+    .page-header h1 {
+      font-size: 1.75rem;
+    }
+    
+    .enrollment-card {
+      margin-bottom: 1.5rem;
+    }
+  }

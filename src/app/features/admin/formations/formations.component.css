@@ -1,0 +1,126 @@
+.formations-container {
+    padding: 20px;
+  }
+  
+  .formations-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .user-info span {
+    margin-left: 15px;
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .user-info i {
+    margin-right: 5px;
+  }
+  
+  .actions-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .search-container {
+    position: relative;
+    width: 300px;
+  }
+  
+  .search-input {
+    width: 100%;
+    padding: 10px;
+    padding-left: 35px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .search-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+  }
+  
+  .formations-table-container {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .formations-table {
+    margin-bottom: 0;
+    background-color: #fff;
+  }
+  
+  .formations-table th {
+    background-color: #f8f9fa;
+    border-top: none;
+    font-weight: 600;
+  }
+  
+  .formations-table td {
+    vertical-align: middle;
+    padding: 12px 8px;
+  }
+  
+  .actions {
+    white-space: nowrap;
+  }
+  
+  .actions button {
+    margin-right: 5px;
+  }
+  
+  .loading-spinner {
+    display: flex;
+    justify-content: center;
+    padding: 50px 0;
+  }
+  
+  .no-data {
+    text-align: center;
+    padding: 50px 0;
+    color: #666;
+  }
+  
+  .alert-danger {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .formations-header,
+    .actions-bar {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .user-info {
+      margin-top: 10px;
+    }
+    
+    .search-container {
+      width: 100%;
+      margin-bottom: 15px;
+    }
+    
+    .formations-table {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+  }
