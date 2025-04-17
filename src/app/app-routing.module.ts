@@ -34,6 +34,15 @@ import {UserSettingsComponent} from "./features/public/user-settings/user-settin
 import {UserReclamationComponent} from "./features/public/user-reclamation/user-reclamation.component";
 import {AdminReclamationComponent} from "./features/public/admin-reclamation/admin-reclamation.component";
 
+// Formation management
+import { AddFormationComponent } from "./features/admin/add-formation/add-formation.component";
+import { FormationDetailsComponent } from "./features/public/formation/formation-details/formation-details.component";
+import { FormationsComponent } from './features/admin/formations/formations.component';
+import { EnrollmentComponent } from './features/public/formation/enrollment/enrollment.component';
+import { EnrollmentSuccessComponent } from './features/public/formation/enrollment-success/enrollment-success.component';
+import { UserEnrollmentsComponent } from './features/public/formation/user-enrollments/user-enrollments.component';
+import { AddCouponComponent } from './features/admin/add-coupon/add-coupon.component';
+import {FormationListComponent} from "./features/public/formation/list/formation-list.component";
 
 
 export const routes: Routes = [
@@ -62,6 +71,14 @@ export const routes: Routes = [
       { path: 'userRec', component: UserReclamationComponent },
       { path: 'adminRec', component: AdminReclamationComponent },
 
+
+      // Formation management
+      { path: 'formations/list', component: FormationListComponent },
+      { path: 'formations/:id', component: FormationDetailsComponent},
+      { path: 'enrollment/success', component: EnrollmentSuccessComponent},
+      { path: 'enrollment/:id', component: EnrollmentComponent},
+      { path: 'enrollments/:email', component: UserEnrollmentsComponent},
+
       { path: '', redirectTo: '/home', pathMatch: 'full' }
 
     ]
@@ -82,7 +99,12 @@ export const routes: Routes = [
       { path: 'course/:id/modules', component: CreateModuleComponent },
       // BLog Management
       { path: 'charts', component: ChartsComponent },
-      { path: 'calendar', component: CalendarComponent }
+      { path: 'calendar', component: CalendarComponent },
+      // Formation management
+      // TODO integration; formation management; are the admin routes supposed to be in back-office
+      { path: 'add-formation', component: AddFormationComponent },
+      { path: 'add-coupon', component: AddCouponComponent },
+      { path: 'list', component: FormationsComponent },
     ]
   }
 ];

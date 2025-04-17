@@ -1,0 +1,182 @@
+<div class="container">
+    <div class="row mb-4">
+      <div class="col">
+        <h2 class="page-title">
+          <i class="fas fa-tag me-2"></i>Create New Coupon
+        </h2>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Dashboard</a></li>
+            <li class="breadcrumb-item"><a routerLink="/admin/coupons">Coupons</a></li>
+            <li class="breadcrumb-item active">Add Coupon</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  
+    <!-- Loading State -->
+    <div *ngIf="loading" class="row mb-4">
+      <div class="col">
+        <div class="d-flex align-items-center">
+          <div class="spinner-border spinner-border-sm me-2" role="status"></div>
+          <span>Loading formations...</span>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Error State -->
+    <div *ngIf="error" class="row mb-4">
+      <div class="col">
+        <div class="alert alert-danger">
+          <i class="fas fa-exclamation-circle me-2"></i>
+          {{ error }}
+        </div>
+      </div>
+    </div>
+  
+    <!-- Success Message -->
+    <div *ngIf="success" class="row mb-4">
+      <div class="col">
+        <div class="alert alert-success">
+          <i class="fas fa-check-circle me-2"></i>
+          Coupon created successfully!
+        </div>
+      </div>
+    </div>
+  
+    <!-- Coupon Form -->
+    <div class="row">
+      <div class="col-md-8 col-lg-6">
+        <div class="card">
+          <div class="card-body">
+            <form [formGroup]="couponForm" (ngSubmit)="onSubmit()">
+              <!-- Coupon Code -->
+              <div class="mb-3">
+                <label for="code" class="form-label">Coupon Code</label>
+                <input 
+                  type="text" 
+                  id="code" 
+                  formControlName="code" 
+                  class="form-control"
+                  [ngClass]="{'is-invalid': f['code'].touched && f['code'].invalid}" 
+                  placeholder="Enter coupon code (e.g., SUMMER2025)"
+                  uppercase
+                >
+                <div *ngIf="f['code'].touched && f['code'].invalid" class="invalid-feedback">
+                  <div *ngIf="f['code'].errors?.['required']">Coupon code is required</div>
+                  <div *ngIf="f['code'].errors?.['minlength']">Coupon code must be at least 3 characters</div>
+                  <div *ngIf="f['code'].errors?.['maxlength']">Coupon code cannot exceed 20 characters</div>
+                </div>
+                <small class="form-text text-muted">
+                  Coupon codes are case-sensitive and must be unique
+                </small>
+              </div>
+  
+              <!-- Discount Percentage -->
+              <div class="mb-3">
+                <label for="discountPercentage" class="form-label">Discount Percentage</label>
+                <div class="input-group">
+                  <input 
+                    type="number" 
+                    id="discountPercentage" 
+                    formControlName="discountPercentage" 
+                    class="form-control"
+                    [ngClass]="{'is-invalid': f['discountPercentage'].touched && f['discountPercentage'].invalid}" 
+                    min="1"
+                    max="100"
+                  >
+                  <span class="input-group-text">%</span>
+                  <div *ngIf="f['discountPercentage'].touched && f['discountPercentage'].invalid" class="invalid-feedback">
+                    <div *ngIf="f['discountPercentage'].errors?.['required']">Discount percentage is required</div>
+                    <div *ngIf="f['discountPercentage'].errors?.['min']">Minimum discount is 1%</div>
+                    <div *ngIf="f['discountPercentage'].errors?.['max']">Maximum discount is 100%</div>
+                  </div>
+                </div>
+              </div>
+  
+              <!-- Formation Selection -->
+              <div class="mb-3">
+                <label for="formationId" class="form-label">Apply to Formation</label>
+                <select 
+                  id="formationId" 
+                  formControlName="formationId" 
+                  class="form-select"
+                  [ngClass]="{'is-invalid': f['formationId'].touched && f['formationId'].invalid}"
+                >
+                  <option value="" disabled>Select a formation</option>
+                  <option *ngFor="let formation of formations" [value]="formation.id">
+                    {{ formation.title }} (€{{ formation.price }})
+                  </option>
+                </select>
+                <div *ngIf="f['formationId'].touched && f['formationId'].invalid" class="invalid-feedback">
+                  <div *ngIf="f['formationId'].errors?.['required']">Please select a formation</div>
+                </div>
+              </div>
+  
+              <!-- Active Status -->
+              <div class="mb-4">
+                <div class="form-check">
+                  <input 
+                    type="checkbox" 
+                    id="isActive" 
+                    formControlName="isActive" 
+                    class="form-check-input"
+                  >
+                  <label class="form-check-label" for="isActive">
+                    Coupon is active and ready to use
+                  </label>
+                </div>
+              </div>
+  
+              <!-- Submit Button -->
+              <div class="d-flex gap-2">
+                <button 
+                  type="submit" 
+                  class="btn btn-primary" 
+                  [disabled]="couponForm.invalid || submitting"
+                >
+                  <i *ngIf="!submitting" class="fas fa-plus-circle me-1"></i>
+                  <span *ngIf="!submitting">Create Coupon</span>
+                  <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                  <span *ngIf="submitting">Creating...</span>
+                </button>
+                <button 
+                  type="button" 
+                  class="btn btn-outline-secondary" 
+                  (click)="resetForm()"
+                  [disabled]="submitting"
+                >
+                  Reset
+                </button>
+                <button 
+                  type="button" 
+                  class="btn btn-link ms-auto" 
+                  routerLink="/admin/coupons"
+                  [disabled]="submitting"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Information Panel -->
+      <div class="col-md-4 col-lg-6">
+        <div class="card bg-light">
+          <div class="card-body">
+            <h5 class="card-title">About Coupons</h5>
+            <p>Coupons provide discounts to users when they enroll in a formation.</p>
+            <ul>
+              <li>Each coupon is linked to a specific formation</li>
+              <li>Discounts are applied as a percentage of the original price</li>
+              <li>Coupon codes must be unique across the system</li>
+              <li>You can deactivate coupons at any time</li>
+            </ul>
+           
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

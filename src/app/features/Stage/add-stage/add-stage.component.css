@@ -1,0 +1,118 @@
+/* Style général pour la section */
+.ftco-section {
+    padding: 7em 0;
+    background: #f8f9fa;
+}
+
+/* Conteneur principal */
+.container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* Wrapper pour le formulaire */
+.wrapper {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* Conteneur du formulaire */
+.contact-wrap {
+    padding: 40px;
+}
+
+/* Titre du formulaire */
+.contact-wrap h3 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Style des labels */
+.label {
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 8px;
+    display: block;
+}
+
+/* Style des champs de formulaire */
+.form-control {
+    border-radius: 8px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    transition: all 0.3s ease-in-out;
+    width: 100%;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+    outline: none;
+}
+
+/* Style pour les champs de date */
+input[type="date"].form-control {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: #f9f9f9;
+}
+
+/* Style pour les messages d'erreur */
+.text-danger {
+    font-size: 12px;
+    color: #dc3545;
+    margin-top: 5px;
+}
+
+/* Style pour le bouton de soumission */
+.btn-primary {
+    background: #007bff;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+    width: 100%;
+    color: #fff;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.btn-primary:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+}
+
+/* Style pour les colonnes */
+.col-md-12, .col-md-6 {
+    padding: 0 15px;
+}
+
+/* Espacement entre les champs */
+.form-group {
+    margin-bottom: 20px;
+}
+
+/* Style pour les champs de texte multiligne */
+textarea.form-control {
+    resize: none;
+    height: 120px;
+}

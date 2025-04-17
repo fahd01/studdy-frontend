@@ -1,4 +1,4 @@
-import {HttpClient, HttpParams} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
 import {PaginatedResponse} from "../../models/paginated-response.model";
@@ -7,16 +7,20 @@ import {Category} from "../../models/Category.model";
 import {AuthenticationService} from "../Authenticarion.service";
 import {Module} from "../../models/Module.model";
 import {ApiEndpoints} from "../api-endpoints";
+import { FormationCourse as FormationCourse } from "../../models/Model"
 
 @Injectable({
   providedIn: 'root'
 })
 export class CourseService {
+  // For formation management
+  apiUrl = "http://localhost:8085/api/course"
 
   constructor(
-      private http: HttpClient,
-      private authenticationService: AuthenticationService
-  ) {}
+    private http: HttpClient,
+    private authenticationService: AuthenticationService
+  ) {
+  }
 
   public get(id: number): Observable<Course> {
     return this.http.get<Course>(`${ApiEndpoints.COURSE_MANAGEMENT_API_PATH}/courses/${id}`);
@@ -39,19 +43,23 @@ export class CourseService {
   }
 
   public filterCourses(
-      categoryIds: number[],
-      levels: string[],
-      searchQuery: string,
-      onlyEnrolledCourses: boolean = false,
-      page: number = 0,
-      size: number = 6
+    categoryIds: number[],
+    levels: string[],
+    searchQuery: string,
+    onlyEnrolledCourses: boolean = false,
+    page: number = 0,
+    size: number = 6
   ): Observable<PaginatedResponse<Course>> {
     let currentUserId = this.authenticationService.getCurrentUser()?.id;
     console.log(currentUserId)
     console.log(onlyEnrolledCourses)
-    let enrolledUserId:string = currentUserId && onlyEnrolledCourses ? String(currentUserId) : ''
+    let enrolledUserId: string = currentUserId && onlyEnrolledCourses ? String(currentUserId) : ''
     let queryParameters = `categoryId=${categoryIds.join(",")}&level=${levels.join(",")}&query=${searchQuery}&enrolledUserId=${enrolledUserId}&page=${page}&size=${size}`
     return this.http.get<PaginatedResponse<Course>>(`${ApiEndpoints.COURSE_MANAGEMENT_API_PATH}/courses/filter?${queryParameters}`);
+  }
+
+  getAllCourses(): Observable<FormationCourse[]> {
+    return this.http.get<FormationCourse[]>(this.apiUrl);
   }
 
   public fetchAllCourses(): Observable<Course[]> {
@@ -90,7 +98,7 @@ export class CourseService {
     return this.http.get<number[]>(`${ApiEndpoints.COURSE_MANAGEMENT_API_PATH}/courses/${courseId}/users/${currentUserId}/completions`)
   }
 
-  public getCompletionProgress (courseId: number): Observable<number> {
+  public getCompletionProgress(courseId: number): Observable<number> {
     let currentUserId = this.authenticationService.getCurrentUser()?.id;
     return this.http.get<number>(`${ApiEndpoints.COURSE_MANAGEMENT_API_PATH}/courses/${courseId}/users/${currentUserId}/progress`)
   }
@@ -116,7 +124,5 @@ export class CourseService {
   public getStatistics(): Observable<any> {
     return this.http.get(`${ApiEndpoints.COURSE_MANAGEMENT_API_PATH}/courses/statistics`);
   }
+
 }
-
-
-

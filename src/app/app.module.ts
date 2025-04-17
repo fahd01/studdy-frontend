@@ -71,6 +71,15 @@ import { EmailComponent } from './features/public/email/email.component';
 import { ChartsComponent } from './features/admin/charts/charts.component';
 import { ChartsService } from './features/admin/charts/charts.service';
 
+import {AddFormationComponent} from "./features/admin/add-formation/add-formation.component";
+import {FileDropPipe} from "../model/FileDropPipe";
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import { FormationsComponent } from './features/admin/formations/formations.component';
+import { EnrollmentComponent } from './features/public/formation/enrollment/enrollment.component';
+import { EnrollmentSuccessComponent } from './features/public/formation/enrollment-success/enrollment-success.component';
+import { UserEnrollmentsComponent } from './features/public/formation/user-enrollments/user-enrollments.component';
+import { AddCouponComponent } from './features/admin/add-coupon/add-coupon.component';
+
 
 @NgModule({
   declarations: [
@@ -94,7 +103,9 @@ import { ChartsService } from './features/admin/charts/charts.service';
     AdminNavbarComponent,
     AdminFooterComponent,
     HomeComponent,
+    EnrollmentComponent,
     DashboardComponent,
+
     BlogComponent,
     ContactComponent,
     AdminSidebarComponent,
@@ -111,7 +122,14 @@ import { ChartsService } from './features/admin/charts/charts.service';
     CommentComponent,
     CalendarComponent,
     EmailComponent,
-    ChartsComponent
+    ChartsComponent,
+
+    FormationsComponent,
+    EnrollmentSuccessComponent,
+    UserEnrollmentsComponent,
+    AddCouponComponent,
+    AddFormationComponent,
+    FileDropPipe
   ],
 
   imports: [
@@ -133,6 +151,7 @@ import { ChartsService } from './features/admin/charts/charts.service';
     MatDividerModule,
     MatRadioModule,
     FormsModule,
+    NgbModule,
     // TODO integration integrate navbar and footer like done for user management
     //NavbarComponent,
     //FooterComponent,

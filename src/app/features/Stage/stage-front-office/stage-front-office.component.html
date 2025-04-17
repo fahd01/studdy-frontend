@@ -1,0 +1,40 @@
+<section class="ftco-section bg-light">
+    <div class="container">
+      <div class="row justify-content-center pb-4">
+        <div class="col-md-12 heading-section text-center ftco-animate">
+          <span class="subheading">Nos Stages</span>
+          <h2 class="mb-4">Derniers Stages</h2>
+          <p><a class="btn btn-primary py-2 px-3" [routerLink]="['/addstage']">Add Stage</a></p>
+
+        </div>
+      </div>
+        <!-- Barre de recherche -->
+        <div class="row justify-content-center mb-4">
+          <div class="col-md-6">
+              <input type="text" class="form-control" placeholder="Rechercher un stage..." [(ngModel)]="searchTerm">
+          </div>
+      </div>
+      <div class="row d-flex">
+
+
+        <div *ngFor="let stage of stages" class="col-lg-4 ftco-animate">
+          <div class="blog-entry">
+            <a  class="block-20" [ngStyle]="{'background-image': 'url(' + 'assets/landing/images/image_1.jpg' + ')'}"></a>
+
+            <div class="text d-block">
+              <div class="meta">
+                <p>
+                  <span class="fa fa-calendar mr-2"></span>{{ stage.startDate | date: 'shortDate' }}
+                  <span class="fa fa-calendar mr-2"></span>{{ stage.endDate | date: 'shortDate'| date: 'shortDate' }}
+                </p>
+              </div>
+              <h3 class="heading"><a >{{ stage.title }}</a></h3>
+              <p>{{ stage.description }}</p>
+              <p><a class="btn btn-secondary py-2 px-3" [routerLink]="['/stage/update', stage.id]">Update</a></p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>

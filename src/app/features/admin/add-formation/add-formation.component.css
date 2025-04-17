@@ -1,0 +1,81 @@
+.add-formation-container {
+    max-width: 800px;
+    margin: 2rem auto;
+}
+
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+    padding: 1rem 1.5rem;
+}
+
+.card-header h2 {
+    margin: 0;
+    color: #495057;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.custom-file-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.selected-images {
+    margin-top: 1rem;
+}
+
+.image-preview-container {
+    position: relative;
+    height: 150px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.preview-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.image-actions {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+
+.progress {
+    height: 5px;
+    margin-top: 5px;
+    background-color: #f0f0f0;
+}
+
+.progress-bar {
+    background-color: #28a745;
+}
+
+@media (max-width: 576px) {
+    .add-formation-container {
+        margin: 1rem;
+    }
+
+    .card-body {
+        padding: 1rem;
+    }
+}

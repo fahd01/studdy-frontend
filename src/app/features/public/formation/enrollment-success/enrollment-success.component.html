@@ -1,0 +1,94 @@
+<br><br><br><br><br><br><br>
+<div class="success-container">
+    <!-- Breadcrumb Navigation -->
+    <nav aria-label="breadcrumb" class="mb-4">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/courses">Courses</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/formations', formationId]">Course Details</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Enrollment Confirmation</li>
+      </ol>
+    </nav>
+  
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading-section">
+      <div class="spinner"></div>
+      <p>Loading enrollment details...</p>
+    </div>
+  
+    <!-- Error State -->
+    <div *ngIf="error && !loading" class="error-section">
+      <div class="alert alert-danger">
+        <i class="fas fa-exclamation-circle"></i>
+        <p>{{ error }}</p>
+      </div>
+      <button class="btn btn-outline-primary" routerLink="/courses">
+        Return to Courses
+      </button>
+    </div>
+    
+    <!-- Success State -->
+    <div *ngIf="!loading && !error" class="success-content text-center">
+      <div class="success-animation">
+        <i class="fas fa-check-circle fa-5x text-success mb-4"></i>
+      </div>
+      
+      <h1 class="success-title">Enrollment Complete!</h1>
+      <p class="lead">You have successfully enrolled in the course:</p>
+      <h2 class="course-title">{{ getFormationTitle() }}</h2>
+      
+      <div class="enrollment-details card my-5">
+        <div class="card-header bg-success text-white">
+          <h3 class="mb-0">Enrollment Details</h3>
+        </div>
+        <div class="card-body">
+          <div class="row mb-3">
+            <div class="col-md-4 text-md-end fw-bold">Enrollment ID:</div>
+            <div class="col-md-8 text-md-start">{{ enrollment?.id || enrollmentId || 'Processing' }}</div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-4 text-md-end fw-bold">Date:</div>
+            <div class="col-md-8 text-md-start">{{ getEnrollmentDate() | date:'medium' }}</div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-4 text-md-end fw-bold">Status:</div>
+            <div class="col-md-8 text-md-start">
+              <span class="badge bg-success">{{ getEnrollmentStatus() }}</span>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-4 text-md-end fw-bold">Email:</div>
+            <div class="col-md-8 text-md-start">{{ email }}</div>
+          </div>
+          <div class="row mb-3" *ngIf="mockMode">
+            <div class="col-12">
+              <div class="alert alert-info mb-0">
+                <i class="fas fa-info-circle me-2"></i>
+                Note: This was processed in test mode
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="next-steps my-5">
+        <h3>What's Next?</h3>
+        <p>You can now access the course materials and start learning at your own pace.</p>
+        
+        <div class="action-buttons mt-4">
+          <button class="btn btn-primary btn-lg me-3" (click)="startLearning()">
+            <i class="fas fa-play-circle me-2"></i>
+            Start Learning
+          </button>
+          <button class="btn btn-outline-secondary" (click)="viewAllCourses()">
+            <i class="fas fa-list me-2"></i>
+            View All Courses
+          </button>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Footer with timestamp -->
+    <footer class="success-footer text-center text-muted mt-5">
+      <small>Last updated: {{ currentDateTime }} • User: {{ currentUser }}</small>
+    </footer>
+  </div>

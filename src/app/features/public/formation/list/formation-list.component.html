@@ -1,0 +1,186 @@
+<section class="hero-wrap hero-wrap-2" style="background-image: url('../../../../../assets/landing/images/bg_2.jpg');">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-end justify-content-center">
+            <div class="col-md-9 ftco-animate pb-5 text-center">
+                <p class="breadcrumbs">
+                    <span class="mr-2"><a [routerLink]="['/']">Home <i class="fa fa-chevron-right"></i></a></span>
+                    <span>Formations <i class="fa fa-chevron-right"></i></span>
+                </p>
+                <h1 class="mb-0 bread">Formations</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section bg-light">
+    <div class="container">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-lg-3 sidebar">
+                <!-- View Toggle Buttons -->
+                <div class="sidebar-box bg-white p-3 mb-4 text-center">
+                    <div class="btn-group w-100" role="group">
+                        <button
+                                type="button"
+                                class="btn"
+                                [class.btn-primary]="activeView === 'list'"
+                                [class.btn-outline-primary]="activeView !== 'list'"
+                                (click)="setView('list')">
+                            <i class="fa fa-list mr-1"></i> List
+                        </button>
+                        <button
+                                type="button"
+                                class="btn"
+                                [class.btn-primary]="activeView === 'calendar'"
+                                [class.btn-outline-primary]="activeView !== 'calendar'"
+                                (click)="setView('calendar')">
+                            <i class="fa fa-calendar mr-1"></i> Calendar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Search Box -->
+                <div class="sidebar-box bg-white ftco-animate">
+                    <form class="search-form">
+                        <div class="form-group">
+                            <span class="icon fa fa-search"></span>
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Search formations..."
+                                    [(ngModel)]="searchQuery"
+                                    (input)="searchFormations()"
+                                    name="search">
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Category Filter -->
+                <div class="sidebar-box bg-white p-4 ftco-animate">
+                    <h3 class="heading-sidebar">Course Category</h3>
+                    <form action="#" class="browse-form">
+                        <label for="option-category-1"><input type="checkbox" id="option-category-1" name="category" value="design"> Design &amp; Illustration</label><br>
+                        <label for="option-category-2"><input type="checkbox" id="option-category-2" name="category" value="web"> Web Development</label><br>
+                        <label for="option-category-3"><input type="checkbox" id="option-category-3" name="category" value="programming"> Programming</label><br>
+                        <label for="option-category-4"><input type="checkbox" id="option-category-4" name="category" value="music"> Music &amp; Entertainment</label><br>
+                        <label for="option-category-5"><input type="checkbox" id="option-category-5" name="category" value="photography"> Photography</label><br>
+                        <label for="option-category-6"><input type="checkbox" id="option-category-6" name="category" value="health"> Health &amp; Fitness</label><br>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-lg-9">
+                <!-- Loading Spinner -->
+                <div *ngIf="loading" class="text-center p-5">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <p class="mt-2">Loading formations...</p>
+                </div>
+
+                <!-- Error Message -->
+                <div *ngIf="error" class="alert alert-danger" role="alert">
+                    {{ error }}
+                    <button type="button" class="btn btn-link" (click)="loadFormations()">Try Again</button>
+                </div>
+
+                <!-- No Formations Found -->
+                <div *ngIf="!loading && !error && filteredFormations.length === 0" class="text-center p-5">
+                    <p>No formations found matching your criteria.</p>
+                </div>
+
+                <!-- List View -->
+                <div *ngIf="!loading && !error && filteredFormations.length > 0 && activeView === 'list'" class="row">
+                    <div class="col-md-6 d-flex align-items-stretch ftco-animate" *ngFor="let formation of filteredFormations">
+                        <div class="project-wrap">
+                            <a [routerLink]="['/formations', formation.id]" class="img"
+                               [style.background-image]="'url(' + getFormationImage(formation) + ')'">
+                                <span class="price">Formation</span>
+                            </a>
+                            <div class="text p-4">
+                                <h3><a [routerLink]="['/formations', formation.id]">{{ formation.title }}</a></h3>
+                                <p class="mb-2">{{ truncateText(formation.description, 80) }}</p>
+                                <p class="mb-2">
+                                    <span class="d-block mb-1">
+                                        <i class="fa fa-calendar mr-1"></i>
+                                        {{ formation.startDate | date:'mediumDate' }} - {{ formation.endDate | date:'mediumDate' }}
+                                    </span>
+                                </p>
+                                <ul class="d-flex justify-content-between">
+                                    <li><i class="fa fa-users mr-1"></i> {{ getParticipantCount(formation) }}</li>
+                                    <li class="price">{{ formatPrice(formation.price) }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Calendar View with FullCalendar -->
+                <div *ngIf="!loading && !error && activeView === 'calendar'" class="calendar-container bg-white p-4 rounded shadow-sm">
+                    <full-calendar [options]="calendarOptions"></full-calendar>
+                </div>
+
+                <!-- Pagination for List View -->
+                <div class="row mt-5" *ngIf="filteredFormations.length > 6 && activeView === 'list'">
+                    <div class="col">
+                        <div class="block-27">
+                            <ul>
+                                <li><a href="#">&lt;</a></li>
+                                <li class="active"><span>1</span></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">&gt;</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Add this at the end of your component template -->
+
+<!-- Formation Details Modal -->
+<ng-template #formationDetailsModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">{{ selectedFormation?.title }}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <!-- Formation Image -->
+            <div class="col-md-5">
+                <img [src]="getFormationImage(selectedFormation!)" class="img-fluid rounded" alt="Formation Image">
+            </div>
+
+            <!-- Formation Details -->
+            <div class="col-md-7">
+                <p class="text-muted mb-1">
+                    <i class="fa fa-calendar mr-2"></i>
+                    {{ formatDateRange(selectedFormation?.startDate!, selectedFormation?.endDate!) }}
+                </p>
+
+                <p class="text-muted mb-3">
+                    <i class="fa fa-users mr-2"></i>
+                    {{ getParticipantCount(selectedFormation!) }} participants
+                </p>
+
+                <h5 class="price-badge">{{ formatPrice(selectedFormation?.price || 0) }}</h5>
+
+                <div class="description mt-3">
+                    <h5>About this formation:</h5>
+                    <p>{{ selectedFormation?.description }}</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Close click')">Close</button>
+        <button type="button" class="btn btn-primary" (click)="navigateToFormationDetails()">View Full Details</button>
+    </div>
+</ng-template>
