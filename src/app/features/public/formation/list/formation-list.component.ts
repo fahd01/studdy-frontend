@@ -25,10 +25,10 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
         RouterModule,
         FullCalendarModule
     ],
-    templateUrl: './list.component.html',
-    styleUrls: ['./list.component.css']
+    templateUrl: './formation-list.component.html',
+    styleUrls: ['./formation-list.component.css']
 })
-export class ListComponent implements OnInit {
+export class FormationListComponent implements OnInit {
     // List view properties
     formations: Formation[] = [];
     filteredFormations: Formation[] = [];

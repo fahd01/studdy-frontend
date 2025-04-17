@@ -23,9 +23,9 @@ import {FileDropPipe} from "../model/FileDropPipe";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import { FormationsComponent } from './features/admin/formations/formations.component';
-import { EnrollmentComponent } from './features/public/course/enrollment/enrollment.component';
-import { EnrollmentSuccessComponent } from './features/public/course/enrollment-success/enrollment-success.component';
-import { UserEnrollmentsComponent } from './features/public/course/user-enrollments/user-enrollments.component';
+import { EnrollmentComponent } from './features/public/formation/enrollment/enrollment.component';
+import { EnrollmentSuccessComponent } from './features/public/formation/enrollment-success/enrollment-success.component';
+import { UserEnrollmentsComponent } from './features/public/formation/user-enrollments/user-enrollments.component';
 import { AddCouponComponent } from './features/admin/add-coupon/add-coupon.component';
 
 @NgModule({

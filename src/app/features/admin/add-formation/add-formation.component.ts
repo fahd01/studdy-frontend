@@ -191,7 +191,7 @@ export class AddFormationComponent implements OnInit {
           .subscribe({
             next: (response) => {
               console.log('Formation created successfully', response);
-              this.router.navigate(['/course/list']);
+              this.router.navigate(['/formations/list']);
             },
             error: (error) => {
               console.error('Error creating formation', error);
