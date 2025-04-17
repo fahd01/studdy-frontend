@@ -67,9 +67,10 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          
           "builder": "@angular-devkit/build-angular:dev-server",
-          
+          "options": {
+            "proxyConfig": "src/proxy.conf.json"
+          },
           "configurations": {
             "production": {
               "browserTarget": "studdy-frontend:build:production"
@@ -78,10 +79,7 @@
               "browserTarget": "studdy-frontend:build:development"
             }
           },
-          "defaultConfiguration": "development",
-          "options": {
-            "proxyConfig": "proxy.conf.json"
-          }
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
