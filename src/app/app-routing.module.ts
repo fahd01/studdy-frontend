@@ -1,6 +1,5 @@
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-
 import { LandingLayoutComponent } from './layouts/landing-layout/landing-layout/landing-layout.component';
 import { HomeComponent } from './features/public/home/home.component';
 import { BlogComponent } from './features/public/blog/blog.component';
@@ -21,10 +20,11 @@ import {
 } from "./features/admin/course/statistics/course-statistics/course-statistics.component";
 import { CommentComponent } from './features/public/comments/comments.component';
 import { BlogDetailsComponent } from './features/public/blog-details/blog-details.component';
+
 import { CalendarComponent } from './features/admin/calendar/calendar.component';
 import { EmailComponent } from './features/public/email/email.component';
 import { ChartsComponent } from './features/admin/charts/charts.component';
- 
+
 // User management
 import {RegisterComponent} from "./features/public/Authentication/register/register.component";
 import {LoginComponent} from "./features/public/Authentication/login/login.component";
@@ -33,6 +33,7 @@ import {UserComponent} from "./features/public/user/user.component";
 import {UserSettingsComponent} from "./features/public/user-settings/user-settings.component";
 import {UserReclamationComponent} from "./features/public/user-reclamation/user-reclamation.component";
 import {AdminReclamationComponent} from "./features/public/admin-reclamation/admin-reclamation.component";
+
 
 
 export const routes: Routes = [
@@ -46,7 +47,7 @@ export const routes: Routes = [
       { path: 'comment', component: CommentComponent },
       { path: 'contact', component: ContactComponent },
       { path: 'send-email', component: EmailComponent },
-      
+
       { path: 'course/list', component: ListComponent },
       { path: 'course/:id/module/:moduleId/live', component: LiveCourseComponent },
       { path: 'course/:id', component: CourseDetailComponent },
@@ -85,7 +86,6 @@ export const routes: Routes = [
     ]
   }
 ];
-
 
 const config: ExtraOptions = {
   useHash: false,

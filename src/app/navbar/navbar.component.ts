@@ -7,7 +7,6 @@ import { TranslationService } from '../services/Translation/translation.service'
 import { HistoryService } from '../services/History/history.service';
 import { Historic } from '../models/Historic';
 
-
 @Component({
   selector: 'app-navbar',
   standalone: true,
@@ -18,7 +17,7 @@ import { Historic } from '../models/Historic';
 export class NavbarComponent implements OnInit {
   userRole: string = ''; // Initialize with a default value
  // Define the inactivity time (X minutes in milliseconds)
- private inactivityTime = 300000; // 5 minutes 
+ private inactivityTime = 300000; // 5 minutes
  private timeoutId: any;
  currentLang = 'eng'; // Langue par défaut
   history: Historic[] = []; // List of user's reclamations

@@ -1,11 +1,10 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-
 import { AppRoutingModule, routes } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 
+import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { LandingLayoutComponent } from './layouts/landing-layout/landing-layout/landing-layout.component';
 import { LandingNavbarComponent } from './layouts/landing-layout/landing-navbar/landing-navbar.component';
@@ -15,8 +14,7 @@ import { AdminNavbarComponent } from './layouts/admin-layout/admin-navbar/admin-
 import { AdminFooterComponent } from './layouts/admin-layout/admin-footer/admin-footer.component';
 import { HomeComponent } from './features/public/home/home.component';
 import { DashboardComponent } from './features/admin/dashboard/dashboard.component';
-
-import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BlogComponent } from './features/public/blog/blog.component';
 import { ContactComponent } from './features/public/contact/contact.component';
 import { AdminSidebarComponent } from './layouts/admin-layout/admin-sidebar/admin-sidebar.component';
@@ -38,7 +36,6 @@ import { MatRadioModule} from "@angular/material/radio";
 import { MatIconModule} from "@angular/material/icon";
 import { CreateModuleComponent } from './features/admin/course/module-management/create-module.component';
 import { CourseStatisticsComponent } from './features/admin/course/statistics/course-statistics/course-statistics.component';
-
 import { CommentComponent } from './features/public/comments/comments.component';
 import { BlogDetailsComponent } from './features/public/blog-details/blog-details.component';
 
@@ -80,14 +77,10 @@ import { ChartsComponent } from './features/admin/charts/charts.component';
 import { ChartsService } from './features/admin/charts/charts.service';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
-import {NgxEmojiPickerModule} from 'ngx-emoji-picker';
+import { NgxEmojiPickerModule } from 'ngx-emoji-picker';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import {RouterModule} from "@angular/router";
-
-
-
-
 
 @NgModule({
   declarations: [
@@ -105,7 +98,6 @@ import {RouterModule} from "@angular/router";
 
     // Others
     LandingLayoutComponent,
-
     LandingNavbarComponent,
     LandingFooterComponent,
     AdminLayoutComponent,
@@ -137,8 +129,9 @@ import {RouterModule} from "@angular/router";
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ListComponent, 
-    BrowserAnimationsModule,      
+    ListComponent,
+    BrowserAnimationsModule,
+    MatCardModule,
     MatButtonModule,
     MatIconModule,
     MatFormFieldModule,
@@ -146,12 +139,11 @@ import {RouterModule} from "@angular/router";
     MatDatepickerModule,
     MatNativeDateModule,
     MatSnackBarModule,
-    MatCardModule,
     MatAutocompleteModule,
     MatDividerModule,
     MatRadioModule,
     FormsModule,
-    // TODO integration integrate navbar and footer like done for user management      
+    // TODO integration integrate navbar and footer like done for user management
     NavbarComponent,
     FooterComponent,
     // From User management
@@ -160,8 +152,6 @@ import {RouterModule} from "@angular/router";
     PickerModule,
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
     RouterModule.forRoot(routes)
-
-  
   ],
   providers: [
     provideHttpClient(),
@@ -173,4 +163,3 @@ import {RouterModule} from "@angular/router";
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule { }
- 
