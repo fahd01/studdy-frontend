@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
-import { Course, Formation, User } from "../../../../model/Model";
+import { FormationCourse, Formation, User } from "../../../models/Model";
 import { FormationService } from "../../../services/formation.service";
 import { UserService } from "../../../services/user.service";
 import { CourseService } from "../../../services/course-managment/course.service";
@@ -26,7 +26,7 @@ export class AddFormationComponent implements OnInit {
   });
 
   users: User[] = [];
-  courses: Course[] = [];
+  courses: FormationCourse[] = [];
   isLoading = false;
   isSubmitting = false;
   errorMessage = '';

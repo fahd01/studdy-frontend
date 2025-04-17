@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { catchError, finalize } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
-import { Formation } from 'src/model/Model';
+import { Formation } from 'src/app/models/Model';
 import { CouponService } from 'src/app/services/course-managment/coupon.service';
 import { FormationService } from 'src/app/services/formation.service';
 
@@ -104,7 +104,7 @@ export class AddCouponComponent implements OnInit {
           console.log('Coupon created successfully:', response);
           this.success = true;
           this.resetForm();
-          
+
           // Optionally, redirect after a delay
           setTimeout(() => {
             this.router.navigate(['/admin/coupons']);

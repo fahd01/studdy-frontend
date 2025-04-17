@@ -1,12 +1,14 @@
+import {Course} from "./Course.model";
+
 export interface User {
     id: number;
     name?: string;
     email?: string;
 }
 
-export interface Course {
-    id: number;
-    name?: string;
+export interface FormationCourse {
+  id: number;
+  name?: string;
 }
 
 export interface Formation {
@@ -18,7 +20,7 @@ export interface Formation {
     endDate: Date;
     price: number;
     participants?: User[];
-    coursesList?: Course[];
+    coursesList?: FormationCourse[];
 }
 export interface FormationDTO {
     id?: number;

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormationService } from "../../../../services/formation.service";
-import { Formation } from "../../../../../model/Model";
+import { Formation } from "../../../../models/Model";
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
 

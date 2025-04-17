@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FormationService } from '../../../../services/formation.service';
-import { Formation } from '../../../../../model/Model';
+import { Formation } from '../../../../models/Model';
 import { switchMap, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { catchError, finalize } from 'rxjs/operators';
@@ -245,10 +245,10 @@ enrollInFormation(): void {
     alert('Formation information is not available');
     return;
   }
-  
+
   // Record enrollment attempt with timestamp
   console.log(`Enrollment initiated for formation ${this.formation.id} at ${new Date().toISOString()} by user: iitsMahdi`);
-  
+
   // Navigate to the enrollment page with the formation ID
   this.router.navigate(['/enrollment', this.formation.id]);
 }

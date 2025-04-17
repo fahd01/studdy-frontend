@@ -7,6 +7,7 @@ import {Category} from "../../models/Category.model";
 import {AuthenticationService} from "../Authenticarion.service";
 import {Module} from "../../models/Module.model";
 import {ApiEndpoints} from "../api-endpoints";
+import { FormationCourse as FormationCourse } from "../../models/Model"
 
 @Injectable({
   providedIn: 'root'
@@ -57,8 +58,8 @@ export class CourseService {
     return this.http.get<PaginatedResponse<Course>>(`${ApiEndpoints.COURSE_MANAGEMENT_API_PATH}/courses/filter?${queryParameters}`);
   }
 
-  getAllCourses(): Observable<Course[]> {
-    return this.http.get<Course[]>(this.apiUrl);
+  getAllCourses(): Observable<FormationCourse[]> {
+    return this.http.get<FormationCourse[]>(this.apiUrl);
   }
 
   public fetchAllCourses(): Observable<Course[]> {

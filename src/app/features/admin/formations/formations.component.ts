@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { catchError, finalize } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { FormationService } from 'src/app/services/formation.service';
-import { Formation } from 'src/model/Model';
+import { Formation } from 'src/app/models/Model';
 
 @Component({
   selector: 'app-formations',
@@ -18,7 +18,7 @@ export class FormationsComponent implements OnInit {
   currentUser = 'iitsMahdi';
   currentDateTime = '2025-03-13 00:29:10';
   searchTerm = '';
-  
+
   constructor(
     private formationService: FormationService,
     private router: Router,
@@ -52,7 +52,7 @@ export class FormationsComponent implements OnInit {
   deleteFormation(id: number): void {
     if (confirm('Are you sure you want to delete this formation?')) {
       this.loading = true;
-      
+
       this.formationService.deleteFormation(id)
         .pipe(
           catchError(error => {
@@ -83,7 +83,7 @@ export class FormationsComponent implements OnInit {
     if (!this.searchTerm.trim()) {
       return this.formations;
     }
-    
+
     const term = this.searchTerm.toLowerCase();
     return this.formations.filter(formation => {
       return formation.title.toLowerCase().includes(term) ||

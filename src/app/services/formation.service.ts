@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {Course, Formation, User} from "../../model/Model";
+import {FormationCourse, Formation, User} from "../models/Model";
 
 @Injectable({
   providedIn: 'root'
@@ -35,7 +35,7 @@ export class FormationService {
     return this.http.post<Formation>(`${this.apiUrl}/assignusers/${id}`, users);
   }
 
-  assignCoursesToFormation(id: number, courses: Course[]): Observable<Formation> {
+  assignCoursesToFormation(id: number, courses: FormationCourse[]): Observable<Formation> {
     return this.http.post<Formation>(`${this.apiUrl}/assigncourses/${id}`, courses);
   }
 }
