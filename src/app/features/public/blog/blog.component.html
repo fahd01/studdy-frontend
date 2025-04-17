@@ -1,10 +1,9 @@
-<!-- blog.component.html -->
 <section class="hero-wrap hero-wrap-2" style="background-image: url('assets/dashboard/images/bg_2.jpg');">
   <div class="overlay"></div>
   <div class="container">
     <div class="row no-gutters slider-text align-items-end justify-content-center">
       <div class="col-md-9 ftco-animate pb-5 text-center">
-       <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="fa fa-chevron-right"></i></a></span> <span>Our Blog <i class="fa fa-chevron-right"></i></span></p>
+       <p class="breadcrumbs"><span class="mr-2"><a routerLink="/">Home <i class="fa fa-chevron-right"></i></a></span> <span>Our Blog <i class="fa fa-chevron-right"></i></span></p>
        <h1 class="mb-0 bread">Our Blog</h1>
      </div>
    </div>
@@ -13,19 +12,25 @@
 
 <section class="ftco-section bg-light">
   <div class="container">
-    <div class="row d-flex">
+        <!-- Search Bar -->
+        <div class="row mb-4">
+          <div class="col-md-12">
+            <input type="text" class="form-control" placeholder="Search by title..." [(ngModel)]="searchTerm" (input)="searchBlogs()">
+          </div>
+        </div>
+    <div class="row d-flex" [@slideAnimation]="currentPage">
       <div *ngFor="let blog of blogs" class="col-lg-4 ftco-animate">
         <div class="blog-entry">
-          <a href="#" class="block-20" [ngStyle]="{'background-image': 'url(assets/dashboard/images/image_' + blog.id + '.jpg)'}"></a>
+          <a (click)="viewBlogDetails(blog.id)" class="block-20" [ngStyle]="{'background-image': 'url(assets/dashboard/images/image_' + blog.id + '.jpg)'}"></a>
           <div class="text d-block">
             <div class="meta">
               <p>
-                <a href="#"><span class="fa fa-calendar mr-2"></span>{{ blog.createdAt | date:'MMM. d, y' }}</a>
-                <a href="#"><span class="fa fa-user mr-2"></span>{{ blog.author }}</a>
-                <a href="#" class="meta-chat"><span class="fa fa-comment mr-2"></span> 3</a>
+                <a><span class="fa fa-calendar mr-2"></span>{{ blog.createdAt | date:'MMM. d, y' }}</a>
+                <a><span class="fa fa-user mr-2"></span>{{ blog.author }}</a>
+                <a class="meta-chat"><span class="fa fa-comment mr-2"></span> 3</a>
               </p>
             </div>
-            <h3 class="heading"><a href="#">{{ blog.title }}</a></h3>
+            <h3 class="heading"><a>{{ blog.title }}</a></h3>
             <p>{{ blog.content | slice:0:100 }}...</p>
             <p><a (click)="viewBlogDetails(blog.id)" class="btn btn-secondary py-2 px-3">Read more</a></p>
           </div>
@@ -38,9 +43,9 @@
       <div class="col text-center">
         <div class="block-27">
           <ul>
-            <li (click)="goToPage(currentPage - 1)" [class.disabled]="currentPage === 0"><a href="#">&lt;</a></li>
-            <li *ngFor="let page of [].constructor(totalPages); let i = index" (click)="goToPage(i)" [class.active]="i === currentPage"><a href="#">{{ i + 1 }}</a></li>
-            <li (click)="goToPage(currentPage + 1)" [class.disabled]="currentPage === totalPages - 1"><a href="#">&gt;</a></li>
+            <li (click)="goToPage(currentPage - 1, $event)" [class.disabled]="currentPage === 0"><a href="#" (click)="$event.preventDefault()">&lt;</a></li>
+            <li *ngFor="let page of [].constructor(totalPages); let i = index" (click)="goToPage(i, $event)" [class.active]="i === currentPage"><a href="#" (click)="$event.preventDefault()" appScrollTop>{{ i + 1 }}</a></li>
+            <li (click)="goToPage(currentPage + 1, $event)" [class.disabled]="currentPage === totalPages - 1"><a href="#" (click)="$event.preventDefault()">&gt;</a></li>
           </ul>
         </div>
       </div>
@@ -51,6 +56,7 @@
 
 
 <section class="ftco-section">
+  
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-12">
@@ -95,12 +101,47 @@
 
                     <div class="col-md-12">
                       <div class="form-group">
-                        <button type="submit" class="btn btn-primary" [disabled]="blogForm.invalid">
+                        <button type="submit" class="btn btn-primary me-2" [disabled]="blogForm.invalid">
                           {{editMode ? 'Update' : 'Create'}} Blog Post
                         </button>
+                        <button type="button" class="btn btn-light "  data-bs-toggle="modal" data-bs-target="#myModal" (click)="openSuggestion()" [disabled]="blogForm.invalid">Gemini reformulation </button>
+
                         <button type="button" class="btn btn-secondary ml-2" *ngIf="editMode" (click)="cancelEdit()">
                           Cancel
                         </button>
+
+                      </div>
+                    </div>
+                    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" >
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <!-- Modal Header -->
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="myModalLabel">Suggestion </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="closeModalSuggestion"></button>
+                          </div>
+                          
+                          <!-- Modal Body -->
+                          <div class="modal-body" *ngIf="suggestions.length>0">
+
+                            <p>
+                              Titel :   {{suggestions[suggestionIndex].title}}
+
+                            </p>
+                            <p>                          Description : {{suggestions[suggestionIndex].description}}
+                            </p>
+                          </div>
+                          <div class="modal-body" *ngIf="suggestions.length===0">
+                          Loading ...   
+                          
+                          </div>
+                          
+                          <!-- Modal Footer -->
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" (click)="ignoreSuggestion()" >Ingore </button>
+                            <button type="button" class="btn btn-primary" (click)="choiceSuggestion(suggestionIndex)">Save changes</button>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>

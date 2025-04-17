@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../environments/environments.component';
 
 export interface Blog {
   id: number;
@@ -9,22 +10,36 @@ export interface Blog {
   author: string;
   createdAt: string;
   updatedAt: string;
+  comments: Comment[];
+  
 }
+
+export interface Comment {
+  id: number;
+  content: string;
+  createdAt: string;
+  username: string;
+}
+export interface Suggestion{
+  title:string,
+  description:string
+}
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class BlogService {
-  private apiUrl = 'http://localhost:8080/api/blogs';
+  private apiUrl = `${environment.apiUrl}/api/blogs`;
 
   constructor(private http: HttpClient) { }
 
-  getAllBlogs(page: number, size: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}?page=${page}&size=${size}`);
+  getAllBlogs(page: number, size: number, searchTerm: string = ''): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}?page=${page}&size=${size}&searchTerm=${searchTerm}`);
   }
 
   getBlogById(id: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/${id}`);
+    return this.http.get<Blog>(`${this.apiUrl}/${id}`);
   }
 
   createBlog(blog: any): Observable<any> {
@@ -35,7 +50,19 @@ export class BlogService {
     return this.http.put<any>(`${this.apiUrl}/${id}`, blog);
   }
 
+  updateBlogStatus(blogId: number, status: string): Observable<any> {
+    return this.http.patch<any>(`${this.apiUrl}/${blogId}/status`, { status });
+  }
+
   deleteBlog(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+    createComment(blogId: number, comment: Comment): Observable<any> {
+    return this.http.post(`${this.apiUrl}/${blogId}/comments`, comment);
+  }
+  loadSuggestion(suggestion:Suggestion):Observable<Suggestion[]>{
+    return this.http.post<Suggestion[]>(`${this.apiUrl}/suggestions`,suggestion);
+
   }
 }

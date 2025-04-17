@@ -1,11 +1,10 @@
-<!-- blog.component.html -->
 <section class="hero-wrap hero-wrap-2" style="background-image: url('assets/dashboard/images/bg_2.jpg');">
   <div class="overlay"></div>
   <div class="container">
     <div class="row no-gutters slider-text align-items-end justify-content-center">
       <div class="col-md-9 ftco-animate pb-5 text-center">
-       <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="fa fa-chevron-right"></i></a></span> <span>Our Blog <i class="fa fa-chevron-right"></i></span></p>
-       <h1 class="mb-0 bread">Our Blog_Details</h1>
+       <p class="breadcrumbs"><span class="mr-2"><a routerLink="/">Home <i class="fa fa-chevron-right"></i></a></span> <span>Our Blog <i class="fa fa-chevron-right"></i></span></p>
+       <h1 class="mb-0 bread">Our Blog Details</h1>
      </div>
    </div>
  </div>
@@ -20,10 +19,44 @@
                       <div class="col-lg-8 col-md-7 order-md-last d-flex align-items-stretch">
                           <div class="contact-wrap w-100 p-md-5 p-4">
                               <div *ngIf="blog">
-                                  <h2>{{ blog.title }}</h2>
+                                  <h2 class="blog-title">{{ blog.title }}</h2>
                                   <p><strong>Author:</strong> {{ blog.author }}</p>
                                   <p><strong>Published on:</strong> {{ blog.createdAt | date:'MMM. d, y' }}</p>
                                   <p>{{ blog.content }}</p>
+                                  
+                                  <hr>
+
+                                  <h3>Comments</h3>
+                                  <div *ngIf="comments.length > 0; else noComments">
+                                    <ul class="comment-list">
+                                      <li *ngFor="let comment of comments" class="comment-item">
+                                        <strong>Username:</strong> {{ comment.username }} <br>
+                                        <strong>Comment:</strong> {{ comment.content }} <br>
+                                        <strong>Created At:</strong> {{ comment.createdAt }} <br>
+                                        <button mat-icon-button color="primary" (click)="likeComment(comment.id)">
+                                          👍 {{ comment.likes }}
+                                        </button>
+                                        <button mat-icon-button color="accent" (click)="dislikeComment(comment.id)">
+                                          👎 {{ comment.dislikes }}
+                                        </button>
+                                        <div class="star-rating">
+                                          <span *ngFor="let star of [1, 2, 3, 4, 5]; let i = index" (click)="rateComment(comment.id, i + 1)">
+                                            <i class="fa" [ngClass]="i < comment.rating ? 'fa-star' : 'fa-star-o'"></i>
+                                          </span>
+                                        </div>
+                                        <span> Rating: {{ comment.rating }}/5</span>
+                                       </li>
+                                       
+                                    </ul>
+                                    
+                                  </div>
+                                  </div>
+                                  
+                                  <!-- Show message if there are no comments -->
+                                  <ng-template #noComments>
+                                    <p>No comments yet.</p>
+                                  </ng-template>
+                                  
                                   <hr>
                                   <h3 class="mb-4">Leave a Comment</h3>
                                   <form [formGroup]="commentForm" (ngSubmit)="onSubmit()">
@@ -32,8 +65,12 @@
                                               <div class="form-group">
                                                   <label class="label" for="content">Comment</label>
                                                   <textarea id="content" formControlName="content" class="form-control" placeholder="Enter your comment here"></textarea>
+                                                  <div *ngIf="commentForm.get('content')?.hasError('badWord')" class="alert alert-danger mt-2">
+                                                    Your comment contains BAD-WORDS!
+                                                </div>
                                               </div>
                                           </div>
+                                         
                                           <div class="col-md-12">
                                               <div class="form-group">
                                                   <label class="label" for="userId">User ID</label>
@@ -42,7 +79,7 @@
                                           </div>
                                           <div class="col-md-12">
                                               <div class="form-group">
-                                                  <button type="submit" class="btn btn-primary">Submit</button>
+                                                  <button type="submit" class="btn btn-primary" [disabled]="commentForm.invalid">Submit</button>
                                               </div>
                                           </div>
                                       </div>
@@ -54,5 +91,5 @@
               </div>
           </div>
       </div>
-  </div>
+  
 </section>

@@ -30,6 +30,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ### Microservices
 - User management   -> localhost:8081
 - Course Management -> localhost:8082
+- Blog management   -> localhost:8083
 
 ## Templates
 ### front template:

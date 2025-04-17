@@ -60,7 +60,16 @@ import {NavbarComponent} from "./navbar/navbar.component";
 
 
 
-
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { CalendarComponent } from './features/admin/calendar/calendar.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { EmailComponent } from './features/public/email/email.component';
+import { ChartsComponent } from './features/admin/charts/charts.component';
+import { ChartsService } from './features/admin/charts/charts.service';
 
 
 @NgModule({
@@ -89,7 +98,6 @@ import {NavbarComponent} from "./navbar/navbar.component";
     BlogComponent,
     ContactComponent,
     AdminSidebarComponent,
-    BlogComponent,
     BlogDetailsComponent,
     CourseDetailComponent,
     CreateCourseComponent,
@@ -100,8 +108,12 @@ import {NavbarComponent} from "./navbar/navbar.component";
     CreateModuleComponent,
     CourseStatisticsComponent,
     UserComponent,
-    CommentComponent
+    CommentComponent,
+    CalendarComponent,
+    EmailComponent,
+    ChartsComponent
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -110,25 +122,32 @@ import {NavbarComponent} from "./navbar/navbar.component";
     ListComponent,
     BrowserAnimationsModule,
     MatCardModule,
+    MatButtonModule,
+    MatIconModule,
     MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSnackBarModule,
     MatAutocompleteModule,
     MatDividerModule,
     MatRadioModule,
-    MatIconModule,
-    MatSnackBarModule,
     FormsModule,
-
+    // TODO integration integrate navbar and footer like done for user management
+    //NavbarComponent,
+    //FooterComponent,
     // From User management
     // TODO integration integrate with navbar/footer
     //NavbarComponent,
     PickerModule,
-    RouterModule.forRoot(routes),
-    //NavbarComponent
+    CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
+    RouterModule.forRoot(routes)
   ],
   providers: [
-      provideHttpClient(),
-      CourseService,
-      AuthenticationService
+    provideHttpClient(),
+    CourseService,
+    AuthenticationService,
+    ChartsService
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

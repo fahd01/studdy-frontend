@@ -28,10 +28,19 @@
 
                     <!-- User management -->
                     <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" id="moreMenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <a
+                        class="nav-link dropdown-toggle"
+                        id="moreMenu"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        (click)="toggleDropdown($event)"
+                        [attr.aria-expanded]="dropdownOpen"
+                      >
                         More
                       </a>
-                      <div class="dropdown-menu" aria-labelledby="moreMenu">
+                      <div class="dropdown-menu" [class.show]="dropdownOpen" aria-labelledby="moreMenu">
                         <a class="dropdown-item" (click)="openCardHistory()">History</a>
                         <a class="dropdown-item" href="userRec" *ngIf="userRole === 'ETUDIANT'">Reclamation (Student)</a>
                         <a class="dropdown-item" href="userRec" *ngIf="userRole === 'ENSEIGNANT'">Reclamation (Instructor)</a>
@@ -41,13 +50,8 @@
                       </div>
                     </li>
                 </ul>
-                <!-- TODO integration; from user management; put into ul>li -->
-                <li class="nav-item">
-                  <a routerLink="admin/dashboard" class="btn btn-primary ml-3" routerLinkActive="active">Dashboard</a>
-                </li>
-                <button class="btn btn-outline-primary ml-3" (click)="logout()">
-                  Logout
-                </button>
+                <a routerLink="admin/dashboard" class="btn btn-primary ml-3" routerLinkActive="active">Dashboard</a>
+                <button class="btn btn-outline-primary ml-3" (click)="logout()">Logout</button>
             </div>
         </div>
     </nav>

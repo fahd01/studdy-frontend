@@ -21,6 +21,10 @@ import {
 import { CommentComponent } from './features/public/comments/comments.component';
 import { BlogDetailsComponent } from './features/public/blog-details/blog-details.component';
 
+import { CalendarComponent } from './features/admin/calendar/calendar.component';
+import { EmailComponent } from './features/public/email/email.component';
+import { ChartsComponent } from './features/admin/charts/charts.component';
+
 // User management
 import {RegisterComponent} from "./features/public/Authentication/register/register.component";
 import {LoginComponent} from "./features/public/Authentication/login/login.component";
@@ -42,6 +46,8 @@ export const routes: Routes = [
       { path: 'blogs/:id', component: BlogDetailsComponent },
       { path: 'comment', component: CommentComponent },
       { path: 'contact', component: ContactComponent },
+      { path: 'send-email', component: EmailComponent },
+
       { path: 'course/list', component: ListComponent },
       { path: 'course/:id/module/:moduleId/live', component: LiveCourseComponent },
       { path: 'course/:id', component: CourseDetailComponent },
@@ -74,6 +80,9 @@ export const routes: Routes = [
       { path: 'course/statistics', component: CourseStatisticsComponent },
       { path: 'course/modules', component: CreateModuleComponent },
       { path: 'course/:id/modules', component: CreateModuleComponent },
+      // BLog Management
+      { path: 'charts', component: ChartsComponent },
+      { path: 'calendar', component: CalendarComponent }
     ]
   }
 ];

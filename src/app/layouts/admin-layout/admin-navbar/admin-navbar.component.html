@@ -5,6 +5,7 @@
         <i class="mdi mdi-menu"></i>
       </button>
       <ul class="navbar-nav">
+        <!-- TODO integration; <li> removed in blog management; check otherwise remove -->
         <li class="nav-item dropdown">
           <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
             <i class="mdi mdi-bell-outline"></i>
@@ -43,6 +44,7 @@
             <p class="p-3 mb-0">View all activities</p>
           </div>
         </li>
+
         <li class="nav-item dropdown d-none d-sm-flex">
           <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown">
             <i class="mdi mdi-email-outline"></i>
@@ -87,7 +89,27 @@
           </form>
         </li>
       </ul>
+      
       <ul class="navbar-nav navbar-nav-right ml-lg-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
+            <i class="mdi mdi-bell-outline"></i>
+            <span class="count count-varient1">{{ newBlogs.length }}</span>
+          </a>
+          <div class="dropdown-menu navbar-dropdown navbar-dropdown-large preview-list" aria-labelledby="notificationDropdown">
+            <h6 class="p-3 mb-0">Notifications</h6>   
+            <div *ngFor="let blog of newBlogs" class="dropdown-item preview-item">
+              <div class="preview-thumbnail">
+                <img src="assets/images/faces/face3.jpg" alt="" class="profile-pic" />
+              </div>
+              <div class="preview-item-content">
+                <p class="mb-0">{{ blog.author }} <span class="text-small text-muted">posted a new blog</span></p>
+                <button (click)="acceptBlog(blog)">Accept</button>
+                <button (click)="rejectBlog(blog)">Reject</button>
+              </div>
+            </div>
+          </div>
+        </li>
         <li class="nav-item dropdown d-none d-xl-flex border-0">
           <a class="nav-link dropdown-toggle" id="languageDropdown" href="#" data-toggle="dropdown">
             <i class="mdi mdi-earth"></i> English </a>

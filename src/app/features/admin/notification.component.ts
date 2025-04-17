@@ -1,21 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {  Output, EventEmitter } from '@angular/core';
-import { NotificationService } from '../../../features/admin/notification.service';
-import { BlogService } from '../../../features/public/blog/blog.service';
+import { NotificationService } from '../admin/notification.service';
+import { BlogService } from '../public/blog/blog.service';
 
 @Component({
-  selector: 'app-admin-navbar',
-  templateUrl: './admin-navbar.component.html',
-  styleUrls: ['./admin-navbar.component.css']
+  selector: 'app-notifications',
+  templateUrl: './notifications.component.html',
+  styleUrls: ['./notifications.component.css']
 })
-export class AdminNavbarComponent implements OnInit {
-  @Output() toggleSidebar = new EventEmitter<void>();
+export class NotificationsComponent implements OnInit {
   newBlogs: any[] = [];
-
-  // Method to emit toggle event
-  onToggleSidebar(): void {
-    this.toggleSidebar.emit();
-  }
 
   constructor(
     private notificationService: NotificationService,
