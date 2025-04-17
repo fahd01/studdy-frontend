@@ -155,4 +155,11 @@ export class LandingNavbarComponent implements OnInit{
     this.historyCard = false; // Hide the history card
   }
 
+  // User management menu dropdown
+  dropdownOpen = false;
+  toggleDropdown(event: Event) {
+    event.preventDefault(); // Prevents "#" from scrolling to top
+    this.dropdownOpen = !this.dropdownOpen;
+  }
+
 }
