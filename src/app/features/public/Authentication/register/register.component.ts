@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 //import { ToastrService } from 'ngx-toastr';
-import { RegisterService } from "../../services/Register/register.service";
+import { RegisterService } from "../../../../services/Register/register.service";
 import * as PasswordValidator from "password-validator";
 
 @Component({

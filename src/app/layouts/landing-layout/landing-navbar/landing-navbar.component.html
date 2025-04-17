@@ -2,6 +2,17 @@
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-transparent ftco-navbar-light" id="ftco-navbar">
         <div class="container">
             <a class="navbar-brand" href="index.html"><span>Studdy</span></a>
+            <div class="language-switcher">
+              <button (click)="changeLanguage('fr')" [class.active]="currentLang === 'fr'">
+                🇫🇷
+              </button>
+              <button (click)="changeLanguage('en')" [class.active]="currentLang === 'en'">
+                🇬🇧
+              </button>
+              <button (click)="changeLanguage('es')" [class.active]="currentLang === 'es'">
+                🇪🇸
+              </button>
+            </div>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="oi oi-menu"></span> Menu
             </button>
@@ -17,8 +28,50 @@
                     <li class="nav-item">
                         <a routerLink="admin/dashboard" class="btn btn-primary ml-3" routerLinkActive="active">Dashboard</a>
                     </li>
+
+                    <!-- User management -->
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="moreMenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        More
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="moreMenu">
+                        <a class="dropdown-item" (click)="openCardHistory()">History</a>
+                        <a class="dropdown-item" href="userRec" *ngIf="userRole === 'ETUDIANT'">Reclamation (Student)</a>
+                        <a class="dropdown-item" href="userRec" *ngIf="userRole === 'ENSEIGNANT'">Reclamation (Instructor)</a>
+                        <a class="dropdown-item" href="profile">Profile</a>
+                        <a class="dropdown-item" href="users" *ngIf="userRole === 'ADMIN'">Users</a>
+                        <a class="dropdown-item" href="adminRec" *ngIf="userRole === 'ADMIN'">Gestion Reclamation</a>
+                      </div>
+                    </li>
                 </ul>
+                <!-- TODO integration; from user management; put into ul>li -->
+                <button class="btn btn-outline-primary ml-3" (click)="logout()">
+                  Logout
+                </button>
             </div>
         </div>
     </nav>
+
+  <!-- TODO integration; from user management; outside section ? -->
+  <div class="card" *ngIf="historyCard">
+    <p class="card-title">Your History</p>
+    <p class="small-desc">
+      Here you can find all your history of reclamation.
+    </p>
+    <div *ngIf="history && history.length > 0; else noHistory">
+      <ul>
+        <li *ngFor="let h of history">
+          <strong>{{ h.message }}</strong><br />
+          <small>{{ h.createdAt | date: 'medium' }}</small>
+        </li>
+      </ul>
+    </div>
+    <ng-template #noHistory>
+      <p>No history found.</p>
+    </ng-template>
+    <div class="go-corner">
+      <div class="go-arrow" (click)="closeCard()">→</div>
+    </div>
+  </div>
+
 </section>

@@ -1,9 +1,6 @@
-import { NgModule } from '@angular/core';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-
-import { AppRoutingModule } from './app-routing.module';
 import { AppRoutingModule, routes } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -17,7 +14,6 @@ import { AdminNavbarComponent } from './layouts/admin-layout/admin-navbar/admin-
 import { AdminFooterComponent } from './layouts/admin-layout/admin-footer/admin-footer.component';
 import { HomeComponent } from './features/public/home/home.component';
 import { DashboardComponent } from './features/admin/dashboard/dashboard.component';
-import { RegisterComponent } from './features/public/register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BlogComponent } from './features/public/blog/blog.component';
 import { ContactComponent } from './features/public/contact/contact.component';
@@ -40,25 +36,24 @@ import { MatRadioModule} from "@angular/material/radio";
 import { MatIconModule} from "@angular/material/icon";
 import { CreateModuleComponent } from './features/admin/course/module-management/create-module.component';
 import { CourseStatisticsComponent } from './features/admin/course/statistics/course-statistics/course-statistics.component';
-import { UserComponent } from './features/public/user/user.component';
 import { CommentComponent } from './features/public/comments/comments.component';
 import { BlogDetailsComponent } from './features/public/blog-details/blog-details.component';
 
 // TODO integration; integrate navbar/footer from user management
-import {NavbarComponent} from "./navbar/navbar.component";
-import {FooterComponent} from "./footer/footer.component";
+//import {NavbarComponent} from "./navbar/navbar.component";
+//import {FooterComponent} from "./footer/footer.component";
 import {RouterModule} from "@angular/router";
-import {RegisterComponent} from "./Authentication/register/register.component";
-import {LoginComponent} from "./Authentication/login/login.component";
-import {PasswordResetComponent} from "./Authentication/password-reset/password-reset.component";
-import {UserComponent} from "./user/user.component";
-import {PaginationComponent} from "./pagination/pagination.component";
-import {UserSettingsComponent} from "./user-settings/user-settings.component";
-import {LoadingComponent} from "./loading/loading.component";
-import {UnauthorizedComponent} from "./unauthorized/unauthorized.component";
-import {UserReclamationComponent} from "./user-reclamation/user-reclamation.component";
-import {AdminReclamationComponent} from "./admin-reclamation/admin-reclamation.component";
-import {NgxEmojiPickerModule} from 'ngx-emoji-picker';
+import {RegisterComponent} from "./features/public/Authentication/register/register.component";
+import {LoginComponent} from "./features/public/Authentication/login/login.component";
+import {PasswordResetComponent} from "./features/public/Authentication/password-reset/password-reset.component";
+import {UserComponent} from "./features/public/user/user.component";
+import {PaginationComponent} from "./features/public/pagination/pagination.component";
+import {UserSettingsComponent} from "./features/public/user-settings/user-settings.component";
+import {LoadingComponent} from "./features/public/loading/loading.component";
+import {UnauthorizedComponent} from "./features/public/unauthorized/unauthorized.component";
+import {UserReclamationComponent} from "./features/public/user-reclamation/user-reclamation.component";
+import {AdminReclamationComponent} from "./features/public/admin-reclamation/admin-reclamation.component";
+//import {NgxEmojiPickerModule} from 'ngx-emoji-picker';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 
@@ -83,14 +78,13 @@ import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 
     // Others
     LandingLayoutComponent,
-    LandingNavbarComponent,
+    //LandingNavbarComponent,
     LandingFooterComponent,
     AdminLayoutComponent,
     AdminNavbarComponent,
     AdminFooterComponent,
     HomeComponent,
     DashboardComponent,
-    RegisterComponent,
     BlogComponent,
     ContactComponent,
     AdminSidebarComponent,
@@ -125,7 +119,7 @@ import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 
     // From User management
     // TODO integration integrate with navbar/footer
-    NavbarComponent,
+    //NavbarComponent,
     PickerModule,
     RouterModule.forRoot(routes)
   ],

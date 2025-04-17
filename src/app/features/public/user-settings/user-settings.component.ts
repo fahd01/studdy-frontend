@@ -4,8 +4,8 @@ import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Role } from 'src/app/models/enum/Role.enum';
-import { UserService } from "../services/UserServ/user.service";
-import { User } from "../models/user.model";
+import { UserService } from "../../../services/UserServ/user.service";
+import { User } from "../../../models/user.model";
 (pdfMake as any).vfs = (pdfFonts as any).vfs;
 @Component({
   selector: 'app-user-settings',

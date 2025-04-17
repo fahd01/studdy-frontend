@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Reclamation} from "../models/reclamation.model";
-import {ReclamationService} from "../services/Reclamation/reclamation.service";
+import {Reclamation} from "../../../models/reclamation.model";
+import {ReclamationService} from "../../../services/Reclamation/reclamation.service";
 
 @Component({
   selector: 'app-admin-reclamation',

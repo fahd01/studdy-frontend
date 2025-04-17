@@ -1,7 +1,7 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
-import { Reclamation } from "../models/reclamation.model";
-import { ReclamationService } from "../services/Reclamation/reclamation.service";
-import {BadWordResponse} from "../models/bad-word.response";
+import { Reclamation } from "../../../models/reclamation.model";
+import { ReclamationService } from "../../../services/Reclamation/reclamation.service";
+import {BadWordResponse} from "../../../models/bad-word.response";
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import Swal from 'sweetalert2';
 
