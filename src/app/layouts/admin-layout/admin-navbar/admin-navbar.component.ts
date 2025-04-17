@@ -9,7 +9,13 @@ import { BlogService } from '../../../features/public/blog/blog.service';
   styleUrls: ['./admin-navbar.component.css']
 })
 export class AdminNavbarComponent implements OnInit {
+  @Output() toggleSidebar = new EventEmitter<void>();
   newBlogs: any[] = [];
+
+  // Method to emit toggle event
+  onToggleSidebar(): void {
+    this.toggleSidebar.emit();
+  }
 
   constructor(
     private notificationService: NotificationService,
