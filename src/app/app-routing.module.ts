@@ -73,11 +73,6 @@ export const routes: Routes = [
 
 
       // Formation management
-      // TODO integration; formation management; are the admin routes supposed to be in back-office
-      { path: 'dashboard', component: DashboardComponent },
-      { path: 'admin/add-formation', component: AddFormationComponent },
-      { path: 'admin/add-coupon', component: AddCouponComponent },
-      { path: 'admin/list', component: FormationsComponent },
       { path: 'formations/list', component: FormationListComponent },
       { path: 'formations/:id', component: FormationDetailsComponent},
       { path: 'enrollment/success', component: EnrollmentSuccessComponent},
@@ -104,7 +99,12 @@ export const routes: Routes = [
       { path: 'course/:id/modules', component: CreateModuleComponent },
       // BLog Management
       { path: 'charts', component: ChartsComponent },
-      { path: 'calendar', component: CalendarComponent }
+      { path: 'calendar', component: CalendarComponent },
+      // Formation management
+      // TODO integration; formation management; are the admin routes supposed to be in back-office
+      { path: 'add-formation', component: AddFormationComponent },
+      { path: 'add-coupon', component: AddCouponComponent },
+      { path: 'list', component: FormationsComponent },
     ]
   }
 ];
