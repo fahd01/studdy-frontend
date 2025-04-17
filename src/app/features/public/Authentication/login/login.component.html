@@ -1,0 +1,54 @@
+<section class="vh-100 bg-image" style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
+  <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+    <div class="container h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+          <div class="card shadow-lg" style="border-radius: 20px; border: none;">
+            <div class="card-body p-4 p-md-5">
+              <h2 class="text-uppercase text-center mb-4" style="color: #333; font-weight: 700;">Login</h2>
+
+              <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+                <!-- Username Field -->
+                <div class="form-group mb-4">
+                  <input type="text" class="form-control" formControlName="username" placeholder=" " required />
+                  <label for="username" class="form-label">Username</label>
+                </div>
+
+                <!-- Password Field -->
+                <div class="form-group mb-4">
+                  <input id="password-field" type="password" class="form-control" formControlName="password" placeholder=" " required />
+                  <label for="password" class="form-label">Password</label>
+                </div>
+
+                <!-- Forgot Password Link -->
+                <div class="form-group d-flex justify-content-end mt-3">
+                  <a href="javascript:void(0)" (click)="onForgotPassword()" class="text-muted text-decoration-none forgot-password">Forgot Password?</a>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="d-grid mb-4">
+                  <button type="submit" class="btn btn-primary btn-lg btn-block" style="background: linear-gradient(45deg, #6a11cb, #2575fc); border: none;">
+                    Login
+                  </button>
+                </div>
+
+                <!-- Error Message -->
+                <div class="message-container">
+                  <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ errorMessage }}
+                    <button type="button" class="btn-close" (click)="errorMessage = ''" aria-label="Close"></button>
+                  </div>
+                </div>
+              </form>
+
+              <!-- Register Link -->
+              <p class="text-center mt-4" style="color: #666;">
+                Don't have an account? <a href="/register" class="text-decoration-none" style="color: #2575fc;">Register here</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

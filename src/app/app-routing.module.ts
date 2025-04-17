@@ -1,5 +1,5 @@
+import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
 import { LandingLayoutComponent } from './layouts/landing-layout/landing-layout/landing-layout.component';
 import { HomeComponent } from './features/public/home/home.component';
 import { BlogComponent } from './features/public/blog/blog.component';
@@ -18,12 +18,21 @@ import {CreateModuleComponent} from "./features/admin/course/module-management/c
 import {
   CourseStatisticsComponent
 } from "./features/admin/course/statistics/course-statistics/course-statistics.component";
-
 import { CommentComponent } from './features/public/comments/comments.component';
 import { BlogDetailsComponent } from './features/public/blog-details/blog-details.component';
 
+// User management
+import {RegisterComponent} from "./features/public/Authentication/register/register.component";
+import {LoginComponent} from "./features/public/Authentication/login/login.component";
+import {PasswordResetComponent} from "./features/public/Authentication/password-reset/password-reset.component";
+import {UserComponent} from "./features/public/user/user.component";
+import {UserSettingsComponent} from "./features/public/user-settings/user-settings.component";
+import {UserReclamationComponent} from "./features/public/user-reclamation/user-reclamation.component";
+import {AdminReclamationComponent} from "./features/public/admin-reclamation/admin-reclamation.component";
 
-const routes: Routes = [
+
+
+export const routes: Routes = [
   {
     path: '',
     component: LandingLayoutComponent,
@@ -37,6 +46,16 @@ const routes: Routes = [
       { path: 'course/:id/module/:moduleId/live', component: LiveCourseComponent },
       { path: 'course/:id', component: CourseDetailComponent },
       { path: 'about', component: AboutComponent },
+
+      // User management routes
+      { path: 'register', component: RegisterComponent }, // Add AuthGuard here if needed
+      { path: 'login', component: LoginComponent  }, // Typically, you don’t guard login routes
+      { path: 'PasswordReset', component: PasswordResetComponent  }, // Typically, you don’t guard login routes
+      { path: 'users', component: UserComponent  }, // Typically, you don’t guard login routes
+      { path: 'profile', component: UserSettingsComponent  }, // Typically, you don’t guard login routes
+      { path: 'userRec', component: UserReclamationComponent },
+      { path: 'adminRec', component: AdminReclamationComponent },
+
       { path: '', redirectTo: '/home', pathMatch: 'full' }
 
     ]
@@ -57,12 +76,15 @@ const routes: Routes = [
       { path: 'course/:id/modules', component: CreateModuleComponent },
     ]
   }
-
 ];
 
-@NgModule({
+const config: ExtraOptions = {
+  useHash: false,
+  scrollPositionRestoration: 'top'
+};
 
-  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'top' } ) ],
-  exports: [RouterModule]
+@NgModule({
+  imports: [RouterModule.forRoot(routes, config)],
+  exports: [RouterModule],
 })
 export class AppRoutingModule { }

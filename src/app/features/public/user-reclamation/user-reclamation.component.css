@@ -1,0 +1,269 @@
+/* Container principal */
+.reclamation-container {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Titre */
+h2 {
+    text-align: center;
+    font-size: 28px;
+    color: #343a40;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+/* Formulaire */
+.reclamation-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+/* Conteneur des boutons */
+.reclamation-form .button-group {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+/* Label et textarea */
+label {
+    display: block;
+    font-size: 16px;
+    color: #495057;
+    margin-bottom: 8px;
+    width: 100%;
+}
+
+textarea,
+select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    margin-bottom: 20px;
+    transition: border 0.3s ease;
+    min-height: 150px;
+}
+
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+/* Bouton Submit */
+.submit-btn {
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    background-color: #28a745;
+    color: white;
+    order: 1;
+}
+
+.submit-btn:hover {
+    background-color: #218838;
+}
+
+/* Bouton Voice */
+.btn-secondary {
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    background-color: #6c757d;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.btn-secondary .fas {
+    font-size: 1.2em;
+}
+
+/* Bouton Émoji */
+.emoji-trigger {
+    padding: 12px 15px;
+    font-size: 1.5em;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    background: none;
+}
+
+/* Picker d'émojis */
+.custom-emoji-picker {
+    position: absolute;
+    right: 2px;
+    bottom: 40px;
+    z-index: 1000;
+    --emoji-size: 1.2rem;
+    --num-columns: 6;
+    --category-emoji-size: 1rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Animation pendant l'enregistrement */
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.is-recording {
+    animation: pulse 1.5s infinite;
+    background-color: #dc3545 !important;
+}
+
+/* Styles pour le tableau (conservez vos styles existants) */
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.reclamation-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+.reclamation-table th,
+.reclamation-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.reclamation-table th {
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+.reclamation-table td {
+    font-size: 14px;
+}
+
+.status {
+    padding: 6px 12px;
+    border-radius: 5px;
+    font-weight: 600;
+}
+
+.status.pending {
+    background-color: #ffc107;
+    color: #343a40;
+}
+
+.status.resolved {
+    background-color: #28a745;
+    color: white;
+}
+
+.status.denied {
+    background-color: #dc3545;
+    color: white;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+}
+
+.update-btn,
+.delete-btn {
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: none;
+}
+
+.update-btn {
+    background-color: #007bff;
+    color: white;
+}
+
+.update-btn:hover {
+    background-color: #0056b3;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+}
+
+.no-reclamations {
+    text-align: center;
+    font-size: 18px;
+    color: #6c757d;
+    font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .reclamation-container {
+        padding: 15px;
+    }
+
+    .reclamation-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .reclamation-form .button-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .submit-btn,
+    .btn-secondary,
+    .emoji-trigger {
+        width: 100%;
+        order: initial;
+    }
+
+    .reclamation-table th,
+    .reclamation-table td {
+        padding: 10px;
+    }
+
+    .reclamation-form {
+        padding: 15px;
+    }
+}
