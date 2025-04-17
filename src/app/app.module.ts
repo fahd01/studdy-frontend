@@ -56,6 +56,7 @@ import {AdminReclamationComponent} from "./features/public/admin-reclamation/adm
 //import {NgxEmojiPickerModule} from 'ngx-emoji-picker';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
+import {NavbarComponent} from "./navbar/navbar.component";
 
 
 
@@ -78,7 +79,7 @@ import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 
     // Others
     LandingLayoutComponent,
-    //LandingNavbarComponent,
+    LandingNavbarComponent,
     LandingFooterComponent,
     AdminLayoutComponent,
     AdminNavbarComponent,
@@ -121,7 +122,8 @@ import { PickerComponent } from '@ctrl/ngx-emoji-mart';
     // TODO integration integrate with navbar/footer
     //NavbarComponent,
     PickerModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    //NavbarComponent
   ],
   providers: [
       provideHttpClient(),

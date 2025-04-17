@@ -8,8 +8,8 @@ import {CommonModule} from "@angular/common";
 
 @Component({
   selector: 'app-landing-navbar',
-  standalone: true, // TODO integration; user management; ??
-  imports: [CommonModule],
+  //standalone: true, // TODO integration; user management; ??
+  //imports: [CommonModule],
   templateUrl: './landing-navbar.component.html',
   styleUrls: ['./landing-navbar.component.css']
 })

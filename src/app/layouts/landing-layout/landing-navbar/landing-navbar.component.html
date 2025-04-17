@@ -25,9 +25,6 @@
                     <li class="nav-item" routerLinkActive="active"><a class="nav-link">Instructor</a></li>
                     <li class="nav-item" routerLinkActive="active"><a routerLink="/blog" class="nav-link">Blog</a></li>
                     <li class="nav-item" routerLinkActive="active"><a  routerLink="/contact" class="nav-link">Contact</a></li>
-                    <li class="nav-item">
-                        <a routerLink="admin/dashboard" class="btn btn-primary ml-3" routerLinkActive="active">Dashboard</a>
-                    </li>
 
                     <!-- User management -->
                     <li class="nav-item dropdown">
@@ -45,6 +42,9 @@
                     </li>
                 </ul>
                 <!-- TODO integration; from user management; put into ul>li -->
+                <li class="nav-item">
+                  <a routerLink="admin/dashboard" class="btn btn-primary ml-3" routerLinkActive="active">Dashboard</a>
+                </li>
                 <button class="btn btn-outline-primary ml-3" (click)="logout()">
                   Logout
                 </button>

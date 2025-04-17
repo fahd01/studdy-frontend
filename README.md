@@ -31,7 +31,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 - User management   -> localhost:8081
 - Course Management -> localhost:8082
 
-
 ## Templates
 ### front template:
 - https://themewagon.com/themes/free-responsive-bootstrap-4-html5-education-website-template-studylab/
