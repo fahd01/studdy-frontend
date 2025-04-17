@@ -1,0 +1,109 @@
+<section class="hero-wrap hero-wrap-2" style="background-image: url('../../../../../assets/landing/images/bg_2.jpg');">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-end justify-content-center">
+            <div class="col-md-9 ftco-animate pb-5 text-center">
+                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="fa fa-chevron-right"></i></a></span> <span>Course Lists <i class="fa fa-chevron-right"></i></span></p>
+                <h1 class="mb-0 bread">Course Lists</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 sidebar">
+                <div class="sidebar-box bg-white ftco-animate">
+                    <form class="search-form">
+                        <div class="form-group">
+                            <span class="icon fa fa-search"></span>
+                            <input [formControl]="searchControl" type="text" class="form-control" placeholder="Search...">
+                        </div>
+                    </form>
+                </div>
+
+                <div class="sidebar-box bg-white p-4 ftco-animate">
+                    <form action="#" class="browse-form">
+                            <label for="option-category-1">
+                                <input (change)="onMyEnrolledCoursesChange($event)" type="checkbox" id="my-enrolled-courses">
+                                Only Show My Enrolled Courses
+                            </label>
+                    </form>
+                </div>
+
+                <div class="sidebar-box bg-white p-4 ftco-animate">
+                    <h3 class="heading-sidebar">Course Category</h3>
+                    <form action="#" class="browse-form">
+                        <ng-container *ngFor="let category of categories">
+                            <label for="option-category-1">
+                                <input (change)="onCategoryChange($event, category.id!)" type="checkbox" id="option-category-1" name="vehicle" value="{{ category.id }}">
+                                {{ category.name }}
+                            </label>
+                            <br>
+                        </ng-container>
+                    </form>
+                </div>
+
+                <div class="sidebar-box bg-white p-4 ftco-animate">
+                    <h3 class="heading-sidebar">Course Instructor</h3>
+                    <form action="#" class="browse-form">
+                        <label for="option-instructor-1"><input type="checkbox" id="option-instructor-1" name="vehicle" value=""> Ronald Jackson</label><br>
+                        <label for="option-instructor-2"><input type="checkbox" id="option-instructor-2" name="vehicle" value=""> John Dee</label><br>
+                        <label for="option-instructor-3"><input type="checkbox" id="option-instructor-3" name="vehicle" value=""> Nathan Messy</label><br>
+                        <label for="option-instructor-4"><input type="checkbox" id="option-instructor-4" name="vehicle" value=""> Tony Griffin</label><br>
+                        <label for="option-instructor-5"><input type="checkbox" id="option-instructor-5" name="vehicle" value=""> Ben Howard</label><br>
+                        <label for="option-instructor-6"><input type="checkbox" id="option-instructor-6" name="vehicle" value=""> Harry Potter</label><br>
+                    </form>
+                </div>
+
+                <div class="sidebar-box bg-white p-4 ftco-animate">
+                    <h3 class="heading-sidebar">Course Level</h3>
+                    <form action="#" class="browse-form">
+                        <label for="option-course-type-1"><input (change)="onLevelChange($event, 'BEGINNER')" type="checkbox" id="option-course-type-1" name="vehicle" value="BEGINNER"> Beginner</label><br>
+                        <label for="option-course-type-2"><input (change)="onLevelChange($event, 'INTERMEDIATE')" type="checkbox" id="option-course-type-2" name="vehicle" value="INTERMEDIATE"> Intermediate</label><br>
+                        <label for="option-course-type-3"><input (change)="onLevelChange($event, 'ADVANCED')" type="checkbox" id="option-course-type-3" name="vehicle" value="ADVANCED"> Advanced</label><br>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="row">
+                    <div *ngFor="let course of coursePages.content;"
+                         class="col-md-6 d-flex align-items-stretch ftco-animate"
+                    >
+                        <div class="project-wrap">
+                            <a routerLink="/course/{{course.id}}" class="img" style="background-image: url(../../../../../assets/landing/images/work-1.jpg);">
+                                <span class="price">{{ course.category?.name }}</span>
+                            </a>
+                            <div class="text p-4">
+                                <h3><a routerLink="/course/{{course.id}}">{{ course.title }}</a></h3>
+                                <p class="advisor">Advisor <span>Tony Garret</span></p>
+                                <ul class="d-flex justify-content-between">
+                                    <li><label class="badge {{ levelBadgeClass(course.level) }}">{{ course.level }}</label></li>
+                                    <li class="price">${{ course.price }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="pagination-control" class="row mt-5">
+                    <div class="col">
+                        <div class="block-27">
+                            <ul>
+                                <li><a (click)="previousPage()">&lt;</a></li>
+                                <li *ngFor="let pageIndex of [].constructor(coursePages.totalPages); let i = index"
+                                    [ngClass]="coursePages.number == i ? 'active':'' "
+                                    (click)="loadCourses(i)"
+                                >
+                                    <span>{{ i + 1 }}</span>
+                                </li>
+                                <li><a (click)="nextPage()">&gt;</a></li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

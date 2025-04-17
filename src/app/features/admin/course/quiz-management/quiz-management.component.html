@@ -1,0 +1,121 @@
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="page-header">
+            <h3 class="page-title">Create Quiz</h3>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Quiz Management</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"> Create Quiz </li>
+                </ol>
+            </nav>
+        </div>
+        <div class="row">
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+
+                        <form class="forms-sample" [formGroup]="quizForm" (ngSubmit)="submitQuiz()">
+                            <div class="form-group">
+                                <label for="quiz-name">Name</label>
+                                <input formControlName="name" id="quiz-name" class="form-control" required/>
+                            </div>
+                            <div class="form-group">
+                                <label for="quiz-description">Description</label>
+                                <textarea formControlName="description" class="form-control" id="quiz-description"></textarea>
+                            </div>
+                            <div class="form-group">
+                                // TODO add time
+                            </div>
+
+                            <h5>Questions</h5>
+                            <div class="questions" formArrayName="questions">
+                                <div class="question-container" *ngFor="let question of questions.controls; let questionIndex = index" [formGroupName]="questionIndex">
+                                    <div class="question-nav">
+                                        <h6>Question {{questionIndex + 1}}</h6>
+                                        <button
+                                                [disabled]="questions.controls.length<=1"
+                                                (click)="removeQuestion(questionIndex)"
+                                                type="button"
+                                                class="btn btn-inverse-danger btn-icon"
+                                                tooltip="Remove question">
+
+                                            <i class="mdi mdi-trash-can"></i>
+                                        </button>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="question-{{questionIndex}}">Question</label>
+                                        <input formControlName="question" class="form-control" id="question-{{questionIndex}}" required/>
+                                    </div>
+
+                                    <hr style="border-top: 2px solid #bbb;">
+                                    <div formControlName="answer" >
+                                        <div class="options" formArrayName="options">
+                                            <div style="text-align: left; margin-left: 2px; margin-bottom: 10px">
+                                                Answers
+                                            </div>
+
+                                            <div  *ngFor="let option of getOptionsArray(question).controls; let optionIndex = index">
+                                                <div class="option form-check form-group row">
+                                                    <div class="form-check col-sm-1">
+                                                        <label class="form-check-label">
+                                                            <input
+                                                                    title="is Correct ?"
+                                                                    type="radio"
+                                                                    class="form-check-input"
+                                                                    name="options-for-question-{{questionIndex}}"
+                                                                    id="correct-answer-q{{questionIndex}}-{{optionIndex}}"
+                                                                    [value]="optionIndex">
+                                                            <i class="input-helper"></i>
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="form-group col-sm-11">
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control"
+                                                                   placeholder="Enter Answer"
+                                                                   aria-label="Answer Text"
+                                                                   [formControlName]="optionIndex"
+                                                                   aria-describedby="basic-addon2"
+                                                                   required />
+                                                            <div class="input-group-append">
+                                                                <button class="btn btn-sm btn-inverse-danger"
+                                                                        [disabled]="getOptionsArray(question).length<=2"
+                                                                        (click)="removeOption(questionIndex, optionIndex)"
+                                                                        type="button" title="Remove Answer">
+                                                                    <i class="mdi mdi-minus-circle"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <button class="btn btn-primary" [disabled]="getOptionsArray(question).length>=8" type="button" (click)="addOption(questionIndex)">
+                                                <i  class="mdi mdi-plus-circle"></i>
+                                                Add Option
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button [disabled]="questions.length>=20" class="btn btn-primary" type="button" (click)="addQuestion()">
+                                    <i class="mdi mdi-plus-circle"></i>
+                                    Add Question
+                                </button>
+                            </div>
+
+                            <div class="submit-wrapper">
+                                <button class="btn btn-success" type="submit">
+                                    <i class="mdi mdi-check2-circle"></i>
+                                    Submit Quiz
+                                </button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

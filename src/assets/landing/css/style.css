@@ -3609,7 +3609,7 @@ input[type="button"].btn-block {
 
 .navbar {
   background-color: transparent !important; /* Assure une transparence totale */
-    position: absolute; /* Permet d'avoir un effet flottant */
+  position: absolute; /* Permet d'avoir un effet flottant */
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -8377,7 +8377,7 @@ h1, h2, h3, h4, h5,
 .text-primary {
   color: #4986fc !important; }
 
-  
+
 
 .ftco-navbar-light {
   background: transparent !important;
@@ -8590,7 +8590,12 @@ h1, h2, h3, h4, h5,
 
 .hero-wrap {
   width: 100%;
-  min-height: 100vh; /* Assure que la section prend toute la hauteur de l'écran */
+  /* TODO integration diff from blogmanagement ([X] checked)*/
+  /* Assure que la section prend toute la hauteur de l'écran */
+  /* min-height: 100vh; */
+  /* 600px looks prettier */
+  min-height: 600px;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9043,8 +9048,8 @@ textarea.form-control {
     transform: translateY(30px); /* Commence légèrement en bas */
     transition: all 0.8s ease-in-out;
   }
-  
-  
+
+
 .bg-primary {
   background: #4986fc !important; }
 
@@ -10116,4 +10121,4 @@ textarea.form-control {
     stroke-dasharray: 89, 200;
     stroke-dashoffset: -136px; } }
 
-    
+

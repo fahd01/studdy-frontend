@@ -1,0 +1,61 @@
+<section class="hero-wrap hero-wrap-2" style="background-image: url('../../../../../assets/landing/images/bg_2.jpg');">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-end justify-content-center">
+            <div class="col-md-9 ftco-animate pb-5 text-center">
+                <p class="breadcrumbs">
+                    <span class="mr-2"><a href="index.html">Home <i class="fa fa-chevron-right"></i></a></span>
+                    <span class="mr-2"><a routerLink="/course/list">Courses List <i class="fa fa-chevron-right"></i></a></span>
+                    <span>Live Course <i class="fa fa-chevron-right"></i></span>
+                </p>
+                <h1 class="mb-0 bread">Conference</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section bg-light">
+    <div class="container">
+        <div class="container" data-aos="fade-up">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="video-conference">
+                        <h4>Live Video Conference</h4>
+                        <div class="d-flex gap-2">
+                            <button *ngIf="isInstructor()" class="btn btn-primary" (click)="startConference()">Start Conference</button>
+                            <button *ngIf="isStudent() && isInstructor() == false" class="btn btn-secondary" (click)="joinConference()">Join Conference</button>
+                            <button class="btn btn-danger" (click)="endConference()">End Conference</button>
+                        </div>
+                        <div id="jitsi-container" class="mt-3"></div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+
+
+                    <div class="card" *ngIf="module.attachments.length > 0">
+                        <div class="card-header">Attachments</div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"
+                                *ngFor="let attachment of module.attachments"
+                                [title]="'Name: ' + attachment.name + '\n' + 'Type: ' + attachment.contentType + '\n' +'Size: ' + attachment.content.length">
+                                {{ attachment.name }}; {{ attachment.contentType }}
+                                ; {{ humanReadableFileSize((attachment.content.length * 3) / 4) }}
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card" *ngIf="module.externalLinks.length > 0">
+                        <div class="card-header">External Links</div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item" *ngFor="let link of module.externalLinks">
+                                <a href="{{link}}" target="_blank">{{ link }}</a>
+                            </li>
+                        </ul>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

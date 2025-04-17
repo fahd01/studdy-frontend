@@ -1,0 +1,9 @@
+{
+  "/course-management": {
+    "target": "http://localhost:8081",
+    "secure": false,
+    "pathRewrite": {
+      "^/course-management": ""
+    }
+  }
+}
